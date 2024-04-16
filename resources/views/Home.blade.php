@@ -1,11 +1,5 @@
 <x-app-layout>
     <x-principal>
-
-        <!-- drawer init and show -->
-        <!-- ESTA EN EL NAVIGATION MENU -->
-
-
-        
-
+        Este es el home
     </x-principal>
 </x-app-layout>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Producto;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -62,5 +63,15 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function obtenerProductosUsuario(Request $request)
+    {
+        $user_id = $request->input('user_id');
+        //$usuario = User::where('id', '=', $user_id)->first();
+        $usuariosproducto = Producto::whereHas('usersCart', function ($q) use ($user_id) {
+            $q->where('user_id', '=', $user_id);
+        })
+            ->get();
+        return response()->json($usuariosproducto);
     }
 }

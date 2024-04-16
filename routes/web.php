@@ -28,13 +28,13 @@ Route::middleware([
     'verified',
     'admin',
 ])->group(function () {
-    Route::get('/dashboard', function () {
+    /* Route::get('/dashboard', function () {
         if (Auth::user()->is_admin == 'SI') {
             return redirect()->route('users.index');
         } else {
-            return view('user.index');
+            return view('home');
         }
-    })->name('dashboard');
+    })->name('dashboard'); */
     /* Route::resource('users', UserController::class); */
     Route::get('user', ShowUsers::class)->name('users.index');
     Route::get('category', ShowCategories::class)->name('categories.index');

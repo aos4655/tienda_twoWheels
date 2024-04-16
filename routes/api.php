@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LogisticApiController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::get('/logistica/{num_track}',[LogisticApiController::class, 'mostrar']);
 }); 
+Route::get('/carrito',[UserController::class, 'obtenerProductosUsuario']);
 
 /* ENVIO DATOS POR POST A TRAVES DE UNA API */
 /* Route::post('/user', function (Request $request, Response $response) {

@@ -20,18 +20,28 @@ class Producto extends Model
     }
 
     //Relacion NM con pedidos
-    public function pedidos(): BelongsToMany{
+    public function pedidos(): BelongsToMany
+    {
         return $this->belongsToMany(Pedido::class);
     }
 
-    public function nombre():Attribute{
+    public function nombre(): Attribute
+    {
         return Attribute::make(
-            set: fn($v)=>ucwords($v),
+            set: fn ($v) => ucwords($v),
         );
     }
-    public function descripcion():Attribute{
+    public function descripcion(): Attribute
+    {
         return Attribute::make(
-            set: fn($v)=>ucwords($v),
+            set: fn ($v) => ucwords($v),
         );
+    }
+
+    /* Esta es la relacion NM con los usuario para saber que productos tiene 
+        cada usuario en el carrito */
+    public function usersCart(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class);
     }
 }
