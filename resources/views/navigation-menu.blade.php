@@ -95,6 +95,27 @@
                 <!-- Teams Dropdown -->
 
                 <div class="hidden sm:flex sm:items-center sm:ms-6">
+
+                    <div class="text-center">
+                        <button class="mr-5" type="button" onclick="toggleDrawer()"
+                            aria-controls="drawer-navigation">
+                            <i class="fa-solid fa-cart-shopping fa-lg"></i>
+                        </button>
+                    </div>
+                    <!-- BOTON CARRITO -->
+                    <div class="mx-5">
+                        <button type="button" onclick="toggleDrawer()" aria-controls="drawer-navigation"
+                            class="relative inline-flex items-center p-3 text-sm font-medium text-center rounded-lg focus:ring-4 focus:outline-none">
+                            <i id="icon-cart" class="fa-solid fa-cart-shopping fa-xl"></i>
+                            <div
+                                class="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white
+                                 bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
+                                20
+                            </div>
+                        </button>
+                    </div>
+
+                    <!-- BOTON DARKMODE -->
                     <button onclick="toggleTheme()">
                         <div id="iconoLuna">
                             <i class="fa-regular fa-moon fa-xl"></i>
@@ -289,16 +310,21 @@
         let currentTheme = localStorage.getItem('theme');
         var iconoSol = document.getElementById('iconoSol');
         var iconoLuna = document.getElementById('iconoLuna');
+        var iconoCarrito = document.getElementById('icon-cart');
 
         if (currentTheme === 'dark') {
             localStorage.setItem('theme', 'ligth');
             iconoLuna.removeAttribute('hidden');
             iconoSol.setAttribute('hidden', true);
+
+            iconoCarrito.setAttribute('style', 'color: black');
             document.documentElement.classList.remove('dark');
         } else {
             localStorage.setItem('theme', 'dark');
             iconoSol.removeAttribute('hidden');
             iconoLuna.setAttribute('hidden', true);
+
+            iconoCarrito.setAttribute('style', 'color: white');
             document.documentElement.classList.add('dark');
         }
     }
@@ -310,6 +336,8 @@
         let currentTheme = localStorage.getItem('theme');
         var iconoSol = document.getElementById('iconoSol');
         var iconoLuna = document.getElementById('iconoLuna');
+        var iconoCarrito = document.getElementById('icon-cart');
+
         if (currentTheme === null) {
             localStorage.setItem('theme', 'ligth');
         } else {
@@ -317,11 +345,15 @@
                 localStorage.setItem('theme', 'dark');
                 iconoSol.removeAttribute('hidden');
                 iconoLuna.setAttribute('hidden', true);
+
+                iconoCarrito.setAttribute('style', 'color: white');
                 document.documentElement.classList.add('dark');
             } else {
                 localStorage.setItem('theme', 'ligth');
                 iconoLuna.removeAttribute('hidden');
                 iconoSol.setAttribute('hidden', true);
+
+                iconoCarrito.setAttribute('style', 'color: black');
                 document.documentElement.classList.remove('dark');
             }
         }

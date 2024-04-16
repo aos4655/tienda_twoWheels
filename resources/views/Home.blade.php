@@ -1,6 +1,11 @@
 <x-app-layout>
     <x-principal>
-        <i class="fa-regular fa-moon-stars"></i>
-                    Esto es el home 
+
+        <!-- drawer init and show -->
+        <!-- ESTA EN EL NAVIGATION MENU -->
+
+
+        
+
     </x-principal>
 </x-app-layout>
