@@ -40,4 +40,5 @@ Route::middleware([
     Route::get('category', ShowCategories::class)->name('categories.index');
 
     
+    
 });
