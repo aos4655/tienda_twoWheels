@@ -39,6 +39,4 @@ Route::middleware([
     Route::get('user', ShowUsers::class)->name('users.index');
     Route::get('category', ShowCategories::class)->name('categories.index');
 
-    
-    
 });

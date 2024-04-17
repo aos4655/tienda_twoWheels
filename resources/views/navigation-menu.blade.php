@@ -27,7 +27,7 @@
                     </x-nav-link>
                     @auth
                         @if (Auth::user()->is_admin == 'SI')
-                            <x-nav-link href="{{ route('user') }}" :active="request()->routeIs('users.index')">
+                            <x-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.*')">
                                 Administracion
                             </x-nav-link>
                         @endif
@@ -104,19 +104,20 @@
                     </div>
                     <!-- BOTON CARRITO -->
                     @auth
-                       <div class="mx-5">
-                        <button type="button" onclick="toggleDrawer()" id="btn-carrito" data-user-id={{Auth::user()->id}} aria-controls="drawer-navigation"
-                            class="relative inline-flex items-center p-3 text-sm font-medium text-center rounded-lg focus:ring-4 focus:outline-none">
-                            <i id="icon-cart" class="fa-solid fa-cart-shopping fa-xl"></i>
-                            <div
-                                class="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white
+                        <div class="mx-5">
+                            <button type="button" onclick="toggleDrawer()" id="btn-carrito"
+                                data-user-id={{ Auth::user()->id }} aria-controls="drawer-navigation"
+                                class="relative inline-flex items-center p-3 text-sm font-medium text-center rounded-lg focus:ring-4 focus:outline-none">
+                                <i id="icon-cart" class="fa-solid fa-cart-shopping fa-xl"></i>
+                                <div id="cant_cart"
+                                    class="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white
                                  bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
-                                20
-                            </div>
-                        </button>
-                    </div> 
+                                    <!-- 30 -->
+                                </div>
+                            </button>
+                        </div>
                     @endauth
-                    
+
 
                     <!-- BOTON DARKMODE -->
                     <button onclick="toggleTheme()">
@@ -360,7 +361,18 @@
                 document.documentElement.classList.remove('dark');
             }
         }
-
     }
+    const user_id = document.getElementById('btn-carrito').getAttribute('data-user-id');
+    fetch(`api/carrito?user_id=${user_id}`)
+        .then(response => response.json())
+        .then(data => {
+            const cant_cart = document.getElementById('cant_cart');
+            var contador = 0;
+            data.forEach(product => {
+                contador++;
+                cant_cart.innerHTML = `${contador}`;
+
+            });
+        })
     window.onload = inicializarDarkMode;
 </script>
