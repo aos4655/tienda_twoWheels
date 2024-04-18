@@ -62,6 +62,6 @@ class User extends Authenticatable
     ];
     /* Esta es la relacion NM con los productos para poder obtenerlos */
     public function productsCart():BelongsToMany{
-        return $this->belongsToMany(Producto::class);
+        return $this->belongsToMany(Producto::class)->withPivot('cantidad');
     }
 }
