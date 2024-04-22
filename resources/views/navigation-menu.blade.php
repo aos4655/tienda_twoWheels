@@ -95,32 +95,21 @@
                 <!-- Teams Dropdown -->
 
                 <div class="hidden sm:flex sm:items-center sm:ms-6">
-
-                    <div class="text-center">
-                        <button class="mr-5" type="button" onclick="toggleDrawer()"
-                            aria-controls="drawer-navigation">
-                            <i class="fa-solid fa-cart-shopping fa-lg"></i>
-                        </button>
-                    </div>
                     <!-- BOTON CARRITO -->
                     @auth
-                        <div class="mx-5">
-                            <button type="button" onclick="toggleDrawer()" id="btn-carrito"
-                                data-user-id={{ Auth::user()->id }} aria-controls="drawer-navigation"
-                                class="relative inline-flex items-center p-3 text-sm font-medium text-center rounded-lg focus:ring-4 focus:outline-none">
-                                <i id="icon-cart" class="fa-solid fa-cart-shopping fa-xl"></i>
-                                <div id="cant_cart"
-                                    class="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white
+                        <button type="button" onclick="toggleDrawer()" id="btn-carrito"
+                            data-user-id={{ Auth::user()->id }} aria-controls="drawer-navigation"
+                            class="relative inline-flex items-center p-3 text-sm font-medium text-center rounded-lg focus:ring-4 focus:outline-none">
+                            <i id="icon-cart" class="fa-solid fa-cart-shopping fa-xl"></i>
+                            <div id="cant_cart"
+                                class="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white
                                  bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
-                                    <!-- 30 -->
-                                </div>
-                            </button>
-                        </div>
+                                <!-- 30 -->
+                            </div>
+                        </button>
                     @endauth
-
-
                     <!-- BOTON DARKMODE -->
-                    <button onclick="toggleTheme()">
+                    <button onclick="toggleTheme()" class="ml-3 mr-4">
                         <div id="iconoLuna">
                             <i class="fa-regular fa-moon fa-xl"></i>
                         </div>
@@ -128,83 +117,76 @@
                             <i class="fa-regular fa-sun fa-xl" style="color:white;"></i>
                         </div>
                     </button>
+
                     @auth
                         <!-- Settings Dropdown -->
-                        <div class="ms-3 relative">
-                            <x-dropdown align="right" width="48">
-                                <x-slot name="trigger">
-                                    @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-                                        <button
-                                            class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
-                                            <img class="h-8 w-8 rounded-full object-cover"
-                                                src="{{ Auth::user()->profile_photo_url }}"
-                                                alt="{{ Auth::user()->name }}" />
+                        <x-dropdown align="right" class="ms-3" width="48">
+                            <x-slot name="trigger">
+                                @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
+                                    <button
+                                        class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
+                                        <img class="h-8 w-8 rounded-full object-cover"
+                                            src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                                    </button>
+                                @else
+                                    <span class="inline-flex rounded-md">
+                                        <button type="button"
+                                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-50 dark:focus:bg-gray-700 active:bg-gray-50 dark:active:bg-gray-700 transition ease-in-out duration-150">
+                                            {{ Auth::user()->name }}
+
+                                            <svg class="ms-2 -me-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                                fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                            </svg>
                                         </button>
-                                    @else
-                                        <span class="inline-flex rounded-md">
-                                            <button type="button"
-                                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-50 dark:focus:bg-gray-700 active:bg-gray-50 dark:active:bg-gray-700 transition ease-in-out duration-150">
-                                                {{ Auth::user()->name }}
+                                    </span>
+                                @endif
+                            </x-slot>
 
-                                                <svg class="ms-2 -me-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                                    fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                                    stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                                                </svg>
-                                            </button>
-                                        </span>
-                                    @endif
-                                </x-slot>
+                            <x-slot name="content">
+                                <!-- Account Management -->
+                                <div class="block px-4 py-2 text-xs text-gray-400">
+                                    {{ __('Manage Account') }}
+                                </div>
 
-                                <x-slot name="content">
-                                    <!-- Account Management -->
-                                    <div class="block px-4 py-2 text-xs text-gray-400">
-                                        {{ __('Manage Account') }}
-                                    </div>
+                                <x-dropdown-link href="{{ route('profile.show') }}">
+                                    {{ __('Profile') }}
+                                </x-dropdown-link>
 
-                                    <x-dropdown-link href="{{ route('profile.show') }}">
-                                        {{ __('Profile') }}
+                                @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
+                                    <x-dropdown-link href="{{ route('api-tokens.index') }}">
+                                        {{ __('API Tokens') }}
                                     </x-dropdown-link>
+                                @endif
 
-                                    @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                                        <x-dropdown-link href="{{ route('api-tokens.index') }}">
-                                            {{ __('API Tokens') }}
-                                        </x-dropdown-link>
-                                    @endif
+                                <div class="border-t border-gray-200 dark:border-gray-600"></div>
 
-                                    <div class="border-t border-gray-200 dark:border-gray-600"></div>
+                                <!-- Authentication -->
+                                <form method="POST" action="{{ route('logout') }}" x-data>
+                                    @csrf
 
-                                    <!-- Authentication -->
-                                    <form method="POST" action="{{ route('logout') }}" x-data>
-                                        @csrf
-
-                                        <x-dropdown-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
-                                            {{ __('Log Out') }}
-                                        </x-dropdown-link>
-                                    </form>
-                                </x-slot>
-                            </x-dropdown>
-                        </div>
-                    @endauth
-
-                </div>
-            </div>
-            @if (Route::has('login'))
-                <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
-                    @auth
+                                    <x-dropdown-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
+                                        {{ __('Log Out') }}
+                                    </x-dropdown-link>
+                                </form>
+                            </x-slot>
+                        </x-dropdown>
                     @else
-                        <a href="{{ route('login') }}"
-                            class="font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log
-                            in</a>
+                        @if (Route::has('login'))
+                            <a  href="{{ route('login') }}"
+                                class="font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log
+                                in</a>
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}"
-                                class="ml-4 font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
+                            @if (Route::has('register'))
+                                <a href="{{ route('register') }}"
+                                    class="ml-4 font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
+                            @endif
                         @endif
                     @endauth
                 </div>
-            @endif
+            </div>
+
 
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
@@ -320,15 +302,18 @@
             localStorage.setItem('theme', 'ligth');
             iconoLuna.removeAttribute('hidden');
             iconoSol.setAttribute('hidden', true);
-
-            iconoCarrito.setAttribute('style', 'color: black');
+            if (iconoCarrito) {
+                iconoCarrito.setAttribute('style', 'color: black');
+            }
             document.documentElement.classList.remove('dark');
         } else {
             localStorage.setItem('theme', 'dark');
             iconoSol.removeAttribute('hidden');
             iconoLuna.setAttribute('hidden', true);
 
-            iconoCarrito.setAttribute('style', 'color: white');
+            if (iconoCarrito) {
+                iconoCarrito.setAttribute('style', 'color: white');
+            }
             document.documentElement.classList.add('dark');
         }
     }
@@ -349,30 +334,20 @@
                 localStorage.setItem('theme', 'dark');
                 iconoSol.removeAttribute('hidden');
                 iconoLuna.setAttribute('hidden', true);
-
-                iconoCarrito.setAttribute('style', 'color: white');
+                if (iconoCarrito) {
+                    iconoCarrito.setAttribute('style', 'color: white');
+                }
                 document.documentElement.classList.add('dark');
             } else {
                 localStorage.setItem('theme', 'ligth');
                 iconoLuna.removeAttribute('hidden');
                 iconoSol.setAttribute('hidden', true);
-
-                iconoCarrito.setAttribute('style', 'color: black');
+                if (iconoCarrito) {
+                    iconoCarrito.setAttribute('style', 'color: black');
+                }
                 document.documentElement.classList.remove('dark');
             }
         }
     }
-    const user_id = document.getElementById('btn-carrito').getAttribute('data-user-id');
-    fetch(`api/carrito?user_id=${user_id}`)
-        .then(response => response.json())
-        .then(data => {
-            const cant_cart = document.getElementById('cant_cart');
-            var contador = 0;
-            data.forEach(product => {
-                contador++;
-                cant_cart.innerHTML = `${contador}`;
-
-            });
-        })
     window.onload = inicializarDarkMode;
 </script>

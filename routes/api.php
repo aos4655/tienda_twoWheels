@@ -25,6 +25,11 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
 }); 
 Route::get('/carrito',[UserController::class, 'obtenerProductosUsuario']);
 
+Route::post('/carritoDelete',[UserController::class, 'eliminarProductoCarrito']);
+Route::post('/carritoAdd',[UserController::class, 'agregarProductoCarrito']);
+Route::post('/carritoCantidad',[UserController::class, 'cambiarCantidadProductoCarrito']);
+
+
 /* ENVIO DATOS POR POST A TRAVES DE UNA API */
 /* Route::post('/user', function (Request $request, Response $response) {
     $id=$request->id;

@@ -21,7 +21,7 @@
                 <div class="mt-8" style="max-height: calc(100vh - 400px); overflow-y: auto;">
                     <div class="flow-root">
                         <ul role="list" id="lista_productos_carrito" class="-my-6 divide-y divide-gray-200">
-                            
+
                         </ul>
                     </div>
                 </div>
@@ -54,12 +54,19 @@
                     var drawer = document.getElementById('drawer-navigation');
                     var drawerStyle = window.getComputedStyle(drawer);
                     var drawerTransform = drawerStyle.getPropertyValue('transform');
-                    const user_id = document.getElementById('btn-carrito').getAttribute('data-user-id');
-                    obtenerProductosDeCarrito(user_id);
+                    inicializarCarrito()
                     if (drawerTransform === 'matrix(1, 0, 0, 1, 0, 0)') {
                         drawer.style.transform = 'translateX(100%)';
                     } else {
                         drawer.style.transform = 'translateX(0)';
+                    }
+                }
+
+                function inicializarCarrito() {
+                    const user_id = document.getElementById('btn-carrito').getAttribute('data-user-id');
+                    dd(user_id);
+                    if (user_id) {
+                        obtenerProductosDeCarrito(user_id);
                     }
                 }
 
@@ -68,8 +75,15 @@
                         .then(response => response.json())
                         .then(data => {
                             const listadoProductos = document.getElementById('lista_productos_carrito');
-
+                            const cant_cart = document.getElementById('cant_cart');
+                            var contador = 0;
+                            // Eliminar los elementos existentes de la lista si es necesario
+                            while (listadoProductos.firstChild) {
+                                listadoProductos.removeChild(listadoProductos.firstChild);
+                            }
                             data.forEach(product => {
+                                contador++;
+
                                 const listItem = document.createElement('li');
                                 listItem.classList.add('flex', 'py-6');
                                 let imageUrl = "{{ Storage::url('product.imagen') }}";
@@ -89,13 +103,13 @@
                                         <div class="flex flex-1 flex-col">
                                         <label for="quantity-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Choose quantity:</label>
                                         <div class="relative flex items-center max-w-[6rem]">
-                                            <button type="button" id="decrement-button" onclick="decrementar(${product.id})" data-input-counter-decrement="quantity-input" class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-sm p-1.5 h-6 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-1.5 focus:outline-none">
+                                            <button type="button" id="decrement-button" onclick="decrementar(<?php echo Auth::user()->id; ?>, ${product.id})" data-input-counter-decrement="quantity-input" class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-sm p-1.5 h-6 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-1.5 focus:outline-none">
                                             <svg class="w-1.5 h-1.5 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
                                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d="M1 1h16" />
                                             </svg>
                                             </button>
                                             <input type="text" id="quantity-input-${product.id}" data-input-counter aria-describedby="helper-text-explanation" class="bg-gray-50 border-x-0 border-gray-300 h-6 text-center text-gray-900 text-xs focus:ring-blue-500 focus:border-blue-500 block w-12 py-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="999" value="${product.pivot.cantidad}" required />
-                                            <button type="button" id="increment-button" onclick="incrementar(${product.id})" data-input-counter-increment="quantity-input" class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-sm p-1.5 h-6 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-1.5 focus:outline-none">
+                                            <button type="button" id="increment-button" onclick="incrementar(<?php echo Auth::user()->id; ?>,${product.id})" data-input-counter-increment="quantity-input" class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-sm p-1.5 h-6 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-1.5 focus:outline-none">
                                             <svg class="w-1.5 h-1.5 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
                                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d="M9 1v16M1 9h16" />
                                             </svg>
@@ -103,7 +117,7 @@
                                         </div>
                                         </div>
                                         <div class="flex">
-                                        <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
+                                        <button type="button" onclick="eliminar(<?php echo Auth::user()->id; ?>,${product.id})"  class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
                                         </div>
                                     </div>
                                     </div>
@@ -111,23 +125,63 @@
 
                                 listadoProductos.appendChild(listItem);
                             });
+                            cant_cart.innerHTML = `${contador}`;
                         })
                 }
 
-                function decrementar(id) {
-                    const valor = document.getElementById('quantity-input-' + id);
-                    let num = parseInt(valor.value)
-                    if (num > 0) {
-                        num = num - 1;
-                    }
-                    valor.value = num + "";
+                function incrementar(idUsuario, idProducto) {
+                    cambiarCantidadProductoCarrito(idUsuario, idProducto, "INCREMENTAR");
                 }
 
-                function incrementar(id) {
-                    const valor = document.getElementById('quantity-input-' + id);
-                    let num = parseInt(valor.value)
-                    num = num + 1;
-                    valor.value = num + "";
+                function decrementar(idUsuario, idProducto) {
+                    cambiarCantidadProductoCarrito(idUsuario, idProducto, "DECREMENTAR");
+                }
+
+                function eliminar(idUsuario, idProducto) {
+                    console.log("Eliminando..." + idProducto + ", usu: " + idUsuario);
+                    const token = document.head.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                    fetch('/api/carritoDelete', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': token
+                            },
+                            body: JSON.stringify({
+                                user_id: idUsuario,
+                                product_id: idProducto
+                            })
+                        })
+                        .catch(error => {
+                            console.error("Error al eliminar el producto en el carrito de dicho usuario: ",
+                                error);
+                        });
+
+                    //Para que los vuelva a cargar
+                    obtenerProductosDeCarrito(idUsuario);
+                }
+
+                function cambiarCantidadProductoCarrito(idUsuario, idProducto, actualizacion) {
+                    //Debemos enviar el token ya que si no no nos deja
+                    const token = document.head.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                    fetch('/api/carritoCantidad', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': token
+                            },
+                            body: JSON.stringify({
+                                user_id: idUsuario,
+                                product_id: idProducto,
+                                actualizacion: actualizacion
+                            })
+                        })
+                        .catch(error => {
+                            console.error("Error al actualizar la cantidad del producto en el carrito de dicho usuario: ",
+                                error);
+                        });
+
+                    //Para que los vuelva a cargar
+                    obtenerProductosDeCarrito(idUsuario);
 
                 }
 
@@ -147,6 +201,7 @@
                     });
                     document.getElementById('subtotal').innerText = '$' + subtotal.toFixed(2);
                 }
+                window.onload = inicializarCarrito;
             </script>
         </div>
     </div>
