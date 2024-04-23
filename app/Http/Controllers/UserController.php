@@ -72,16 +72,6 @@ class UserController extends Controller
             ->productsCart()
             ->get();
 
-        /* Actualizar ese campo */
-        $usuario = User::findOrFail($user_id);
-        //$usuario->productsCart()->updateExistingPivot(24 , ['cantidad' => 3]);
-
-        /* Eliminar un producto a ese carrito */
-        //$usuario->productsCart()->detach(24);
-
-        /* Agregar un producto al carrito de un usuario */
-        //$usuario->productsCart()->attach(24, ['cantidad' => 5]);
-
         return response()->json($productosUsuario);
     }
     public function eliminarProductoCarrito(Request $request)
