@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Pedido extends Model
 {
-    protected $fillable = ['user_id', 'state', 'track_num'];
+    protected $fillable = ['user_id', 'track_num'];
     use HasFactory;
 
     //Relacion 1N con usuario
@@ -17,7 +17,7 @@ class Pedido extends Model
     {
         return $this->belongsTo(User::class);
     }
-    //Relacion NM con pedidos
+    //Relacion NM con productos
     public function productos(): BelongsToMany
     {
         return $this->belongsToMany(Producto::class);

@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoriaController;
 use App\Livewire\ShowCategories;
+use App\Livewire\ShowOrders;
+use App\Livewire\ShowProducts;
 use App\Livewire\ShowUsers;
 
 /*
@@ -38,5 +40,6 @@ Route::middleware([
     /* Route::resource('users', UserController::class); */
     Route::get('user', ShowUsers::class)->name('users.index');
     Route::get('category', ShowCategories::class)->name('categories.index');
-
+    Route::get('products', ShowProducts::class)->name('productos.index');
+    Route::get('orders', ShowOrders::class)->name('pedidos.index');
 });

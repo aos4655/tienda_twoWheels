@@ -21,8 +21,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::middleware(['auth:sanctum', 'admin'])->group(function () {
-    Route::get('/logistica/{num_track}',[LogisticApiController::class, 'mostrar']);
-}); 
+});     Route::get('/logistica/{num_track}',[LogisticApiController::class, 'mostrar']);
+
 Route::get('/carrito',[UserController::class, 'obtenerProductosUsuario']);
 
 Route::post('/carritoDelete',[UserController::class, 'eliminarProductoCarrito'])->name('carrito.delete');

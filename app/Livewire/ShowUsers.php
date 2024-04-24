@@ -78,12 +78,4 @@ class ShowUsers extends Component
         $this->form->cancelarUser();
         $this->abrirModalUpdate = false;
     }
-    //
-    /* public function showPost(User $user){
-        $this->post = $post;
-        $this->openShow = true;
-    } */
-    /* public function cancelarShow(){
-        $this->reset(['openShow', 'post']);
-    } */
 }
