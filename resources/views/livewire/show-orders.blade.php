@@ -61,6 +61,7 @@
                             <td class="px-6 py-4">
                                 <div class="flex items-center">
                                     <div class="font-normal text-gray-500" id="ult_estado_{{ $pedido->id }}">
+                                        {{-- ESTO PETA DE VEZ EN CUANDO POR TOO MANY REQUEST, SE DEBE BUSCAR ALTERNATIVA --}}
                                         <script>
                                             fetch('http://localhost:8000/api/logistica/{{ $pedido->track_num }}')
                                                 .then(response => {
