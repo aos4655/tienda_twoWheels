@@ -138,7 +138,7 @@
                         <!-- Modal body -->
                         <div class="p-4 md:p-5">
                             {{-- Aqui deberia ir icono de cargando dureante un par desegundos --}}
-                            <div id="load_seguimiento" class="loader"></div>
+                            <div id="load_seguimiento" ></div>
 
                             <ol id="lista_seguimiento"
                                 class="relative border-s border-gray-200 dark:border-gray-600 ms-3.5 mb-4 md:mb-5"
@@ -294,7 +294,7 @@
             }
 
             /* Estilos para el boton de cargando */
-            .loader {
+            #load_seguimiento {
                 border: 8px solid #f3f3f3;
                 border-top: 8px solid #3498db;
                 border-radius: 50%;
