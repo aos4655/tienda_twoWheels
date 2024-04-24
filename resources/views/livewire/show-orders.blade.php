@@ -61,27 +61,11 @@
                             <td class="px-6 py-4">
                                 <div class="flex items-center">
                                     <div class="font-normal text-gray-500" id="ult_estado_{{ $pedido->id }}">
-                                        {{-- ESTO PETA DE VEZ EN CUANDO POR TOO MANY REQUEST, SE DEBE BUSCAR ALTERNATIVA --}}
-                                        <script>
-                                            fetch('http://localhost:8000/api/logistica/{{ $pedido->track_num }}')
-                                                .then(response => {
-                                                    if (!response.ok) {
-                                                        throw new Error('No se ha podido realizar la llamada a la API');
-                                                    }
-                                                    return response.json();
-                                                })
-                                                .then(data => {
-                                                    if (data && data.ult_estado) {
-                                                        document.getElementById('ult_estado_{{ $pedido->id }}').innerText = data.ult_estado;
-                                                    } else {
-                                                        document.getElementById('ult_estado_{{ $pedido->id }}').innerText =
-                                                            'Seguimiento no disponible';
-                                                    }
-                                                })
-                                                .catch(error => {
-                                                    console.error('Error:', error.message);
-                                                });
-                                        </script>
+                                        <!-- Modal toggle -->
+                                        <button class="seguimiento-btn font-medium text-blue-600 hover:underline ms-3"
+                                            data-pedido-track="{{ $pedido->track_num }}">
+                                            <i class="fa-solid fa-location-arrow"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </td>
@@ -129,7 +113,123 @@
 
                 </tbody>
             </table>
+            <!-- Seguimiento modal -->
+            <div id="seguimiento-modal" tabindex="-1" aria-hidden="true"
+                class="hidden overflow-y-auto overflow-x-hidden fixed z-50 inset-0 flex justify-center items-center">
+                <div class="relative p-4 w-full max-w-md max-h-full">
+                    <!-- Modal content -->
+                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                        <!-- Modal header -->
+                        <div
+                            class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                Seguimiento
+                            </h3>
+                            <button type="button" id="seguimiento-modal-close-btn"
+                                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm h-8 w-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 14 14">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                </svg>
+                                <span class="sr-only">Close modal</span>
+                            </button>
+                        </div>
+                        <!-- Modal body -->
+                        <div class="p-4 md:p-5">
+                            {{-- Aqui deberia ir icono de cargando dureante un par desegundos --}}
+                            <div id="load_seguimiento" class="loader"></div>
 
+                            <ol id="lista_seguimiento"
+                                class="relative border-s border-gray-200 dark:border-gray-600 ms-3.5 mb-4 md:mb-5"
+                                hidden>
+                                <li class="mb-10 ms-8" id="lista_entregado">
+                                    <span
+                                        class="absolute flex items-center justify-center w-6 h-6 bg-gray-100 rounded-full -start-3.5 ring-8 ring-white dark:ring-gray-700 dark:bg-gray-600">
+                                        <svg class="h-4 w-4 text-gray-500" width="24" height="24"
+                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" />
+                                            <circle cx="7" cy="17" r="2" />
+                                            <circle cx="17" cy="17" r="2" />
+                                            <path d="M5 17h-2v-4m-1 -8h11v12m-4 0h6m4 0h2v-6h-8m0 -5h5l3 5" />
+                                            <line x1="3" y1="9" x2="7" y2="9" />
+                                        </svg>
+                                    </span>
+                                    <h3
+                                        class="flex items-start mb-1 text-lg font-semibold text-gray-900 dark:text-white">
+                                        Entregado <span id="span_entregado"
+                                            class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300 ms-3">Latest</span>
+                                    </h3>
+                                    <time id="time_entregado"
+                                        class="block mb-3 text-sm font-normal leading-none text-gray-500 dark:text-gray-400"></time>
+                                </li>
+                                <li class="mb-10 ms-8" id="lista_en_reparto">
+                                    <span
+                                        class="absolute flex items-center justify-center w-6 h-6 bg-gray-100 rounded-full -start-3.5 ring-8 ring-white dark:ring-gray-700 dark:bg-gray-600">
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1"
+                                            viewBox="0 0 24 24" width="14" height="14" stroke="#747D8B"
+                                            stroke-width="1.5" fill="none" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <path fill="#747D8B"
+                                                d="M20.5,17c-.17,0-.337,.012-.5,.036V4.5c0-1.93,1.57-3.5,3.5-3.5,.276,0,.5-.224,.5-.5s-.224-.5-.5-.5c-2.481,0-4.5,2.019-4.5,4.5v12.634l-4.82,1.522c.198-.522,.223-1.114,.03-1.682l-1.63-5.231c-.418-1.312-1.824-2.04-3.141-1.624l-6.696,2.13c-1.295,.412-2.029,1.806-1.636,3.108l1.662,5.436c.176,.493,.495,.898,.893,1.184l-3.313,1.046c-.264,.083-.409,.364-.326,.627,.067,.213,.264,.35,.477,.35,.05,0,.101-.007,.15-.023l16.883-5.331c-.338,.538-.533,1.174-.533,1.855,0,1.93,1.57,3.5,3.5,3.5s3.5-1.57,3.5-3.5-1.57-3.5-3.5-3.5ZM3.719,20.479l-1.654-5.413c-.236-.781,.204-1.618,.981-1.865l6.696-2.13c.151-.048,.304-.071,.454-.071,.636,0,1.228,.407,1.43,1.042l1.631,5.234,.004,.012c.268,.783-.152,1.637-.928,1.901l-5.542,1.798-1.38,.436c-.714,.138-1.449-.263-1.692-.946Zm16.781,2.521c-1.379,0-2.5-1.122-2.5-2.5s1.121-2.5,2.5-2.5,2.5,1.122,2.5,2.5-1.121,2.5-2.5,2.5ZM6.148,15.748c-.05,.016-.102,.023-.151,.023-.212,0-.409-.136-.477-.349-.084-.263,.062-.544,.325-.628l2.465-.784c.262-.083,.545,.062,.628,.325,.084,.263-.062,.544-.325,.628l-2.465,.784Z" />
+                                        </svg>
+
+
+                                    </span>
+                                    <h3 class="mb-1 text-lg font-semibold text-gray-900 dark:text-white">En Reparto
+                                        <span id="span_en_reparto"
+                                            class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300 ms-3">Latest</span>
+                                    </h3>
+                                    <time id="time_en_reparto"
+                                        class="block mb-3 text-sm font-normal leading-none text-gray-500 dark:text-gray-400"></time>
+                                </li>
+                                <li class="mb-10 ms-8" id="lista_enviado">
+                                    <span
+                                        class="absolute flex items-center justify-center w-6 h-6 bg-gray-100 rounded-full -start-3.5 ring-8 ring-white dark:ring-gray-700 dark:bg-gray-600">
+                                        <svg class="h-4 w-4 text-gray-500" width="24" height="24"
+                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" />
+                                            <path d="M15 12h5a2 2 0 0 1 0 4h-15l-3 -6h3l2 2h3l-2 -7h3z"
+                                                transform="rotate(-15 12 12) translate(0 -1)" />
+                                            <line x1="3" y1="21" x2="21" y2="21" />
+                                        </svg>
+                                    </span>
+                                    <h3 class="mb-1 text-lg font-semibold text-gray-900 dark:text-white">Enviado
+                                        <span id="span_enviado"
+                                            class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300 ms-3">Latest</span>
+                                    </h3>
+                                    <time id="time_enviado"
+                                        class="block mb-3 text-sm font-normal leading-none text-gray-500 dark:text-gray-400"></time>
+                                </li>
+                                <li class="ms-8" id="lista_pendiente_envio">
+                                    <span
+                                        class="absolute flex items-center justify-center w-6 h-6 bg-gray-100 rounded-full -start-3.5 ring-8 ring-white dark:ring-gray-700 dark:bg-gray-600">
+                                        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 100 100"
+                                            viewBox="0 0 100 100" id="food-delivery" width="17" height="17"
+                                            stroke="#747D8B" stroke-width="2" fill="none" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <path fill="#747D8B"
+                                                d="M38,41h24c3.3,0,6-2.7,6-6v-6V19c0-6.6-5.4-12-12-12H44c-6.6,0-12,5.4-12,12v10v6C32,38.3,34.7,41,38,41z M64,27H36v-6h28 V27z M64,35c0,1.1-0.9,2-2,2H38c-1.1,0-2-0.9-2-2v-4h28V35z M44,11h12c3.7,0,6.9,2.6,7.7,6H36.3C37.1,13.6,40.3,11,44,11z M91.8,48.2c-0.3-0.7-1-1.2-1.8-1.2H66c-0.6,0-1.2,0.3-1.5,0.7L55.1,59H44.9l-9.4-11.3C35.2,47.3,34.6,47,34,47H10 c-0.8,0-1.5,0.4-1.8,1.2c-0.3,0.7-0.2,1.5,0.3,2.1L18,61.7V91c0,1.1,0.9,2,2,2h36h24c1.1,0,2-0.9,2-2V61.7l9.5-11.4 C92,49.7,92.1,48.9,91.8,48.2z M33.1,51l6.7,8H20.9l-6.7-8H33.1z M22,63h22h10v26H22V63z M78,89H58V63h20V89z M79.1,59H60.3l6.7-8 h18.8L79.1,59z">
+                                            </path>
+                                        </svg>
+
+                                    </span>
+                                    <h3 class="mb-1 text-lg font-semibold text-gray-900 dark:text-white">Pendiente de
+                                        envio
+                                        <span id="span_pendiente_envio"
+                                            class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300 ms-3">Latest</span>
+                                    </h3>
+                                    <time id="time_pendiente_envio"
+                                        class="block mb-3 text-sm font-normal leading-none text-gray-500 dark:text-gray-400"></time>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
             @isset($form->producto)
                 <x-dialog-modal wire:model='abrirModalUpdate'>
                     <x-slot name="title">
@@ -192,6 +292,27 @@
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
                 padding: 0.5rem;
             }
+
+            /* Estilos para el boton de cargando */
+            .loader {
+                border: 8px solid #f3f3f3;
+                border-top: 8px solid #3498db;
+                border-radius: 50%;
+                margin: auto;
+                width: 30px;
+                height: 30px;
+                animation: spin 1s linear infinite;
+            }
+
+            @keyframes spin {
+                0% {
+                    transform: rotate(0deg);
+                }
+
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
         </style>
         <script>
             // Función para cerrar todos los dropdowns abiertos excepto el actual
@@ -209,6 +330,139 @@
                 closeAllDropdownsExcept(pedidoId);
                 var dropdown = document.getElementById('dropdownAction_' + pedidoId);
                 dropdown.classList.toggle('hidden');
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                const modalSeguimiento = document.getElementById('seguimiento-modal');
+                const seguimientoButtons = document.querySelectorAll('.seguimiento-btn');
+                const seguimientoModalCloseBtn = document.getElementById('seguimiento-modal-close-btn');
+
+                seguimientoButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        modalSeguimiento.classList.remove('hidden');
+                        const num_seguimiento = this.getAttribute('data-pedido-track');
+
+                        cargando();
+                        if (num_seguimiento !== null) {
+                            fetch(`api/logistica/${num_seguimiento}`)
+                                .then(response => response.json())
+                                .then(seguimiento => {
+                                    const lista_pendiente_envio = document
+                                        .getElementById('lista_pendiente_envio');
+                                    const lista_enviado = document.getElementById(
+                                        'lista_enviado');
+                                    const lista_en_reparto = document.getElementById(
+                                        'lista_en_reparto');
+                                    const lista_entregado = document.getElementById(
+                                        'lista_entregado');
+
+                                    const time_pendiente_envio = document
+                                        .getElementById('time_pendiente_envio');
+                                    const time_enviado = document.getElementById(
+                                        'time_enviado');
+                                    const time_en_reparto = document.getElementById(
+                                        'time_en_reparto');
+                                    const time_entregado = document.getElementById(
+                                        'time_entregado');
+
+                                    const span_entregado = document.getElementById(
+                                        'span_entregado');
+                                    const span_en_reparto = document.getElementById(
+                                        'span_en_reparto');
+                                    const span_enviado = document.getElementById('span_enviado');
+                                    const span_pendiente_envio = document.getElementById(
+                                        'span_pendiente_envio');
+
+                                    if (seguimiento.ult_estado == "ENTREGADO") {
+                                        span_entregado.hidden = false;
+                                        span_en_reparto.hidden = true;
+                                        span_enviado.hidden = true;
+                                        span_pendiente_envio.hidden = true;
+
+                                        lista_entregado.hidden = false;
+                                        lista_en_reparto.hidden = false;
+                                        lista_enviado.hidden = false;
+
+                                        time_pendiente_envio.textContent =
+                                            "Released on " + seguimiento
+                                            .pendiente_fecha;
+                                        time_enviado.textContent = "Released on " +
+                                            seguimiento.enviado_fecha;
+                                        time_en_reparto.textContent = "Released on " +
+                                            seguimiento.en_reparto_fecha;
+                                        time_entregado.textContent = "Released on " +
+                                            seguimiento.entregado_fecha;
+                                    } else if (seguimiento.ult_estado == "EN REPARTO") {
+                                        span_entregado.hidden = true;
+                                        span_en_reparto.hidden = false;
+                                        span_enviado.hidden = true;
+                                        span_pendiente_envio.hidden = true;
+
+                                        lista_entregado.hidden = true;
+                                        lista_en_reparto.hidden = false;
+                                        lista_enviado.hidden = false;
+
+                                        time_pendiente_envio.textContent =
+                                            "Released on " + seguimiento
+                                            .pendiente_fecha;
+                                        time_enviado.textContent = "Released on " +
+                                            seguimiento.enviado_fecha;
+                                        time_en_reparto.textContent = "Released on " +
+                                            seguimiento.en_reparto_fecha;
+                                    } else if (seguimiento.ult_estado == "ENVIADO") {
+                                        span_entregado.hidden = true;
+                                        span_en_reparto.hidden = true;
+                                        span_enviado.hidden = false;
+                                        span_pendiente_envio.hidden = true;
+
+                                        lista_entregado.hidden = true;
+                                        lista_en_reparto.hidden = true;
+                                        lista_enviado.hidden = false;
+
+                                        time_enviado.textContent = "Released on " +
+                                            seguimiento.enviado_fecha;
+                                        time_pendiente_envio.textContent =
+                                            "Released on " + seguimiento
+                                            .pendiente_fecha;
+                                    } else {
+                                        span_entregado.hidden = true;
+                                        span_en_reparto.hidden = true;
+                                        span_enviado.hidden = true;
+                                        span_pendiente_envio.hidden = false;
+
+                                        lista_entregado.hidden = true;
+                                        lista_en_reparto.hidden = true;
+                                        lista_enviado.hidden = true;
+
+                                        time_pendiente_envio.textContent =
+                                            "Released on " + seguimiento
+                                            .pendiente_fecha;
+                                    }
+
+                                })
+                                .catch(error => console.error('Error al obtener seguimiento:', error));
+                        } else {
+                            console.error('El data-pedido-track no está definido en el botón.');
+                        }
+                    });
+                });
+
+                seguimientoModalCloseBtn.addEventListener('click', function() {
+                    modalSeguimiento.classList.add('hidden');
+                });
+
+            });
+
+            function cargando() {
+                const load_seguimiento = document.getElementById('load_seguimiento');
+                const lista_seguimiento = document.getElementById('lista_seguimiento');
+                load_seguimiento.hidden = false;
+                lista_seguimiento.hidden = true;
+
+                setTimeout(function() {
+                    load_seguimiento.hidden = true;
+                    lista_seguimiento.hidden = false;
+                }, 1500);
             }
         </script>
     </x-plantilla-admin>
