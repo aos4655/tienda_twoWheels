@@ -18,6 +18,12 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('is_admin', ["SI", "NO"])->default("NO");
+            $table->string('direccion')->nullable();
+            $table->string('zipcode')->nullable();
+            $table->string('ciudad')->nullable();
+            $table->string('comunidad_autonoma')->nullable();
+            $table->string('pais')->nullable();
+            $table->string('num_telefono')->nullable();
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
