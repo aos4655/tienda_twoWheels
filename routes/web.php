@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\StripeController;
+use App\Livewire\QrProductoModal;
 use App\Livewire\ShowCategories;
 use App\Livewire\ShowOrders;
 use App\Livewire\ShowProducts;
@@ -42,4 +44,17 @@ Route::middleware([
     Route::get('category', ShowCategories::class)->name('categories.index');
     Route::get('products', ShowProducts::class)->name('productos.index');
     Route::get('orders', ShowOrders::class)->name('pedidos.index');
+
+
+    /* Esta ruta es para pruebas */
+    Route::get('/mostrar/{id}', function () {
+        return view('home');
+    })->name('home.show');
+    /* Fin */
 });
+
+Route::get('/checkout', [StripeController::class, 'checkout'])->name('checkout');
+Route::post('/session', [StripeController::class, 'session'])->name('session');
+Route::get('/success', [StripeController::class, 'success'])->name('success');
+Route::get('/cancel', [StripeController::class, 'cancel'])->name('cancel');
+

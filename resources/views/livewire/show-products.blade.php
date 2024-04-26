@@ -38,6 +38,9 @@
                         <th scope="col" class="px-6 py-3 cursor-pointer" wire:click="ordenar('categoria_id')">
                             Categoria
                         </th>
+                        <th scope="col" class="px-6 py-3 cursor-pointer" wire:click="ordenar('categoria_id')">
+                            QR
+                        </th>
                         <th scope="col" class="px-6 py-3">
                             Actions
                         </th>
@@ -48,15 +51,14 @@
                         <tr
                             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             {{-- IMAGEN --}}
-                            <th scope="row"
-                            class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap">
-                            <img class="w-10 h-10 rounded-full" src="{{Storage::url($producto->imagen)}}"
-                                alt="{{$producto->nombre}}">
-                            
+                            <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap">
+                                <img class="w-10 h-10 rounded-full" src="{{ Storage::url($producto->imagen) }}"
+                                    alt="{{ $producto->nombre }}">
+
                             </th>
                             <td class="px-6 py-4">
                                 <div class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {{$producto->nombre}}
+                                    {{ $producto->nombre }}
                                 </div>
                             </td>
                             <td class="px-6 py-4">
@@ -69,22 +71,29 @@
                             <td class="px-6 py-4">
                                 <div class="flex items-center">
                                     <div class="font-normal text-gray-500">
-                                        {{$producto->stock}}
+                                        {{ $producto->stock }}
                                     </div>
                                 </div>
                             </td>
                             <td class="px-6 py-4">
                                 <div class="flex items-center">
                                     <div class="font-normal text-gray-500">
-                                        {{$producto->precio}}
+                                        {{ $producto->precio }}
                                     </div>
                                 </div>
                             </td>
                             <td class="px-6 py-4">
                                 <div class="flex items-center">
                                     <div class="font-normal text-gray-500">
-                                        {{$producto->categoria->nombre}}
+                                        {{ $producto->categoria->nombre }}
                                     </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4">
+                                <div class="flex items-center">
+                                    <button wire:click="setDatosQR({{ $producto->id }})" class="mr-1">
+                                        <i class="fa-solid fa-qrcode text-xl hover:text-2xl"></i>
+                                    </button>
                                 </div>
                             </td>
                             <td class="px-6 py-4">
@@ -108,13 +117,11 @@
                                         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
                                             aria-labelledby="dropdownActionButton">
                                             <li>
-                                                <!-- Acción de editar usuario -->
                                                 <button wire:click="edit({{ $producto->id }})"
                                                     class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                                     <p class="text-red-800 ">Editar</p>
                                                 </button>
                                             </li>
-                                            <!-- Acción de eliminar usuario -->
                                             <li>
                                                 <button wire:click="pedirConfirmacion('{{ $producto->id }}')"
                                                     class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
@@ -173,6 +180,86 @@
                     </x-slot>
                 </x-dialog-modal>
             @endisset
+            <!-- MODAL QR  -->
+            @isset($productoQR)
+                <x-dialog-modal wire:model='abrirModalQR'>
+                    <x-slot name="title">
+                        Edita QR del producto: <span>{{ $nombre }}</span>
+                    </x-slot>
+                    <x-slot name="content">
+                        <!-- Pinto el QR -->
+                        <div class="flex flex-col items-center justify-center">
+                            <div id="qr" style="background-color: {{ $backgroundColor }}"
+                                class="w-1/2 mb-2 p-10 rounded-xl text-center flex flex-col items-center justify-center">
+                                <h1 style="color: {{ $textColor }}" class="text-white text-3xl font-bold mb-2">
+                                    {{ $titulo }}
+                                </h1>
+                                <div class="bg-white p-2">
+                                    {{ QrCode::size(150)->generate(route('home.show', $id)) }}
+                                </div>
+                                <p style="color: {{ $textColor }}" class=" mt-2 text-sm">{{ $descripcion }}</p>
+                            </div>
+
+                        </div>
+                        <!-- FIN QR -->
+                        <!-- Pinto el Formulario -->
+                        <x-label for="bg">Color de fondo</x-label>
+                        <input id="bg" type="color" wire:model.live="backgroundColor"
+                            value="{{ $backgroundColor }}">
+
+                        <x-label for="tc">Color del texto</x-label>
+                        <input id="tc" type="color" wire:model.live="textColor" value="{{ $textColor }}">
+
+                        <x-label for="titulo">Titulo</x-label>
+                        <x-input id="titulo" placeholder="Título..." class="w-full mb-2" wire:model.live="titulo" />
+
+                        <x-label for="descripcion">Descripcion</x-label>
+                        <x-input id="descripcion" placeholder="Descripcion..." class="w-full mb-2"
+                            wire:model.live="descripcion" />
+
+                    </x-slot>
+                    <x-slot name="footer">
+                        <div class="flex flex-row-reverse">
+                            <button id="descargar-btn" onclick="descargarqr()"
+                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" data-producto-id = "{{ $id }}">
+                                <i class="fas fa-save"></i> DESCARGAR
+                            </button>
+
+                            <button wire:click="cancelarQR"
+                                class="mr-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                                <i class="fas fa-xmark"></i> CANCELAR
+                            </button>
+                        </div>
+                    </x-slot>
+                    <script>
+                        function descargarqr() {
+                            var node = document.getElementById('qr');
+                            const producto_id = document.getElementById('descargar-btn').getAttribute('data-producto-id')
+                            htmlToImage.toPng(node)
+                                .then(function(dataUrl) {
+                                    function download(url, filename) {
+                                        var a = document.createElement('a');
+                                        a.href = url;
+                                        a.download = filename;
+                                        document.body.appendChild(a);
+                                        a.click();
+                                        document.body.removeChild(a);
+                                    }
+                                    download(dataUrl, 'qr_producto_' + producto_id + '.png');
+                                    window.close();
+
+                                })
+                                .catch(function(error) {
+                                    console.error('Error al convertir a PNG:', error);
+                                });
+
+                        }
+                        /*         window.onload = descargarqr;
+                         */
+                    </script>
+                </x-dialog-modal>
+            @endisset
+
         </div>
         <style>
             /* Estilo para el dropdown */
@@ -216,4 +303,3 @@
     </x-plantilla-admin>
 
 </div>
-

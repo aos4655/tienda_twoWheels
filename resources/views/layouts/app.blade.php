@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- CDN HTML-TO-IMAGE -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.9.0/html-to-image.min.js"></script>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -41,7 +43,7 @@
 
         <!-- Page Content -->
         <main>
-            
+
             {{ $slot }}
         </main>
     </div>
@@ -49,6 +51,32 @@
     @stack('modals')
 
     @livewireScripts
+    <script>
+        function descargarqr() {
+            var node = document.getElementById('qr');
+            const producto_id = document.getElementById('descargar-btn').getAttribute('data-producto-id')
+            htmlToImage.toPng(node)
+                .then(function(dataUrl) {
+                    function download(url, filename) {
+                        var a = document.createElement('a');
+                        a.href = url;
+                        a.download = filename;
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                    }
+                    download(dataUrl, 'qr_producto_' + producto_id + '.png');
+                    window.close();
+
+                })
+                .catch(function(error) {
+                    console.error('Error al convertir a PNG:', error);
+                });
+
+        }
+        /*         window.onload = descargarqr;
+         */
+    </script>
 </body>
 
 </html>

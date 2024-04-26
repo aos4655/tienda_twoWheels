@@ -13,7 +13,7 @@ class ShowProducts extends Component
 {
     use InteractsWithBanner;
     /* use AuthorizesRequests; *//* Para que pueda trabajar con las politicas */
-        use WithFileUploads;
+    use WithFileUploads;
 
     /* Variables para update */
     public bool $abrirModalUpdate = false;
@@ -24,17 +24,27 @@ class ShowProducts extends Component
     public string $orden = "desc";
     public string $search = "";
 
+    /* Variables para qr */
+    public ?Producto $productoQR = null;
+    public string $id = "";
+    public string $nombre = "";
+    public string $backgroundColor = '#60A5FA'; // Definir como string
+    public string $textColor = '#ffffff'; // Definir como string
+    public string $titulo = 'Titulo';
+    public string $descripcion = 'Descipcion';
+    public bool $abrirModalQR = false;
 
+    /* Fin variables qr */
 
     #[On('productoCreado')]
     public function render()
     {
-        
+
         $productos = Producto::where('nombre', 'like', "%" . $this->search . "%")
             ->orWhere('descripcion', 'like', "%" . $this->search . "%")
             ->orderby($this->campo, $this->orden)
             ->get();
-        
+
         return view('livewire.show-products', compact('productos'));
     }
 
@@ -70,5 +80,18 @@ class ShowProducts extends Component
     {
         $this->form->cancelarProducto();
         $this->abrirModalUpdate = false;
+    }
+   
+    /* Funciones para modal QR */
+    public function setDatosQR(Producto $producto){
+        $this->productoQR = $producto;
+        $this->id = $producto->id;
+        $this->nombre = $producto->nombre;
+        $this->abrirModalQR = true;
+    }
+    public function cancelarQR()
+    {
+        // Resetear las propiedades del componente
+        $this->reset(['productoQR', 'backgroundColor', 'textColor', 'titulo', 'descripcion', 'id', 'abrirModalQR', 'nombre']);
     }
 }
