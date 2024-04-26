@@ -17,125 +17,119 @@
                         placeholder="Buscar..." type="search" wire:model.live="search"></x-input>
                 </div>
             </div>
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                        <th scope="col" class="px-6 py-3">
-                            Imagen
-                        </th>
-                        <th scope="col" class="px-6 py-3 cursor-pointer" wire:click="ordenar('name')">
-                            Nombre
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Descripcion
-                        </th>
-                        <th scope="col" class="px-6 py-3 cursor-pointer" wire:click="ordenar('stock')">
-                            Stock
-                        </th>
-                        <th scope="col" class="px-6 py-3 cursor-pointer" wire:click="ordenar('precio')">
-                            Precio
-                        </th>
-                        <th scope="col" class="px-6 py-3 cursor-pointer" wire:click="ordenar('categoria_id')">
-                            Categoria
-                        </th>
-                        <th scope="col" class="px-6 py-3 cursor-pointer" wire:click="ordenar('categoria_id')">
-                            QR
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Actions
-                        </th>
+            <table class="min-w-full border-collapse block md:table text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="block md:table-header-group text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr
+                        class="border border-grey-500 md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto  md:relative ">
+                        <th
+                            class=" p-2  font-bold md:border md:border-none text-left block md:table-cell">
+                            Imagen</th>
+                        <th
+                            class=" p-2  font-bold md:border md:border-none text-left block md:table-cell">
+                            Nombre</th>
+                        <th
+                            class=" p-2  font-bold md:border md:border-none text-left block md:table-cell">
+                            Descripcion</th>
+                        <th
+                            class=" p-2  font-bold md:border md:border-none text-left block md:table-cell">
+                            Stock</th>
+                        <th
+                            class=" p-2  font-bold md:border md:border-none text-left block md:table-cell">
+                            Precio</th>
+                        <th
+                            class=" p-2  font-bold md:border md:border-none text-left block md:table-cell">
+                            Categoria</th>
+                        <th
+                            class=" p-2  font-bold md:border md:border-none text-left block md:table-cell">
+                            QR</th>
+                        <th
+                            class=" p-2  font-bold md:border md:border-none text-left block md:table-cell">
+                            Actions</th>
+        
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="block md:table-row-group">
                     @foreach ($productos as $producto)
-                        <tr
-                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            {{-- IMAGEN --}}
-                            <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap">
+                    <tr class=" md:border-none block md:table-row">
+                        <td class="p-2 md:border md:border-none  text-left block md:table-cell">
+                            <span class="inline-block w-1/3 md:hidden font-bold">Imagen</span>
                                 <img class="w-10 h-10 rounded-full" src="{{ Storage::url($producto->imagen) }}"
                                     alt="{{ $producto->nombre }}">
-
-                            </th>
-                            <td class="px-6 py-4">
-                                <div class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {{ $producto->nombre }}
-                                </div>
-                            </td>
-                            <td class="px-6 py-4">
-                                <div class="flex items-center">
-                                    <div class="font-normal text-gray-500">
-                                        {{-- {{$producto->descripcion}} --}}
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4">
-                                <div class="flex items-center">
-                                    <div class="font-normal text-gray-500">
-                                        {{ $producto->stock }}
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4">
-                                <div class="flex items-center">
-                                    <div class="font-normal text-gray-500">
-                                        {{ $producto->precio }}
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4">
-                                <div class="flex items-center">
-                                    <div class="font-normal text-gray-500">
-                                        {{ $producto->categoria->nombre }}
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4">
-                                <div class="flex items-center">
-                                    <button wire:click="setDatosQR({{ $producto->id }})" class="mr-1">
-                                        <i class="fa-solid fa-qrcode text-xl hover:text-2xl"></i>
-                                    </button>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4">
+                        </td>
+                        <td class="p-2 md:border md:border-none text-left block md:table-cell">
+                            <span class="inline-block w-1/3 md:hidden font-bold">Nombre</span>
+                                {{ $producto->nombre }}</td>
+                        <td class="p-2 md:border md:border-none text-left block md:table-cell">
+                            <span class="inline-block w-1/3 md:hidden font-bold">Descripcion</span>
+                            <div class="font-normal text-gray-500">
+                                {{-- {{$producto->descripcion}} --}}
+                            </div>
+                        </td>
+                        <td class="p-2 md:border md:border-none text-left block md:table-cell">
+                            <span class="inline-block w-1/3 md:hidden font-bold">Stock</span>
+                            <div class="font-normal text-gray-500">
+                                {{ $producto->stock }}
+                            </div>
+                        </td>
+                        <td class="p-2 md:border md:border-none text-left block md:table-cell">
+                            <span class="inline-block w-1/3 md:hidden font-bold">Precio</span>
+                            <div class="font-normal text-gray-500">
+                                {{ $producto->precio }}
+                            </div>
+                        </td>
+                        <td class="p-2 md:border md:border-none text-left block md:table-cell">
+                            <span class="inline-block w-1/3 md:hidden font-bold">Categoria</span>
+                            <div class="font-normal text-gray-500">
+                                {{ $producto->categoria->nombre }}
+                            </div>
+                        </td>
+                        <td class="p-2 md:border md:border-none text-left block md:table-cell">
+                            <span class="inline-block w-1/3 md:hidden font-bold">QR</span>
+                            <div class="font-normal text-gray-500">
+                                <button wire:click="setDatosQR({{ $producto->id }})" class="mr-1 ">
+                                    <i class="fa-solid fa-qrcode text-xl hover:text-2xl"></i>
+                                </button>
+                            </div>
+                        </td>
+                        <td class="p-2 md:border md:border-none text-left block md:table-cell">
+                            <span class="inline-block w-1/3 md:hidden font-bold">Action</span>
+                            <!-- Menú desplegable -->
+                            <div class="dropdown-container">
+                                <!-- Botón para abrir el dropdown -->
+                                <button id="dropdownActionButton" onclick="toggleDropdown('{{ $producto->id }}')"
+                                    class="text-gray-900 bg-red-600 md:bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-centerdark:bg-gray-800 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                                    type="button">
+                                    Action
+                                    <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 10 6">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="m1 1 4 4 4-4" />
+                                    </svg>
+                                </button>
+        
                                 <!-- Menú desplegable -->
-                                <div class="dropdown-container">
-                                    <!-- Botón para abrir el dropdown -->
-                                    <button id="dropdownActionButton" onclick="toggleDropdown('{{ $producto->id }}')"
-                                        class="text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-centerdark:bg-gray-800 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-                                        type="button">
-                                        Action
-                                        <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2" d="m1 1 4 4 4-4" />
-                                        </svg>
-                                    </button>
-
-                                    <!-- Menú desplegable -->
-                                    <div id="dropdownAction_{{ $producto->id }}"
-                                        class="dropdown-menu z-10 hidden bg-white  rounded-lg shadow dark:bg-gray-700">
-                                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
-                                            aria-labelledby="dropdownActionButton">
-                                            <li>
-                                                <button wire:click="edit({{ $producto->id }})"
-                                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                                    <p class="text-red-800 ">Editar</p>
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button wire:click="pedirConfirmacion('{{ $producto->id }}')"
-                                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                                    <p class="text-blue-800 ">Eliminar</p>
-                                                </button>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                <div id="dropdownAction_{{ $producto->id }}"
+                                    class="dropdown-menu z-10 hidden bg-white  rounded-lg shadow dark:bg-gray-700">
+                                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                                        aria-labelledby="dropdownActionButton">
+                                        <li>
+                                            <button wire:click="edit({{ $producto->id }})"
+                                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                                <p class="text-red-800 ">Editar</p>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button wire:click="pedirConfirmacion('{{ $producto->id }}')"
+                                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                                <p class="text-blue-800 ">Eliminar</p>
+                                            </button>
+                                        </li>
+                                    </ul>
                                 </div>
-
-                            </td>
-                        </tr>
+                            </div>
+                        </td>
+                    </tr>
                     @endforeach
-
                 </tbody>
             </table>
 
