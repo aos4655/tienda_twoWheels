@@ -1,5 +1,5 @@
-<nav x-data="{ open: false }"
-    class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 fixed w-full top-0 z-10">
+<nav x-data="{ open: false }" style = "border-color: #093564"
+    class="bg-white dark:bg-gray-800 border-b-2 dark:border-gray-700 fixed w-full top-0 z-10">
     {{-- AÑADIDO AL NAV fixed w-full top-0 z-10, La clase z-10 es opcional y se utiliza para garantizar que el nav esté 
         siempre por encima de otros elementos en la página. Puedes ajustar el valor según sea necesario  --}}
     <!-- Primary Navigation Menu -->
