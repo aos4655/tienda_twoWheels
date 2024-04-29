@@ -1,9 +1,9 @@
     <div class="mt-5">
         <div class="max-w-8xl mx-auto ">
-            {{ $slot }}
+
             <!-- drawer component -->
             <div id="drawer-navigation"
-                class="fixed mt-0 right-0 z-40 w-150 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-white dark:bg-gray-800"
+                class="fixed mt-12 right-0 z-40 w-150 p-4 overflow-y-auto transition-transform -translate-x-full bg-white dark:bg-gray-800"
                 tabindex="-1" aria-labelledby="drawer-navigation-label" style="transform: translateX(100%);">
                 <h5 id="drawer-navigation-label"
                     class=" text-base font-semibold text-gray-500 uppercase dark:text-gray-400">
@@ -18,37 +18,28 @@
                     </svg>
                     <span class="sr-only">Close menu</span>
                 </button>
-                <div class="mt-8" style="max-height: calc(100vh - 400px); overflow-y: auto;">
+                <div class="mt-8" style="max-height: 80vh; ">
                     <div class="flow-root">
                         <ul role="list" id="lista_productos_carrito" class="-my-6 divide-y divide-gray-200">
-                            
+
                         </ul>
                     </div>
                 </div>
-                <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
+                <div class="mt-72 border-t border-gray-200 px-4 py-6 sm:px-6">
                     <div class="flex justify-between text-base font-medium text-gray-900">
                         <p>Subtotal</p>
-                        <p id="subtotal">$262.00</p>
+                        <p id="subtotal">0.00 €</p>
                     </div>
-                    <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.
+                    <p class="mt-0.5 text-sm text-gray-500">Los gastos de envio son gratuitos.
                     </p>
                     <div class="mt-6">
                         <a href="#"
                             class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Checkout</a>
                     </div>
-                    <div class="mt-6 flex justify-center text-center text-sm text-gray-500">
-                        <p>
-                            or
-                            <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">
-                                Continue Shopping
-                                <span aria-hidden="true"> &rarr;</span>
-                            </button>
-                        </p>
-                        <input type="checkbox">
-                    </div>
+
                 </div>
             </div>
-
+            {{ $slot }}
             <script>
                 function toggleDrawer() {
                     var drawer = document.getElementById('drawer-navigation');
@@ -97,19 +88,23 @@
                                     <div class="ml-4 flex flex-1 flex-col">
                                     <div class="flex justify-between text-base font-medium text-gray-900">
                                         <h3>${product.nombre}</h3>
-                                        <p class="ml-4">$${product.precio}</p>
+                                        <p class="ml-4">${product.precio} €</p>
                                     </div>
                                     <div class="flex flex-1 items-end justify-between text-sm">
                                         <div class="flex flex-1 flex-col">
                                         <label for="quantity-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Choose quantity:</label>
                                         <div class="relative flex items-center max-w-[6rem]">
-                                            <button type="button" id="decrement-button" onclick="decrementar(<?php if (Auth::check()) { echo Auth::user()->id; } ?>, ${product.id})" data-input-counter-decrement="quantity-input" class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-sm p-1.5 h-6 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-1.5 focus:outline-none">
+                                            <button type="button" id="decrement-button" onclick="decrementar(<?php if (Auth::check()) {
+                                                echo Auth::user()->id;
+                                            } ?>, ${product.id})" data-input-counter-decrement="quantity-input" class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-sm p-1.5 h-6 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-1.5 focus:outline-none">
                                             <svg class="w-1.5 h-1.5 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
                                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d="M1 1h16" />
                                             </svg>
                                             </button>
                                             <input type="text" id="quantity-input-${product.id}" data-input-counter aria-describedby="helper-text-explanation" class="bg-gray-50 border-x-0 border-gray-300 h-6 text-center text-gray-900 text-xs focus:ring-blue-500 focus:border-blue-500 block w-12 py-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="999" value="${product.pivot.cantidad}" required />
-                                            <button type="button" id="increment-button" onclick="incrementar(<?php if (Auth::check()) { echo Auth::user()->id; } ?>,${product.id})" data-input-counter-increment="quantity-input" class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-sm p-1.5 h-6 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-1.5 focus:outline-none">
+                                            <button type="button" id="increment-button" onclick="incrementar(<?php if (Auth::check()) {
+                                                echo Auth::user()->id;
+                                            } ?>,${product.id})" data-input-counter-increment="quantity-input" class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-sm p-1.5 h-6 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-1.5 focus:outline-none">
                                             <svg class="w-1.5 h-1.5 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
                                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d="M9 1v16M1 9h16" />
                                             </svg>
@@ -117,7 +112,9 @@
                                         </div>
                                         </div>
                                         <div class="flex">
-                                        <button type="button" onclick="eliminar(<?php if (Auth::check()) { echo Auth::user()->id; } ?>,${product.id})"  class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
+                                        <button type="button" onclick="eliminar(<?php if (Auth::check()) {
+                                            echo Auth::user()->id;
+                                        } ?>,${product.id})"  class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
                                         </div>
                                     </div>
                                     </div>
@@ -126,6 +123,18 @@
                                 listadoProductos.appendChild(listItem);
                             });
                             cant_cart.innerHTML = `${contador}`;
+
+                            // Aplicar scroll si hay más de 5 productos en el carrito
+                            const maxProductosSinScroll = 3;
+                            
+                            const listaAltura = listadoProductos.scrollHeight;
+                            if (contador > maxProductosSinScroll) {
+                                listadoProductos.style.maxHeight = '80vh';
+                                listadoProductos.style.overflowY = 'auto';
+                            } else {
+                                listadoProductos.style.maxHeight = 'none';
+                                listadoProductos.style.overflowY = 'visible';
+                            }
                         })
                 }
 
@@ -185,21 +194,45 @@
                 }
 
                 function actualizarSubtotal() {
-                    console.log('Actualizando subtotal...');
                     let subtotal = 0;
-                    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                    const checkboxes = document.querySelectorAll('#lista_productos_carrito input[type="checkbox"]');
+
+                    checkboxes.forEach(checkbox => {
                         if (checkbox.checked) {
-                            const precioElement = checkbox.closest('.flex').querySelector('p');
-                            console.log('Precio Elemento:', precioElement);
-                            const precioTexto = precioElement.innerText.replace('$', '');
-                            console.log('Precio Texto:', precioTexto);
-                            const precio = parseFloat(precioTexto);
-                            console.log('Precio:', precio);
-                            subtotal += precio;
+                            const listItem = checkbox.closest('li');
+                            if (listItem) {
+                                const precioElement = listItem.querySelector('p');
+                                const cantidadInput = listItem.querySelector('input[type="text"]');
+
+                                if (precioElement && cantidadInput) {
+                                    const precioTexto = precioElement.innerText.replace('€', '');
+                                    const precio = parseFloat(precioTexto);
+
+                                    const cantidad = parseInt(cantidadInput.value);
+
+                                    subtotal += precio * cantidad;
+                                }
+                            }
                         }
                     });
-                    document.getElementById('subtotal').innerText = '$' + subtotal.toFixed(2);
+
+                    // Actualizar el subtotal
+                    const subtotalElement = document.getElementById('subtotal');
+                    if (subtotalElement) {
+                        subtotalElement.innerText = subtotal.toFixed(2) + ' €';
+                    }
                 }
+
+
+                document.querySelectorAll('#lista_productos_carrito input[type="checkbox"]').forEach(checkbox => {
+                    checkbox.addEventListener('change', actualizarSubtotal);
+                });
+
+                document.querySelectorAll('#lista_productos_carrito input[type="text"]').forEach(input => {
+                    input.addEventListener('input', actualizarSubtotal);
+                });
+
+
                 window.onload = inicializarCarrito;
             </script>
         </div>
