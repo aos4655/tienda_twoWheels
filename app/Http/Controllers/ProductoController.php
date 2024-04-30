@@ -62,12 +62,5 @@ class ProductoController extends Controller
     {
         //
     }
-    public function obtenerNumeroPedidosProducto()
-    {
-        $productoMasVendido = Producto::withCount('pedidos')
-            ->orderByDesc('pedidos_count')
-            ->get();
-
-        return response()->json($productoMasVendido);
-    }
+    
 }

@@ -11,6 +11,7 @@ use App\Livewire\ShowCategories;
 use App\Livewire\ShowOrders;
 use App\Livewire\ShowProducts;
 use App\Livewire\ShowUsers;
+use App\Models\Producto;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +25,10 @@ use App\Livewire\ShowUsers;
 */
 
 Route::get('/', function () {
-    return view('home');
+    $productoMasVendido = Producto::withCount('pedidos')
+            ->orderByDesc('pedidos_count')
+            ->first();
+    return view('home', compact('productoMasVendido'));
 })->name('home');
 
 Route::middleware([
@@ -53,9 +57,7 @@ Route::middleware([
     })->name('home.show');
     /* Fin */
 });
-/* Modo prueba */
-Route::get('/productosPedido', [ProductoController::class, 'obtenerNumeroPedidosProducto'])->name('productos.pedido');
-/*  */
+
 Route::get('/checkout', [StripeController::class, 'checkout'])->name('checkout');
 Route::post('/session', [StripeController::class, 'session'])->name('session');
 Route::get('/success', [StripeController::class, 'success'])->name('success');

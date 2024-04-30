@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Livewire\Cart;
 use App\Models\Producto;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -82,14 +84,23 @@ class UserController extends Controller
         $usuario = User::findOrFail($user_id);
         $usuario->productsCart()->detach($product_id);
     }
+    /* Esta funcion si nos la vamos a quedar */
     public function agregarProductoCarrito(Request $request)
     {
+        
         $user_id = $request->input('user_id');
         $product_id = $request->input('product_id');
 
         $usuario = User::findOrFail($user_id);
-        //Deberia comprobar si lo tiene, si ya lo tiene que incremente en 1 la cantidad
-        $usuario->productsCart()->attach($product_id, ['cantidad' => 1]);
+        //Compruebo si el usuario tiene el producto, si no lo tiene le incremento su cantidad
+        $productoEnCarrito = $usuario->productsCart()->where('producto_id', $product_id)->first();
+        if ($productoEnCarrito) {
+            $usuario->productsCart()->updateExistingPivot($product_id, ['cantidad' => $productoEnCarrito->pivot->cantidad + 1]);
+        } else {
+            $usuario->productsCart()->attach($product_id, ['cantidad' => 1]);
+        }
+        /* Este evento no funciona */
+        $this->dispatch('aniadidoProducto')->to(Cart::class);
     }
     public function cambiarCantidadProductoCarrito(Request $request)
     {

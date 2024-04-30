@@ -1,14 +1,14 @@
 <x-app-layout>
     <x-principal-home>
-        
+
         <!-- Pantalla 1 -->
         <section class="dark:bg-blue-900 h-screen bg-green-50  flex justify-center items-center">
-            
+
             <!-- Contenido de la sección -->
             <div class="container px-3 py-24 mx-auto ">
                 <div class="lg:w-4/5 mx-auto flex flex-wrap mt-2">
                     <div class="relative md:w-5/12 md:h-1/3 overflow-hidden">
-                        <img src="{{ Storage::url('imgProduct/patineteHome.png') }}" alt="Imagen"
+                        <img src="{{ Storage::url($productoMasVendido->imagen) }}" alt="Imagen"
                             class="mt-2 ml-8 block w-400 h-400 z-10 relative">
 
                         <div
@@ -22,24 +22,42 @@
                             #transporteSostenible</div>
                         <h1
                             class="text-3xl md:text-4xl title-font font-extrabold md:mb-10 mb-3 text-blue-900 dark:text-white">
-                            Segway Ninebot GT2P
+                            {{-- Segway Ninebot GT2P --}}{{ $productoMasVendido->nombre }}
                         </h1>
-                        <p class="leading-relaxed md:w-3/4 w-full mr-4 text-blue-900 dark:text-white">Fam locavore
+                        <p class="leading-relaxed md:w-3/4 w-full mr-4 text-blue-900 dark:text-white">
+                            {{-- Fam locavore
                             kickstarter distillery. Mixtape chillwave tumeric
                             sriracha taximy chia microdosing tilde DIY. XOXO fam indxgo juiceramps cornhole raw
                             denim forage brooklyn. Everyday carry +1 seitan poutine tumeric. Gastropub blue bottle
-                            austin listicle pour-over, neutra jean shorts keytar banjo tattooed umami cardigan.</p>
+                            austin listicle pour-over, neutra jean shorts keytar banjo tattooed umami cardigan. --}}
+                            {{ $productoMasVendido->descripcion }}
+                        </p>
+                        @auth
+                            <button onclick="aniadirCarrito({{Auth::user()->id}}, {{$productoMasVendido->id}})"
+                                class="inline-flex items-center rounded-full py-1 px-3 max-w-full text-black bg-white md:mt-10 mt-2 relative overflow-hidden">
+                                Añadir al carrito
+                                <span class="flex items-center justify-center rounded-full w-8 h-8 ml-2 bg-blue-900" s>
+                                    <svg fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" class="w-4 h-4" viewBox="0 0 24 24">
+                                        <path d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                    </svg>
+                                </span>
+                            </button>
+                        @else
+                            <a href="{{ route('login') }}"
+                                class="inline-flex items-center rounded-full py-1 px-3 max-w-full text-black bg-white md:mt-10 mt-2 relative overflow-hidden">
+                                Añadir al carrito
+                                <span class="flex items-center justify-center rounded-full w-8 h-8 ml-2 bg-blue-900" s>
+                                    <svg fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" class="w-4 h-4" viewBox="0 0 24 24">
+                                        <path d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                    </svg>
+                                </span>
+                            </a>
+                        @endauth
 
-                        <button
-                            class="inline-flex items-center rounded-full py-1 px-3 max-w-full text-black bg-white md:mt-10 mt-2 relative overflow-hidden">
-                            Añadir al carrito
-                            <span class="flex items-center justify-center rounded-full w-8 h-8 ml-2 bg-blue-900" s>
-                                <svg fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" class="w-4 h-4" viewBox="0 0 24 24">
-                                    <path d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                                </svg>
-                            </span>
-                        </button>
+
+
 
                     </div>
                 </div>
@@ -140,6 +158,26 @@
             </script>
         </section>
 
+        <script>
+            function aniadirCarrito(idUsuario, idProducto) {
+                const token = document.head.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                fetch('/api/carritoAdd', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': token
+                        },
+                        body: JSON.stringify({
+                            user_id: idUsuario,
+                            product_id: idProducto
+                        })
+                    })
+                    .catch(error => {
+                        console.error("Error al aniadir el producto en el carrito de dicho usuario: ",
+                            error);
+                    });
 
+            }
+        </script>
     </x-principal-home>
 </x-app-layout>

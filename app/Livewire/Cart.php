@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Cart extends Component
@@ -14,13 +15,17 @@ class Cart extends Component
     public $productosUsuario;
     public $user_id;
 
+    public int $cantidadProductos; //Esto tampoco soluciona el problema
+    #[On('aniadidoProducto')]//El evento no funciona
     public function render()
     {
+        
         $this->user_id = Auth::user()->id;
         $this->productosUsuario = User::findOrFail($this->user_id)
             ->productsCart()
             ->get();
         $this->calcularSubtotal();
+        $this->cantidadProductos = $this->productosUsuario->count();//Esto tampoco soluciona el problema
         return view('livewire.cart');
     }
     public function incrementar($producto_id)
