@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\StripeController;
 use App\Livewire\QrProductoModal;
 use App\Livewire\ShowCategories;
@@ -52,7 +53,9 @@ Route::middleware([
     })->name('home.show');
     /* Fin */
 });
-
+/* Modo prueba */
+Route::get('/productosPedido', [ProductoController::class, 'obtenerNumeroPedidosProducto'])->name('productos.pedido');
+/*  */
 Route::get('/checkout', [StripeController::class, 'checkout'])->name('checkout');
 Route::post('/session', [StripeController::class, 'session'])->name('session');
 Route::get('/success', [StripeController::class, 'success'])->name('success');

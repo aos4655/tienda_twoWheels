@@ -110,4 +110,5 @@ class UserController extends Controller
             $usuario->productsCart()->updateExistingPivot($product_id, ['cantidad' => $cantidad-1]);
         }
     }
+    
 }

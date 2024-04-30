@@ -26,13 +26,14 @@
                     </div>
                 </div>
                 <div class="mt-72 border-t border-gray-200 px-4 py-6 sm:px-6">
-                    <div class="flex justify-between text-base font-medium text-gray-900">
+                    <div class="flex flex-col  text-base font-medium text-gray-900">
                         <p>Subtotal</p>
                         <p id="subtotal">0.00 €</p>
                     </div>
-                    <p class="mt-0.5 text-sm text-gray-500">Los gastos de envio son gratuitos. 
-                    </p>
+
                     <div class="mt-6">
+                        <p class="mt-0.5 text-sm text-gray-500">Los gastos de envio son gratuitos.
+                        </p>
                         <a href="#"
                             class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Checkout</a>
                     </div>
@@ -126,7 +127,7 @@
 
                             // Aplicar scroll si hay más de 5 productos en el carrito
                             const maxProductosSinScroll = 3;
-                            
+
                             const listaAltura = listadoProductos.scrollHeight;
                             if (contador > maxProductosSinScroll) {
                                 listadoProductos.style.maxHeight = '80vh';

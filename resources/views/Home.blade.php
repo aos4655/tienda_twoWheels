@@ -1,7 +1,9 @@
 <x-app-layout>
     <x-principal-home>
+        
         <!-- Pantalla 1 -->
         <section class="dark:bg-blue-900 h-screen bg-green-50  flex justify-center items-center">
+            
             <!-- Contenido de la sección -->
             <div class="container px-3 py-24 mx-auto ">
                 <div class="lg:w-4/5 mx-auto flex flex-wrap mt-2">

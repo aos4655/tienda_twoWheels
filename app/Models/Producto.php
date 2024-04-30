@@ -42,6 +42,6 @@ class Producto extends Model
         cada usuario en el carrito */
     public function usersCart(): BelongsToMany
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withPivot('cantidad');
     }
 }

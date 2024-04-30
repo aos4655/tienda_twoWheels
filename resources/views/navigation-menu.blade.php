@@ -50,10 +50,10 @@
 
             </div>
             <div class="flex items-center">
-                <div >
+                <div class="flex flex-row">
                     <!-- BOTON CARRITO -->
                     @auth
-                        <button type="button" onclick="toggleDrawer()" id="btn-carrito" data-user-id={{ Auth::user()->id }}
+                        {{-- <button type="button" onclick="toggleDrawer()" id="btn-carrito" data-user-id={{ Auth::user()->id }}
                             aria-controls="drawer-navigation"
                             class="relative justify-start inline-flex items-center p-3 text-sm font-medium text-center rounded-lg focus:ring-4 focus:outline-none">
                             <i id="icon-cart" class="fa-solid fa-cart-shopping fa-xl"></i>
@@ -62,7 +62,8 @@
                                  bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
                                 <!-- 30 -->
                             </div>
-                        </button>
+                        </button> --}}
+                        @livewire('cart')
                     @endauth
                     <!-- BOTON DARKMODE -->
                     <button onclick="toggleTheme()" class="ml-3 mr-4">
