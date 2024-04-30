@@ -17,16 +17,24 @@ class PedidoSeeder extends Seeder
         $pedidos = Pedido::factory(50)->create();
         foreach ($pedidos as $item) {
             $productos = $this->devolverIdProductosAleatorios();
-            $item->productos()->attach($productos);
+            $this->asociarCantidadproductospedido($item, $productos);
         }
     }
-    public function devolverIdProductosAleatorios(): array{
+    public function devolverIdProductosAleatorios(): array
+    {
         $idProductos = Producto::pluck('id')->toArray();
-        $productos= [];
+        $productos = [];
         $indices = array_rand($idProductos, random_int(2, count($idProductos)));
         foreach ($indices as $indice) {
-            $productos[]=$idProductos[$indice];
+            $productos[] = $idProductos[$indice];
         }
         return $productos;
+    }
+    public function asociarCantidadproductospedido($pedido, $productos)
+    {
+        foreach ($productos as $producto) {
+            $cantidad = random_int(1, 5);
+            $pedido->productos()->attach($producto, ['cantidad' => $cantidad]);
+        }
     }
 }

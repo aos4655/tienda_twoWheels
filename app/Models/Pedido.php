@@ -20,6 +20,6 @@ class Pedido extends Model
     //Relacion NM con productos
     public function productos(): BelongsToMany
     {
-        return $this->belongsToMany(Producto::class);
+        return $this->belongsToMany(Producto::class)->withPivot('cantidad');
     }
 }

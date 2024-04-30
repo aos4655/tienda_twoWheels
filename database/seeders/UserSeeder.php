@@ -19,12 +19,11 @@ class UserSeeder extends Seeder
 
         foreach ($usuarios as $usuario) {
             $productos = self::obtenerArrayProductos();
-            
+
             foreach ($productos as $producto) {
                 $cantidad = random_int(1, 5);
-                $usuario->productsCart()->attach($producto, ['cantidad' => $cantidad]);//Asi me agrega una cantidad aleatoria a cada producto
+                $usuario->productsCart()->attach($producto, ['cantidad' => $cantidad]); //Asi me agrega una cantidad aleatoria a cada producto
             }
-            
         }
 
 
