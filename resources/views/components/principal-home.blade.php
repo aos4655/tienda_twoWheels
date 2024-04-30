@@ -30,7 +30,7 @@
                         <p>Subtotal</p>
                         <p id="subtotal">0.00 €</p>
                     </div>
-                    <p class="mt-0.5 text-sm text-gray-500">Los gastos de envio son gratuitos. Ahora Se hace un merge
+                    <p class="mt-0.5 text-sm text-gray-500">Los gastos de envio son gratuitos. 
                     </p>
                     <div class="mt-6">
                         <a href="#"
