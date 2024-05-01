@@ -15,8 +15,21 @@ class Cart extends Component
     public $productosUsuario;
     public $user_id;
 
-    public int $cantidadProductos; //Esto tampoco soluciona el problema
-    #[On('aniadidoProducto')]//El evento no funciona
+    public int $cantidadProductos = 0; //Esto tampoco soluciona el problema
+/*     protected $listeners = ['actualizarComponente'];
+ */    /* protected $listeners = ['incrementarNum' => 'subirTotal']; */
+    public function actualizarComponente()
+    {
+        // Actualizar la cantidad de productos
+        $this->cantidadProductos = $this->obtenerCantidadProductos();
+    }
+    
+    public function subirTotal()
+    {
+        // Actualizar la cantidad de productos
+        $this->cantidadProductos = $this->cantidadProductos+20;
+    }
+    #[On("rendCarrito")]
     public function render()
     {
         
@@ -25,7 +38,9 @@ class Cart extends Component
             ->productsCart()
             ->get();
         $this->calcularSubtotal();
-        $this->cantidadProductos = $this->productosUsuario->count();//Esto tampoco soluciona el problema
+        $this->cantidadProductos = User::findOrFail($this->user_id)
+        ->productsCart()
+        ->count(); ///Esto tampoco soluciona el problema
         return view('livewire.cart');
     }
     public function incrementar($producto_id)

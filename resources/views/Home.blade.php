@@ -74,27 +74,27 @@
                 <div id="animation-carousel" class="relative w-11/12 md:w-3/4 ">
                     <div class="relative h-72 overflow-hidden rounded-2xl md:h-96">
                         <div class="carousel-slide">
-                            <img src="https://via.placeholder.com/400x600?text=Slide+1"
+                            <img src="{{Storage::url($productosTopVentas[0]->imagen)}}"
                                 class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                                 alt="Slide 1">
                         </div>
                         <div class="carousel-slide hidden">
-                            <img src="https://via.placeholder.com/400x600?text=Slide+2"
+                            <img src="{{Storage::url($productosTopVentas[1]->imagen)}}"
                                 class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                                 alt="Slide 2">
                         </div>
                         <div class="carousel-slide hidden">
-                            <img src="https://via.placeholder.com/400x600?text=Slide+3"
+                            <img src="{{Storage::url($productosTopVentas[2]->imagen)}}"
                                 class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                                 alt="Slide 3">
                         </div>
                         <div class="carousel-slide hidden">
-                            <img src="https://via.placeholder.com/400x600?text=Slide+4"
+                            <img src="{{Storage::url($productosTopVentas[3]->imagen)}}"
                                 class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                                 alt="Slide 4">
                         </div>
                         <div class="carousel-slide hidden">
-                            <img src="https://via.placeholder.com/400x600?text=Slide+5"
+                            <img src="{{Storage::url($productosTopVentas[4]->imagen)}}"
                                 class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                                 alt="Slide 5">
                         </div>
@@ -176,7 +176,7 @@
                         console.error("Error al aniadir el producto en el carrito de dicho usuario: ",
                             error);
                     });
-
+                Livewire.dispatch('rendCarrito');
             }
         </script>
     </x-principal-home>

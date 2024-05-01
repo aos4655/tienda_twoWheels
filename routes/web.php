@@ -28,7 +28,13 @@ Route::get('/', function () {
     $productoMasVendido = Producto::withCount('pedidos')
             ->orderByDesc('pedidos_count')
             ->first();
-    return view('home', compact('productoMasVendido'));
+    $productosTopVentas = Producto::withCount('pedidos')
+    ->where('categoria_id', '!=', '3') 
+    ->orderByDesc('pedidos_count')
+    ->take(5) 
+    ->get();
+
+    return view('home', compact('productoMasVendido', 'productosTopVentas'));
 })->name('home');
 
 Route::middleware([

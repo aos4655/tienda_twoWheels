@@ -37,11 +37,8 @@ class UpdateAddressInformation extends Component
             'pais' => $this->pais,
             'num_telefono' => $this->num_telefono,
         ]);
-        //Creo la variable de sesion para que muestre el 'Saved.'
-        session()->flash('mensaje', 'Saved.');
-        /* $user->save(); */
+        $this->dispatch('mensajeMostrado');
 
-        /* $this->emit('saved');  */
     }
 
     public function mount()

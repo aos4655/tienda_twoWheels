@@ -98,9 +98,11 @@ class UserController extends Controller
             $usuario->productsCart()->updateExistingPivot($product_id, ['cantidad' => $productoEnCarrito->pivot->cantidad + 1]);
         } else {
             $usuario->productsCart()->attach($product_id, ['cantidad' => 1]);
+           
         }
-        /* Este evento no funciona */
-        $this->dispatch('aniadidoProducto')->to(Cart::class);
+        /* $this->dispatch('incrementarNum') */;/* Este evento desde aqui no funciona */
+        return response(200);
+        
     }
     public function cambiarCantidadProductoCarrito(Request $request)
     {

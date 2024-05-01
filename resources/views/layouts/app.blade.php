@@ -74,6 +74,19 @@
                 });
 
         }
+        /* Hay dos setTimeOut para obligar al dom a que actualice */
+        Livewire.on('mensajeMostrado', () => {
+            var mensajeMostrado = document.getElementById('mensajeMostrado');
+            setTimeout(() => {
+                mensajeMostrado.innerText = "Saved.";
+            }, 1);
+            setTimeout(() => {
+                mensajeMostrado.innerText = "";
+            }, 3000);
+
+        });
+
+
         /*         window.onload = descargarqr;
          */
     </script>

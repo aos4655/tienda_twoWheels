@@ -50,7 +50,7 @@
 
             </div>
             <div class="flex items-center">
-                <div class="flex flex-row">
+                <div class="flex flex-row justify-between w-20">
                     <!-- BOTON CARRITO -->
                     @auth
                         {{-- <button type="button" onclick="toggleDrawer()" id="btn-carrito" data-user-id={{ Auth::user()->id }}
@@ -66,7 +66,7 @@
                         @livewire('cart')
                     @endauth
                     <!-- BOTON DARKMODE -->
-                    <button onclick="toggleTheme()" class="ml-3 mr-4">
+                    <button onclick="toggleTheme()" class="ml-2 mr-4">
                         <div id="iconoLuna">
                             <i class="fa-regular fa-moon fa-xl"></i>
                         </div>
@@ -136,8 +136,6 @@
                     <!-- Teams Dropdown -->
 
                     <div class="hidden sm:flex sm:items-center sm:ms-6">
-
-
                         @auth
                             <!-- Settings Dropdown -->
                             <x-dropdown align="right" class="ms-3" width="48">
@@ -208,12 +206,7 @@
                         @endauth
                     </div>
                 </div>
-
             </div>
-
-
-
-
         </div>
     </div>
 
