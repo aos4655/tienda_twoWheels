@@ -23,7 +23,7 @@ class ProductoFactory extends Factory
            2 => 'bicicletas' ,
            3 =? 'accesorios'
         */
-        $categoria_id = Categoria::all()->random()->id;
+        $categoria_id = Categoria::where('id', '!=', 2)->inRandomOrder()->first()->id;
         $stock = random_int(0,50);
         //Esto es para que ponga alguno en no ya que en la bd salen todos si
         ($stock>0 && $stock<=10)? $stock = 0 : $stock;
@@ -47,4 +47,5 @@ class ProductoFactory extends Factory
         Storage::put($imgNombre, $imgContenido);
         return $imgNombre;
     }
+    
 }
