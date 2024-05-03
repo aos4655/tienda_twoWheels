@@ -369,37 +369,5 @@
         }
     }
 
-    function inicializarDarkMode() {
-        //Guardamos en localStorage la variable theme e iremos cambiandola. 
-        //Si no existe la pondremos en modo claro
-        //Obtenemos los iconos para ir mostrando/ocultando segun interes
-        let currentTheme = localStorage.getItem('theme');
-        var iconoSol = document.getElementById('iconoSol');
-        var iconoLuna = document.getElementById('iconoLuna');
-        var iconoCarrito = document.getElementById('icon-cart');
-
-        if (currentTheme === null) {
-            localStorage.setItem('theme', 'ligth');
-        } else {
-            if (currentTheme === 'dark') {
-                localStorage.setItem('theme', 'dark');
-                iconoSol.removeAttribute('hidden');
-                iconoLuna.setAttribute('hidden', true);
-                if (iconoCarrito) {
-                    iconoCarrito.setAttribute('style', 'color: white');
-                }
-                document.documentElement.classList.add('dark');
-            } else {
-                localStorage.setItem('theme', 'ligth');
-                iconoLuna.removeAttribute('hidden');
-                iconoSol.setAttribute('hidden', true);
-                if (iconoCarrito) {
-                    iconoCarrito.setAttribute('style', 'color: black');
-                }
-                document.documentElement.classList.remove('dark');
-            }
-        }
-
-    }
-    window.onload = inicializarDarkMode;
+    
 </script>
