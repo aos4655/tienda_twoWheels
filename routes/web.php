@@ -6,6 +6,11 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\StripeController;
+use App\Livewire\Accesorios;
+use App\Livewire\Bicicletas;
+use App\Livewire\Checkout;
+use App\Livewire\MisPedidos;
+use App\Livewire\Patinetes;
 use App\Livewire\QrProductoModal;
 use App\Livewire\ShowCategories;
 use App\Livewire\ShowOrders;
@@ -43,14 +48,7 @@ Route::middleware([
     'verified',
     'admin',
 ])->group(function () {
-    /* Route::get('/dashboard', function () {
-        if (Auth::user()->is_admin == 'SI') {
-            return redirect()->route('users.index');
-        } else {
-            return view('home');
-        }
-    })->name('dashboard'); */
-    /* Route::resource('users', UserController::class); */
+    
     Route::get('user', ShowUsers::class)->name('users.index');
     Route::get('category', ShowCategories::class)->name('categories.index');
     Route::get('products', ShowProducts::class)->name('productos.index');
@@ -64,8 +62,19 @@ Route::middleware([
     /* Fin */
 });
 
-Route::get('/checkout', [StripeController::class, 'checkout'])->name('checkout');
-Route::post('/session', [StripeController::class, 'session'])->name('session');
+Route::get('scooter', Patinetes::class)->name('patinetes.index');
+Route::get('bikes', Bicicletas::class)->name('bicicletas.index');
+Route::get('accessories', Accesorios::class)->name('accesorios.index');
+
+/* esta ruta protegela para que solo accedan los usuarios registrados */
+Route::get('miOrders', MisPedidos::class)->name('pedidos.index');
+
+
+
+/* PASARELA DE PAGO */
+Route::get('/checkout2', Checkout::class)->name('checkout2');
+/* Route::get('/checkout', [StripeController::class, 'checkout'])->name('checkout');
+ */Route::post('/session', [StripeController::class, 'session'])->name('session');
 Route::get('/success', [StripeController::class, 'success'])->name('success');
 Route::get('/cancel', [StripeController::class, 'cancel'])->name('cancel');
 

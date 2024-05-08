@@ -30,8 +30,9 @@
     <x-banner />
 
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-        @livewire('navigation-menu')
-
+        @if (!request()->is('checkout2'))
+            @livewire('navigation-menu')
+        @endif
         <!-- Page Heading -->
         @if (isset($header))
             <header class="bg-white dark:bg-gray-800 shadow">
@@ -86,35 +87,44 @@
 
         });
 
-/* dark mode se debe inicializar aqui ya que si no en caso de duplicar pestania 
-        o lo que sea no se aplica el tema bien  */
+        /* dark mode se debe inicializar aqui ya que si no en caso de duplicar pestania 
+                o lo que sea no se aplica el tema bien  */
         function inicializarDarkMode() {
             //Guardamos en localStorage la variable theme e iremos cambiandola. 
             //Si no existe la pondremos en modo claro
             //Obtenemos los iconos para ir mostrando/ocultando segun interes
             let currentTheme = localStorage.getItem('theme');
-            var iconoSol = document.getElementById('iconoSol');
-            var iconoLuna = document.getElementById('iconoLuna');
-            var iconoCarrito = document.getElementById('icon-cart');
+            if (window.location.pathname !== '/checkout2') {
+                var iconoSol = document.getElementById('iconoSol');
+                var iconoLuna = document.getElementById('iconoLuna');
+                var iconoCarrito = document.getElementById('icon-cart');
+            }
+
 
             if (currentTheme === null) {
                 localStorage.setItem('theme', 'ligth');
             } else {
                 if (currentTheme === 'dark') {
                     localStorage.setItem('theme', 'dark');
-                    iconoSol.removeAttribute('hidden');
-                    iconoLuna.setAttribute('hidden', true);
-                    if (iconoCarrito) {
-                        iconoCarrito.setAttribute('style', 'color: white');
+                    if (window.location.pathname !== '/checkout2') {
+                        iconoSol.removeAttribute('hidden');
+                        iconoLuna.setAttribute('hidden', true);
+                        if (iconoCarrito) {
+                            iconoCarrito.setAttribute('style', 'color: white');
+                        }
                     }
+
                     document.documentElement.classList.add('dark');
                 } else {
                     localStorage.setItem('theme', 'ligth');
-                    iconoLuna.removeAttribute('hidden');
-                    iconoSol.setAttribute('hidden', true);
-                    if (iconoCarrito) {
-                        iconoCarrito.setAttribute('style', 'color: black');
+                    if (window.location.pathname !== '/checkout2') {
+                        iconoLuna.removeAttribute('hidden');
+                        iconoSol.setAttribute('hidden', true);
+                        if (iconoCarrito) {
+                            iconoCarrito.setAttribute('style', 'color: black');
+                        }
                     }
+
                     document.documentElement.classList.remove('dark');
                 }
             }

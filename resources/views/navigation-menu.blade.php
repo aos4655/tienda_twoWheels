@@ -31,11 +31,11 @@
                     <x-nav-link href="{{ route('home') }}" :active="request()->routeIs('home.*.')">
                         Home
                     </x-nav-link>
-                    <x-nav-link href="#" :active="request()->routeIs('patinetes.*')">
+                    <x-nav-link href="{{ route('patinetes.index') }}" :active="request()->routeIs('patinetes.*')">
                         Patinetes
-                    </x-nav-link><x-nav-link href="#" :active="request()->routeIs('bicicletas.*')">
+                    </x-nav-link><x-nav-link href="{{ route('bicicletas.index') }}" :active="request()->routeIs('bicicletas.*')">
                         Bicicletas
-                    </x-nav-link><x-nav-link href="#" :active="request()->routeIs('accesorios.*')">
+                    </x-nav-link><x-nav-link href="{{route('accesorios.index')}}" :active="request()->routeIs('accesorios.*')">
                         Accesorios
                     </x-nav-link>
                     @auth
@@ -44,6 +44,9 @@
                                 Administracion
                             </x-nav-link>
                         @endif
+                        <x-nav-link href="{{ route('pedidos.index') }}" :active="request()->routeIs('users.*')">
+                            Mis pedidos
+                        </x-nav-link>
                     @endauth
 
                 </div>
@@ -53,16 +56,6 @@
                 <div class="flex flex-row justify-between w-20">
                     <!-- BOTON CARRITO -->
                     @auth
-                        {{-- <button type="button" onclick="toggleDrawer()" id="btn-carrito" data-user-id={{ Auth::user()->id }}
-                            aria-controls="drawer-navigation"
-                            class="relative justify-start inline-flex items-center p-3 text-sm font-medium text-center rounded-lg focus:ring-4 focus:outline-none">
-                            <i id="icon-cart" class="fa-solid fa-cart-shopping fa-xl"></i>
-                            <div id="cant_cart"
-                                class="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white
-                                 bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
-                                <!-- 30 -->
-                            </div>
-                        </button> --}}
                         @livewire('cart')
                     @endauth
                     <!-- BOTON DARKMODE -->
@@ -216,13 +209,13 @@
             <x-responsive-nav-link href="{{ route('home') }}" :active="request()->routeIs('home.*')">
                 Home
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ route('home') }}" :active="request()->routeIs('patinetes.*')">
+            <x-responsive-nav-link href="{{ route('patinetes.index') }}" :active="request()->routeIs('patinetes.*')">
                 Patinetes
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ route('home') }}" :active="request()->routeIs('bicicletas.*')">
+            <x-responsive-nav-link href="{{ route('bicicletas.index') }}" :active="request()->routeIs('bicicletas.*')">
                 Bicicletas
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ route('home') }}" :active="request()->routeIs('accesorios.*')">
+            <x-responsive-nav-link href="{{route('accesorios.index')}}" :active="request()->routeIs('accesorios.*')">
                 Accesorios
             </x-responsive-nav-link>
             @auth
@@ -259,6 +252,9 @@
 
                     </x-dropdown>
                 @endif
+                <x-responsive-nav-link href="{{route('pedidos.index')}}" :active="request()->routeIs('pedidos.*')">
+                    Mis Pedidos
+                </x-responsive-nav-link>
             @endauth
 
         </div>
@@ -367,7 +363,5 @@
             }
             document.documentElement.classList.add('dark');
         }
-    }
-
-    
+    }  
 </script>

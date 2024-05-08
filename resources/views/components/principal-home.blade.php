@@ -1,48 +1,111 @@
     <div class="mt-5">
         <div class="max-w-8xl mx-auto ">
-
-            <!-- drawer component -->
-            <div id="drawer-navigation"
-                class="fixed mt-12 right-0 z-40 w-150 p-4 overflow-y-auto transition-transform -translate-x-full bg-white dark:bg-gray-800"
-                tabindex="-1" aria-labelledby="drawer-navigation-label" style="transform: translateX(100%);">
-                <h5 id="drawer-navigation-label"
-                    class=" text-base font-semibold text-gray-500 uppercase dark:text-gray-400">
-                    Shopping Cart</h5>
-                <button type="button" onclick="toggleDrawer()"
-                    class=" text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 end-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
-                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                    <span class="sr-only">Close menu</span>
-                </button>
-                <div class="mt-8" style="max-height: 80vh; ">
-                    <div class="flow-root">
-                        <ul role="list" id="lista_productos_carrito" class="-my-6 divide-y divide-gray-200">
-
-                        </ul>
+            <main class="dark:bg-blue-900  bg-green-50">
+                {{ $slot }}
+            </main>
+            <footer class="text-gray-600 rounded-t-3xl  px-2 bg-blue-900 dark:bg-green-100">
+                <div
+                    class="container px-5 py-24 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
+                    <div class="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left ">
+                        <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
+                            <x-application-mark class="block h-9 w-auto" />
+                            <span class="ml-3 text-xl text-blue-900">Two Wheels</span>
+                        </a>
+                        <p class="mt-2 text-sm text-gray-500">Apostando por un futuro mas sostenible.</p>
+                    </div>
+                    <div
+                        class="flex-grow flex flex-wrap justify-between  md:pl-40 -mb-10 md:mt-0 mt-10 md:text-left text-center">
+                        <div class="lg:w-1/4 md:w-1/2 w-full px-4 justify-center">
+                            <h2 class="title-font font-bold dark:text-gray-900 text-white tracking-widest text-sm mb-3">
+                                LEGAL</h2>
+                            <nav class="list-none mb-10">
+                                <li>
+                                    <a class="text-gray-600 hover:text-gray-800">Términos y Condiciones</a>
+                                </li>
+                                <li>
+                                    <a class="text-gray-600 hover:text-gray-800">Política de privacidad</a>
+                                </li>
+                            </nav>
+                        </div>
+                        <div class="lg:w-1/4 md:w-1/2 w-full px-4">
+                            <h2 class="title-font font-bold dark:text-gray-900 text-white tracking-widest text-sm mb-3">
+                                CONTÁCTANOS</h2>
+                            <nav class="list-none flex flex-row mb-10">
+                                <li>
+                                    <a target="_blanck" href="<?php echo (isset($_ENV['NUM_WHATSAPP']) != null ?  'https://wa.me/'.$_ENV['NUM_WHATSAPP'].
+                                    '?text=Hola,%20me%20pongo%20en%20contacto%20con%20vosotros%20para..': '')?>"
+                                     onmouseenter="addAnimation('whatsapp')" onmouseleave="removeAnimation('whatsapp')"
+                                        class="text-gray-600 hover:text-gray-800 mx-5 "><i id="whatsapp"
+                                            class="fa-brands fa-whatsapp fa-2xl"></i></a><!-- Whatsapp -->
+                                </li>
+                                <li>
+                                    <a onmouseenter="addAnimation('email')" onmouseleave="removeAnimation('email')"
+                                        class="text-gray-600 hover:text-gray-800"><i id="email"
+                                            class="fa-regular fa-envelope fa-2xl"></i></a><!-- Email -->
+                                </li>
+                            </nav>
+                        </div>
+                        <div class="lg:w-1/4 md:w-1/2 w-full px-4">
+                            <h2 class="title-font font-bold dark:text-gray-900 text-white tracking-widest text-sm mb-3">
+                                SÍGUENOS</h2>
+                            <nav class="list-none mb-10">
+                                <li>
+                                    <a class="text-gray-600 hover:text-gray-800">Instagram</a>
+                                </li>
+                                <li>
+                                    <a class="text-gray-600 hover:text-gray-800">Second Link</a>
+                                </li>
+                                <li>
+                                    <a class="text-gray-600 hover:text-gray-800">Third Link</a>
+                                </li>
+                                <li>
+                                    <a class="text-gray-600 hover:text-gray-800">Fourth Link</a>
+                                </li>
+                            </nav>
+                        </div>
                     </div>
                 </div>
-                <div class="mt-72 border-t border-gray-200 px-4 py-6 sm:px-6">
-                    <div class="flex flex-col  text-base font-medium text-gray-900">
-                        <p>Subtotal</p>
-                        <p id="subtotal">0.00 €</p>
-                    </div>
-
-                    <div class="mt-6">
-                        <p class="mt-0.5 text-sm text-gray-500">Los gastos de envio son gratuitos.
-                        </p>
-                        <a href="#"
-                            class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Checkout</a>
-                    </div>
-
-                </div>
-            </div>
-            {{ $slot }}
+            </footer>
+    
             <script>
-                function toggleDrawer() {
+                function aniadirCarrito(idUsuario, idProducto) {
+                    const token = document.head.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                    fetch('/api/carritoAdd', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': token
+                            },
+                            body: JSON.stringify({
+                                user_id: idUsuario,
+                                product_id: idProducto
+                            })
+                        })
+                        .catch(error => {
+                            console.error("Error al aniadir el producto en el carrito de dicho usuario: ",
+                                error);
+                        });
+                    Livewire.dispatch('rendCarrito');
+                }
+    
+                function addAnimation(elemento) {
+                    miElemento = document.getElementById(elemento);
+                    miElemento.classList.add('fa-spin-pulse');
+                }
+    
+                function removeAnimation(elemento) {
+                    miElemento = document.getElementById(elemento);
+                    miElemento.classList.remove('fa-spin-pulse');
+                }
+            </script>
+            <!-- ************************* 
+                    ANTIGUO CARRITO
+                **************************** -->
+            <!-- <script>
+                
+                
+
+                 function toggleDrawer() {
                     var drawer = document.getElementById('drawer-navigation');
                     var drawerStyle = window.getComputedStyle(drawer);
                     var drawerTransform = drawerStyle.getPropertyValue('transform');
@@ -234,7 +297,7 @@
                 });
 
 
-                window.onload = inicializarCarrito;
-            </script>
+                window.onload = inicializarCarrito; 
+            </script> -->
         </div>
     </div>
