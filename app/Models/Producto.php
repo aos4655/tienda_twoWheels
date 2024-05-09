@@ -37,6 +37,13 @@ class Producto extends Model
             set: fn ($v) => ucwords($v),
         );
     }
+    public function precio(): Attribute
+    {
+        return Attribute::make(
+            set: fn ($v) => number_format($v, 2, '.', ','),
+            get: fn ($v) => number_format($v, 2, ',', '.'),
+        );
+    }
 
     /* Esta es la relacion NM con los usuario para saber que productos tiene 
         cada usuario en el carrito */

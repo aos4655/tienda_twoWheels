@@ -10,7 +10,7 @@ use Livewire\Component;
 class Cart extends Component
 {
     public $abrirModalCart = false;
-    public $subtotal;
+    public float $subtotal;
 
     public $productosUsuario;
     public $user_id;
@@ -91,7 +91,9 @@ class Cart extends Component
         $subtotal = 0;
 
         foreach ($this->productosUsuario as $producto) {
-            $subtotal += $producto->precio * $producto->pivot->cantidad;
+            $precioSinPunto = str_replace('.', '', $producto->precio);
+            $precioSinComa = str_replace(',', '.', $precioSinPunto);
+            $subtotal += (float)$precioSinComa * $producto->pivot->cantidad;
         }
 
         $this->subtotal = $subtotal;

@@ -94,7 +94,7 @@
                 <!-- total amount -->
                 <div class="flex justify-end space-x-4  px-10 py-4 text-lg font-bold text-white">
                     <div>Total</div>
-                    <div>{{ $subtotal }} €</div>
+                    <div>{{ str_replace('.', ',', $subtotal) }} €</div>
                 </div>
 
                 <div class="flex justify-end">
