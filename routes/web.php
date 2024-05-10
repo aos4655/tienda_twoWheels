@@ -31,13 +31,13 @@ use App\Models\Producto;
 
 Route::get('/', function () {
     $productoMasVendido = Producto::withCount('pedidos')
-            ->orderByDesc('pedidos_count')
-            ->first();
+        ->orderByDesc('pedidos_count')
+        ->first();
     $productosTopVentas = Producto::withCount('pedidos')
-    ->where('categoria_id', '!=', '3') 
-    ->orderByDesc('pedidos_count')
-    ->take(5) 
-    ->get();
+        ->where('categoria_id', '!=', '3')
+        ->orderByDesc('pedidos_count')
+        ->take(5)
+        ->get();
 
     return view('home', compact('productoMasVendido', 'productosTopVentas'));
 })->name('home');
@@ -48,7 +48,7 @@ Route::middleware([
     'verified',
     'admin',
 ])->group(function () {
-    
+
     Route::get('user', ShowUsers::class)->name('users.index');
     Route::get('category', ShowCategories::class)->name('categories.index');
     Route::get('products', ShowProducts::class)->name('productos.index');
@@ -61,20 +61,24 @@ Route::middleware([
     })->name('home.show');
     /* Fin */
 });
-
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('miOrders', MisPedidos::class)->name('pedidos.index');
+});
 Route::get('scooter', Patinetes::class)->name('patinetes.index');
 Route::get('bikes', Bicicletas::class)->name('bicicletas.index');
 Route::get('accessories', Accesorios::class)->name('accesorios.index');
 
-/* esta ruta protegela para que solo accedan los usuarios registrados */
-Route::get('miOrders', MisPedidos::class)->name('pedidos.index');
 
 
 
 /* PASARELA DE PAGO */
 Route::get('/checkout2', Checkout::class)->name('checkout2');
 /* Route::get('/checkout', [StripeController::class, 'checkout'])->name('checkout');
- */Route::post('/session', [StripeController::class, 'session'])->name('session');
+ */
+Route::post('/session', [StripeController::class, 'session'])->name('session');
 Route::get('/success', [StripeController::class, 'success'])->name('success');
 Route::get('/cancel', [StripeController::class, 'cancel'])->name('cancel');
-

@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Console\Commands\GenerateTracking;
+use App\Jobs\ActualizarSeguimiento;
 use App\Models\Pedido;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class StripeController extends Controller
 {
@@ -95,8 +99,7 @@ class StripeController extends Controller
             $cantidad = $producto->pivot->cantidad;
             $pedido->productos()->attach($producto, ['cantidad' => $cantidad]);
         }
-        /* Llamada a la api para que cree el seguimiento */
-       /*  $this->crearSeguimiento($pedido->track_num); */
+        /* No es necesario añadirle un tracking ya que lo tenemos automatizado.  */
     }
     public function generateTrackingNumber($pedidoModel, $prefix = 'PK')
     {
@@ -108,21 +111,5 @@ class StripeController extends Controller
 
         return $trackingNumber;
     }
-    /* public function crearSeguimiento($trackingNumber)
-    {
-        $url = url("/api/logistica/crearSeguimiento/{$trackingNumber}");
-
-        try {
-            $response = Http::post($url, []);
-            //No se yo si deberiamos obtener la respuesta
-            if ($response->successful()) {
-                $responseData = $response->json(); 
-                var_dump($responseData); 
-            } else {
-                echo 'Error en la solicitud HTTP: ' . $response->status();
-            }
-        } catch (Exception $e) {
-            echo 'Error al realizar la solicitud HTTP: ' . $e->getMessage();
-        }
-    } */
+    
 }

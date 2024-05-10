@@ -6,9 +6,10 @@ use App\Models\Logistic_api;
 use App\Models\Pedido;
 use Exception;
 use Illuminate\Console\Command;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Http;
 
-class GenerateTracking extends Command
+class GenerateTracking extends Command implements ShouldQueue
 {
     /**
      * The name and signature of the console command.
@@ -30,9 +31,11 @@ class GenerateTracking extends Command
     public function handle()
     {
         //Buscamos pedidos cuyo track_num no esta en ningun num-seguimiento de la tabla logistic apis
+        //y ademas que sean del dia de hoy
         $pedidosSinRegistroApi = Pedido::select('pedidos.*')
             ->leftJoin('logistic_apis', 'pedidos.track_num', '=', 'logistic_apis.num_seguimiento')
             ->whereNull('logistic_apis.num_seguimiento')
+            ->whereRaw("DATE_FORMAT(pedidos.created_at, '%Y-%m-%d') = ?", [date('Y-m-d')])
             ->get();
         if ($pedidosSinRegistroApi) {
             foreach ($pedidosSinRegistroApi as $pedido) {
