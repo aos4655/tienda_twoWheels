@@ -4,7 +4,7 @@
 
             <div class="flex justify-end items-center mt-4 mr-4">
                 <p class="text-gray-500 dark:text-gray-300 mr-5">Sort</p>
-                <select wire:model="valor" wire:change="ordenar" class="font-medium text-gray-700 bg-transparent dark:text-gray-500 focus:outline-none rounded-full">
+                <select wire:model="valor" wire:change="ordenar" class="font-medium text-gray-700 bg-transparent dark:text-white focus:outline-none rounded-full">
 {{--                     <option value="">Recomendado</option>
  --}}                    <option value="precio_asc">Precio Ascendente</option>
                     <option value="precio_desc">Precio Descendente</option>
