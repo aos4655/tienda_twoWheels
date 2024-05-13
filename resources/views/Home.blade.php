@@ -156,6 +156,6 @@
                 </script>
             </section>
         </main>
-        
+
     </x-principal-home>
 </x-app-layout>

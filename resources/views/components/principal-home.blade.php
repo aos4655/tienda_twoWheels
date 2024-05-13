@@ -1,6 +1,6 @@
     <div class="mt-5">
         <div class="max-w-8xl mx-auto ">
-            <main class="dark:bg-blue-900  bg-green-50">
+            <main class="dark:bg-blue-900  bg-[#EFFAEB]">
                 {{ $slot }}
             </main>
             <footer class="text-white rounded-t-3xl  px-2 bg-blue-950 dark:bg-blue-950">

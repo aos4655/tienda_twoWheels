@@ -21,7 +21,7 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
+    
     <!-- Styles -->
     @livewireStyles
 </head>
@@ -101,21 +101,24 @@
             //Si no existe la pondremos en modo claro
             //Obtenemos los iconos para ir mostrando/ocultando segun interes
             let currentTheme = localStorage.getItem('theme');
+            let iconoDarkMode = document.getElementById('theme');
             if (window.location.pathname !== '/checkout2') {
-                var iconoSol = document.getElementById('iconoSol');
-                var iconoLuna = document.getElementById('iconoLuna');
+                /* var iconoSol = document.getElementById('iconoSol');
+                var iconoLuna = document.getElementById('iconoLuna'); */
                 var iconoCarrito = document.getElementById('icon-cart');
             }
 
 
             if (currentTheme === null) {
                 localStorage.setItem('theme', 'ligth');
+                iconoDarkMode.checked = false;
             } else {
                 if (currentTheme === 'dark') {
                     localStorage.setItem('theme', 'dark');
                     if (window.location.pathname !== '/checkout2') {
-                        iconoSol.removeAttribute('hidden');
-                        iconoLuna.setAttribute('hidden', true);
+                        /* iconoSol.removeAttribute('hidden');
+                        iconoLuna.setAttribute('hidden', true); */
+                        iconoDarkMode.checked = true;
                         if (iconoCarrito) {
                             iconoCarrito.setAttribute('style', 'color: white');
                         }
@@ -125,8 +128,9 @@
                 } else {
                     localStorage.setItem('theme', 'ligth');
                     if (window.location.pathname !== '/checkout2') {
-                        iconoLuna.removeAttribute('hidden');
-                        iconoSol.setAttribute('hidden', true);
+                        /* iconoLuna.removeAttribute('hidden');
+                        iconoSol.setAttribute('hidden', true); */
+                        iconoDarkMode.checked = false;
                         if (iconoCarrito) {
                             iconoCarrito.setAttribute('style', 'color: black');
                         }

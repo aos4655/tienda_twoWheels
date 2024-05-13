@@ -35,7 +35,7 @@
                         Patinetes
                     </x-nav-link><x-nav-link href="{{ route('bicicletas.index') }}" :active="request()->routeIs('bicicletas.*')">
                         Bicicletas
-                    </x-nav-link><x-nav-link href="{{route('accesorios.index')}}" :active="request()->routeIs('accesorios.*')">
+                    </x-nav-link><x-nav-link href="{{ route('accesorios.index') }}" :active="request()->routeIs('accesorios.*')">
                         Accesorios
                     </x-nav-link>
                     @auth
@@ -59,14 +59,36 @@
                         @livewire('cart')
                     @endauth
                     <!-- BOTON DARKMODE -->
-                    <button onclick="toggleTheme()" class="ml-2 mr-4">
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input class="sr-only peer" value="" type="checkbox" onchange="toggleTheme()" />
+                        <div
+                            class="w-16 h-9 pt-1 rounded-full ring-0 peer duration-500 outline-none bg-[#fbedb6] overflow-hidden
+                                   before:flex before:items-center before:justify-center
+                                   after:flex after:items-center after:justify-center
+                                   before:content-['☀️'] before:absolute before:h-7 before:w-7
+                                   before:bg-[#f4ca25] before:rounded-full before:left-8
+                                   before:-translate-x-full before:transition-all before:duration-700
+                                   peer-checked:before:opacity-0 peer-checked:before:translate-x-0
+                                   shadow-lg shadow-gray-400 peer-checked:shadow-lg peer-checked:shadow-gray-700
+                                   peer-checked:bg-[#043449]
+                                   after:content-['🌑'] after:absolute after:bg-[#25b6f4]
+                                   after:rounded-full after:right-1 after:-translate-x-full
+                                   after:w-7 after:h-7 after:opacity-0
+                                   after:transition-all after:duration-700 peer-checked:after:opacity-100
+                                   peer-checked:after:translate-x-0">
+                        </div>
+                    </label>
+
+
+
+                    {{-- <button onclick="toggleTheme()" class="ml-2 mr-4">
                         <div id="iconoLuna">
                             <i class="fa-regular fa-moon fa-xl"></i>
                         </div>
                         <div id="iconoSol" hidden>
                             <i class="fa-regular fa-sun fa-xl" style="color:white;"></i>
                         </div>
-                    </button>
+                    </button> --}}
                 </div>
                 <div class="hidden sm:block sm:items-center sm:ms-6">
                     @auth
@@ -215,7 +237,7 @@
             <x-responsive-nav-link href="{{ route('bicicletas.index') }}" :active="request()->routeIs('bicicletas.*')">
                 Bicicletas
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{route('accesorios.index')}}" :active="request()->routeIs('accesorios.*')">
+            <x-responsive-nav-link href="{{ route('accesorios.index') }}" :active="request()->routeIs('accesorios.*')">
                 Accesorios
             </x-responsive-nav-link>
             @auth
@@ -252,7 +274,7 @@
 
                     </x-dropdown>
                 @endif
-                <x-responsive-nav-link href="{{route('pedidos.index')}}" :active="request()->routeIs('pedidos.*')">
+                <x-responsive-nav-link href="{{ route('pedidos.index') }}" :active="request()->routeIs('pedidos.*')">
                     Mis Pedidos
                 </x-responsive-nav-link>
             @endauth
@@ -341,27 +363,27 @@
         //Si no existe la pondremos en modo claro
         //Obtenemos los iconos para ir mostrando/ocultando segun interes
         let currentTheme = localStorage.getItem('theme');
-        var iconoSol = document.getElementById('iconoSol');
-        var iconoLuna = document.getElementById('iconoLuna');
+        /* var iconoSol = document.getElementById('iconoSol');
+        var iconoLuna = document.getElementById('iconoLuna'); */
         var iconoCarrito = document.getElementById('icon-cart');
 
         if (currentTheme === 'dark') {
             localStorage.setItem('theme', 'ligth');
-            iconoLuna.removeAttribute('hidden');
-            iconoSol.setAttribute('hidden', true);
+            /* iconoLuna.removeAttribute('hidden');
+            iconoSol.setAttribute('hidden', true); */
             if (iconoCarrito) {
                 iconoCarrito.setAttribute('style', 'color: black');
             }
             document.documentElement.classList.remove('dark');
         } else {
             localStorage.setItem('theme', 'dark');
-            iconoSol.removeAttribute('hidden');
-            iconoLuna.setAttribute('hidden', true);
+            /* iconoSol.removeAttribute('hidden');
+            iconoLuna.setAttribute('hidden', true); */
 
             if (iconoCarrito) {
                 iconoCarrito.setAttribute('style', 'color: white');
             }
             document.documentElement.classList.add('dark');
         }
-    }  
+    }
 </script>
