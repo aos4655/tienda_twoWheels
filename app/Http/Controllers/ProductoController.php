@@ -36,7 +36,7 @@ class ProductoController extends Controller
      */
     public function show(Producto $producto)
     {
-        //
+        return view("detalleProducto", compact('producto'));
     }
 
     /**

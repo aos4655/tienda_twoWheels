@@ -79,6 +79,7 @@ Route::post('/session', [StripeController::class, 'session'])->name('session');
 Route::get('/success', [StripeController::class, 'success'])->name('success');
 Route::get('/cancel', [StripeController::class, 'cancel'])->name('cancel');
 });
+Route::resource('productos', ProductoController::class);
 Route::get('scooter', Patinetes::class)->name('patinetes.index');
 Route::get('bikes', Bicicletas::class)->name('bicicletas.index');
 Route::get('accessories', Accesorios::class)->name('accesorios.index');

@@ -21,7 +21,7 @@
                 @foreach ($accesorios as $item)
                     <article
                         class="relative rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300">
-                        <a href="#">
+                        <a href="{{route('productos.show', $item->id)}}">
                             <div class="relative flex items-end overflow-hidden rounded-xl">
                                 <img src="{{ Storage::url($item->imagen) }}" alt="{{ $item->nombre }}" class="w-full" />
                                 <div
