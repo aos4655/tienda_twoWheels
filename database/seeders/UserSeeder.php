@@ -27,13 +27,7 @@ class UserSeeder extends Seeder
         }
 
 
-        //Aqui van a ir todos mis usuarios administradores
-        User::create([
-            'name' => 'Antonio',
-            'email' => 'admin@admin.com',
-            'password' => Hash::make('admin'), //La hasheo para que luego el login la coja bien 
-            'is_admin' => "SI"
-        ]);
+        
     }
     public static function obtenerArrayProductos(): array
     {

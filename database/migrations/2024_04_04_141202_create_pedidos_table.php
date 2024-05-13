@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('pedidos', function (Blueprint $table) {
             $table->id();
             /* 'user_id', 'state', 'track_num' */
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();;
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->string('direccion');
             $table->string('track_num');
             $table->timestamps();
         });

@@ -40,7 +40,7 @@ class Producto extends Model
     public function precio(): Attribute
     {
         return Attribute::make(
-            set: fn ($v) => number_format($v, 2, '.', ','),
+            
             get: fn ($v) => number_format($v, 2, ',', '.'),
         );
     }

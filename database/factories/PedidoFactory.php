@@ -18,9 +18,11 @@ class PedidoFactory extends Factory
     public function definition(): array
     {
         $pedidoModel = app(\App\Models\Pedido::class);
+        $usuario = User::all()->random();
         return [
-            'user_id'=>User::all()->random()->id, 
-            'track_num'=>$this->generateTrackingNumber($pedidoModel)
+            'user_id'=>$usuario->id, 
+            'track_num'=>$this->generateTrackingNumber($pedidoModel),
+            'direccion' => $usuario->direccion,
         ];
         
     }

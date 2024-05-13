@@ -8,6 +8,7 @@ use App\Models\Categoria;
 use App\Models\Producto;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
@@ -32,5 +33,13 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(PedidoSeeder::class);
         $this->call(LogisticApiSeeder::class);
+        //Aqui van a ir todos mis usuarios administradores
+        User::create([
+            'name' => 'Antonio',
+            'email' => 'admin@admin.com',
+            'password' => Hash::make('admin'), //La hasheo para que luego el login la coja bien 
+            'is_admin' => "SI"
+
+        ]);
     }
 }

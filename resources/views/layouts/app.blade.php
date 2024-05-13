@@ -85,14 +85,14 @@
             }, 3000);
 
         });
-        if (isset(session('success'))) {
+        /* if (isset(session('success'))) {
             Swal.fire({
                 icon: "success",
                 title: session('success'),
                 showConfirmButton: false,
                 timer: 2000
             });
-        }
+        } */
 
         /* dark mode se debe inicializar aqui ya que si no en caso de duplicar pestania 
                 o lo que sea no se aplica el tema bien  */

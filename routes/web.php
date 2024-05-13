@@ -67,6 +67,17 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('miOrders', MisPedidos::class)->name('pedidos.index');
+    /* RUTA PREVIA DE PAGO */
+Route::get('/checkout2', Checkout::class)->name('checkout2');
+/* Route::get('/checkout', [StripeController::class, 'checkout'])->name('checkout');
+ */
+/* RUTA PAYPAL */
+
+
+/* RUTA PASARELA DE PAGO */
+Route::post('/session', [StripeController::class, 'session'])->name('session');
+Route::get('/success', [StripeController::class, 'success'])->name('success');
+Route::get('/cancel', [StripeController::class, 'cancel'])->name('cancel');
 });
 Route::get('scooter', Patinetes::class)->name('patinetes.index');
 Route::get('bikes', Bicicletas::class)->name('bicicletas.index');
@@ -75,10 +86,4 @@ Route::get('accessories', Accesorios::class)->name('accesorios.index');
 
 
 
-/* PASARELA DE PAGO */
-Route::get('/checkout2', Checkout::class)->name('checkout2');
-/* Route::get('/checkout', [StripeController::class, 'checkout'])->name('checkout');
- */
-Route::post('/session', [StripeController::class, 'session'])->name('session');
-Route::get('/success', [StripeController::class, 'success'])->name('success');
-Route::get('/cancel', [StripeController::class, 'cancel'])->name('cancel');
+

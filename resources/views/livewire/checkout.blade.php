@@ -105,7 +105,7 @@
 
     <section
         class="h-screen flex justify-center items-center dark:bg-blue-900 bg-green-50 px-4 text-gray-600 antialiased">
-        <div class="flex h-full flex-col justify-center">
+        <div class="flex h-full w-3/4 flex-col justify-center">
             <!-- Table -->
             <div class="mx-auto py-7 w-full max-w-2xl rounded-3xl bg-white dark:bg-blue-800 shadow-lg">
                 <header class="px-9 py-4">
@@ -154,10 +154,10 @@
                                             <button class="bin-button" wire:click="eliminar({{ $producto->id }})">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                     viewBox="0 0 39 7" class="bin-top">
-                                                    <line stroke-width="4" stroke="white" y2="5"
-                                                        x2="39" y1="5"></line>
-                                                    <line stroke-width="3" stroke="white" y2="1.5"
-                                                        x2="26.0357" y1="1.5" x1="12"></line>
+                                                    <line stroke-width="4" stroke="white" y2="5" x2="39"
+                                                        y1="5"></line>
+                                                    <line stroke-width="3" stroke="white" y2="1.5" x2="26.0357"
+                                                        y1="1.5" x1="12"></line>
                                                 </svg>
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                     viewBox="0 0 33 39" class="bin-bottom">
@@ -187,12 +187,41 @@
                     <div>Total</div>
                     <div>{{ str_replace('.', ',', $subtotal) }} €</div>
                 </div>
-
-                <div class="flex justify-end">
-                    <!-- Send this data to backend (note: use class 'hidden' to hide this input) -->
-                    <input type="hidden" class="border border-black bg-gray-50" x-model="selected" />
+                <div class="flex ml-9 w-full dark:text-white text-blue-950">
+                    <div class="flex flex-col w-4/5">
+                        <div class="flex justify-start ml-3 items-center">Entregando a
+                            <input id="user_nombre" type="text" disabled class="ml-1 h-3 bg-transparent border-none"
+                                value="{{ Auth::user()->name }}">
+                        </div>
+                        <div class="flex justify-start">
+                            <input id="user_direccion" type="text" disabled
+                                class="h-3 w-full bg-transparent border-none" value="{{ Auth::user()->direccion }}">
+                        </div>
+                    </div>
+                    <div class="flex flex-col w-1/5 mr-10 mt-5 ">
+                        <button id="boton_cambiar" onclick="editarNombreYDireccion()"
+                            class=" italic font-extrabold text-lg text-blue-800 dark:text-green-50">Cambiar</button>
+                    </div>
                 </div>
-                <div class="flex flex-row-reverse text-white pb-3">
+                <div class="w-11/12 ml-7 my-4">
+                    <hr class=" border-blue-800 dark:border-green-50">
+                </div>
+                <div class="w-11/12 ml-7 my-4 flex flex-row justify-center  items-center">
+                    <!-- PAYPAL -->
+                    <input id="paypal" name="pago" type="radio" value="PagarCard" class="mr-2">
+                    <div for="paypal"
+                        class="flex rounded-full bg-green-50 px-auto p-2 px-4 w-24 justify-center items-center mr-2">
+                        <img class="w-9 h-9 " src="{{ Storage::url('imgPago/paypal.png') }}" alt="foto">
+                    </div>
+
+                    <!-- STRIPE -->
+                    <input id="card" name="pago" type="radio" value="PagarCard" class="ml-2">
+                    <div for="card"
+                        class="flex rounded-full bg-green-50 px-auto p-2 px-4 w-24 justify-center items-center ml-2">
+                        <img class="w-9 h-9 " src="{{ Storage::url('imgPago/card.png') }}" alt="foto">
+                    </div>
+                </div>
+                <div class="flex flex-row-reverse text-white mt-8 pb-3">
                     <form action="/session" method="POST">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <button type="submit" class="rounded-full bg-blue-900 mx-6 p-2 w-20">Pagar</button>
@@ -207,6 +236,31 @@
 
     @livewireScripts
     <script>
+        function editarNombreYDireccion() {
+            const nombre = document.getElementById('user_nombre');
+            const direccion = document.getElementById('user_direccion');
+            const boton = document.getElementById('boton_cambiar');
+            const habilitado = !(nombre.disabled && direccion.disabled);
+
+            if (habilitado) {
+                boton.innerText = "Cambiar";
+                nombre.disabled = true;
+                direccion.disabled = true;
+                nombre.classList.remove('border-white');
+                nombre.classList.add('border-none');
+                direccion.classList.remove('border-white');
+                direccion.classList.add('border-none');
+            } else {
+                boton.innerText = "Ok";
+                nombre.disabled = false;
+                direccion.disabled = false;
+                nombre.classList.remove('border-none');
+                nombre.classList.add('border-white');
+                direccion.classList.remove('border-none');
+                direccion.classList.add('border-white');
+            }
+
+        }
         // Dark mode initialization
         function inicializarDarkMode() {
             let currentTheme = localStorage.getItem('theme');
