@@ -113,14 +113,14 @@
 
             if (currentTheme === null) {
                 localStorage.setItem('theme', 'ligth');
-                iconoDarkMode.checked = false;
+                /* iconoDarkMode.checked = false; */
             } else {
                 if (currentTheme === 'dark') {
                     localStorage.setItem('theme', 'dark');
                     if (window.location.pathname !== '/checkout2') {
                         /* iconoSol.removeAttribute('hidden');
                         iconoLuna.setAttribute('hidden', true); */
-                        iconoDarkMode.checked = true;
+                        /* iconoDarkMode.checked = true; */
                         if (iconoCarrito) {
                             iconoCarrito.setAttribute('style', 'color: white');
                         }
@@ -132,7 +132,7 @@
                     if (window.location.pathname !== '/checkout2') {
                         /* iconoLuna.removeAttribute('hidden');
                         iconoSol.setAttribute('hidden', true); */
-                        iconoDarkMode.checked = false;
+                        /* iconoDarkMode.checked = false; */
                         if (iconoCarrito) {
                             iconoCarrito.setAttribute('style', 'color: black');
                         }

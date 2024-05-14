@@ -51,8 +51,8 @@ Route::middleware([
 
     Route::get('user', ShowUsers::class)->name('users.index');
     Route::get('category', ShowCategories::class)->name('categories.index');
-    Route::get('products', ShowProducts::class)->name('productos.index');
-    Route::get('orders', ShowOrders::class)->name('pedidos.index');
+    Route::get('products', ShowProducts::class)->name('todos-productos.index');
+    Route::get('orders', ShowOrders::class)->name('todos-pedidos.index');
 
 
     /* Esta ruta es para pruebas */

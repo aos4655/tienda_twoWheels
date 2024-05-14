@@ -1,6 +1,6 @@
 <div>
     <x-plantilla-admin>
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+        <div class=" overflow-hidden shadow-xl sm:rounded-lg">
             <div
                 class="flex items-center justify-between flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 py-4 bg-white dark:bg-gray-900">
                 <label for="table-search" class="sr-only">Search</label>
@@ -17,56 +17,45 @@
                         placeholder="Buscar..." type="search" wire:model.live="search"></x-input>
                 </div>
             </div>
+            @if (!$users->count())
+                No hay resultados!!
+            @endif
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                        <th scope="col" class="px-6 py-3 cursor-pointer" wire:click="ordenar('name')">
-                            Nombre
-                        </th>
-                        <th scope="col" class="px-6 py-3 cursor-pointer" wire:click="ordenar('email')">
-                            Email
-                        </th>
-                        <th scope="col" class="px-6 py-3 cursor-pointer" wire:click="ordenar('is_admin')">
-                            Status
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Action
-                        </th>
+                <thead
+                    class="block md:table-header-group text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr
+                        class="border border-grey-500 md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto  md:relative ">
+                        <th class=" p-2  font-bold md:border md:border-none text-left block md:table-cell">
+                            Nombre</th>
+                        <th class=" p-2  font-bold md:border md:border-none text-left block md:table-cell">
+                            Email</th>
+                        <th class=" p-2  font-bold md:border md:border-none text-left block md:table-cell">
+                            Status</th>
+                        <th class=" p-2  font-bold md:border md:border-none text-left block md:table-cell">
+                            Action</th>
+
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="mt-8">
                     @foreach ($users as $user)
-                        <tr
-                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            {{-- IMAGEN --}}
-                            {{-- <th scope="row"
-                            class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap">
-                            <img class="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-1.jpg"
-                                alt="Jese image">
-                            
-                            </th> --}}
-                            <td class="px-6 py-4">
-                                <div class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {{ $user->name }}
-                                </div>
+                        <tr class="bg-gray-300 py-4 border-b-2 md:border-none block md:table-row ">
+                            <td class="p-2 ml-8 md:border md:border-none block md:table-cell">
+                                <span class="inline-block w-1/3 md:hidden font-bold">Nombre</span>
+                                {{ $user->name }}
                             </td>
-                            <td class="px-6 py-4">
-                                <div class="flex items-center">
-                                    <div class="font-normal text-gray-500">
-                                        {{ $user->email }}
-                                    </div>
-                                </div>
+                            <td class="p-2 ml-8 md:border md:border-none block md:table-cell">
+                                <span class="inline-block w-1/3 md:hidden font-bold">Email</span>
+                                {{ $user->email }}
                             </td>
-                            <td class="px-6 py-4">
-                                <div class="flex items-center">
-                                    <div class="font-normal text-gray-500">
-                                        {{ $user->is_admin == 'SI' ? 'Administrador' : 'Normal' }}
-                                    </div>
-                                </div>
+                            <td class="p-2 ml-8 md:border md:border-none block md:table-cell">
+                                <span class="inline-block w-1/3 md:hidden font-bold">Status</span>
+                                {{ $user->is_admin == 'SI' ? 'Administrador' : 'Normal' }}
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="p-2 ml-8 md:border md:border-none block md:table-cell">
+                                <span class="inline-block w-1/3 md:hidden font-bold">Action</span>
+
                                 <!-- Menú desplegable -->
-                                <div class="dropdown-container">
+                                <div class="dropdown-container ">
                                     <!-- Botón para abrir el dropdown -->
                                     <button id="dropdownActionButton" onclick="toggleDropdown('{{ $user->id }}')"
                                         class="text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-centerdark:bg-gray-800 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
@@ -166,7 +155,8 @@
                             <input id="is_admin" type="checkbox" wire:model="form.is_admin" value="SI"
                                 @checked($form->is_admin == 'SI')
                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
-                            <label for="is_admin" class="ms-2 dark:text-white text-sm font-medium text-gray-900">SI</label>
+                            <label for="is_admin"
+                                class="ms-2 dark:text-white text-sm font-medium text-gray-900">SI</label>
                         </div>
                         <x-input-error for="form.is_admin"></x-input-error>
 

@@ -44,7 +44,7 @@
                                 Administracion
                             </x-nav-link>
                         @endif
-                        <x-nav-link href="{{ route('pedidos.index') }}" :active="request()->routeIs('users.*')">
+                        <x-nav-link href="{{ route('pedidos.index') }}" :active="request()->routeIs('pedidos.*')">
                             Mis pedidos
                         </x-nav-link>
                     @endauth
@@ -263,10 +263,10 @@
                                 <x-dropdown-link href="{{ route('users.index') }}">
                                     Users
                                 </x-dropdown-link>
-                                <x-dropdown-link href="{{ route('productos.index') }}">
+                                <x-dropdown-link href="{{ route('todos-productos.index') }}">
                                     Products
                                 </x-dropdown-link>
-                                <x-dropdown-link href="{{ route('pedidos.index') }}">
+                                <x-dropdown-link href="{{ route('todos-pedidos.index') }}">
                                     Pedidos
                                 </x-dropdown-link>
                             </div>
@@ -372,7 +372,7 @@
             localStorage.setItem('theme', 'ligth');
             /* iconoLuna.removeAttribute('hidden');
             iconoSol.setAttribute('hidden', true); */
-            iconoDarkMode.checked = false;
+            /* iconoDarkMode.checked = false; */
             if (iconoCarrito) {
                 iconoCarrito.setAttribute('style', 'color: black');
             }
@@ -381,7 +381,7 @@
             localStorage.setItem('theme', 'dark');
             /* iconoSol.removeAttribute('hidden');
             iconoLuna.setAttribute('hidden', true); */
-            iconoDarkMode.checked = true;
+            /* iconoDarkMode.checked = true; */
             if (iconoCarrito) {
                 iconoCarrito.setAttribute('style', 'color: white');
             }
