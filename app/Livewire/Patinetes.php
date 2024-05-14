@@ -13,7 +13,7 @@ class Patinetes extends Component
     public string $valor= '';
     public function render()
     {
-        $patinetes = Producto::where("categoria_id", 1)->orderBy($this->atributo, $this->orden)->get();
+        $patinetes = Producto::where("categoria_id", 1)->orderBy($this->atributo, $this->orden)->with('valoraciones')->get();
         return view('livewire.patinetes', compact('patinetes'));
     }
     public function ordenar(){

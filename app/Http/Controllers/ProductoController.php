@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Producto;
+use App\Models\Valoracion;
 use Illuminate\Http\Request;
 
 class ProductoController extends Controller
@@ -36,7 +37,8 @@ class ProductoController extends Controller
      */
     public function show(Producto $producto)
     {
-        return view("detalleProducto", compact('producto'));
+        $valoraciones = Valoracion::where('producto_id', '=', $producto->id)->get();
+        return view("detalleProducto", compact('producto', 'valoraciones'));
     }
 
     /**

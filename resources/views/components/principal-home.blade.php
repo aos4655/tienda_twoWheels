@@ -88,7 +88,7 @@
                         });
                     Livewire.dispatch('rendCarrito');
                 }
-
+                /* ANIMACION PARA ICONOS CONTACTO FOOTER*/
                 function addAnimation(elemento) {
                     miElemento = document.getElementById(elemento);
                     miElemento.classList.add('fa-spin-pulse');

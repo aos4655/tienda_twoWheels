@@ -18,10 +18,11 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    
+
     <!-- Styles -->
     @livewireStyles
 </head>
@@ -101,8 +102,9 @@
             //Si no existe la pondremos en modo claro
             //Obtenemos los iconos para ir mostrando/ocultando segun interes
             let currentTheme = localStorage.getItem('theme');
-            let iconoDarkMode = document.getElementById('theme');
+
             if (window.location.pathname !== '/checkout2') {
+                let iconoDarkMode = document.getElementById('theme');
                 /* var iconoSol = document.getElementById('iconoSol');
                 var iconoLuna = document.getElementById('iconoLuna'); */
                 var iconoCarrito = document.getElementById('icon-cart');

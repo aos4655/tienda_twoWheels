@@ -50,7 +50,8 @@
             </div>
 
             <script>
-                function toggleDrawer() {
+                /* ANTIGUO CARRITO */
+                /* function toggleDrawer() {
                     var drawer = document.getElementById('drawer-navigation');
                     var drawerStyle = window.getComputedStyle(drawer);
                     var drawerTransform = drawerStyle.getPropertyValue('transform');
@@ -60,7 +61,7 @@
                     } else {
                         drawer.style.transform = 'translateX(0)';
                     }
-                }
+                } */
 
                 function inicializarCarrito() {
                     const btn_carrito = document.getElementById('btn-carrito');

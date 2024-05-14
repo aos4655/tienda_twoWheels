@@ -13,7 +13,7 @@ class Accesorios extends Component
     public string $valor= '';
     public function render()
     {
-        $accesorios = Producto::where("categoria_id", 3)->orderBy($this->atributo, $this->orden)->get();
+        $accesorios = Producto::where("categoria_id", 3)->orderBy($this->atributo, $this->orden)->with('valoraciones')->get();
         return view('livewire.accesorios', compact('accesorios'));
     }
     public function ordenar(){

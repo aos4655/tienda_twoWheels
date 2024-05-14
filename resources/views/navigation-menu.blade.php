@@ -60,7 +60,7 @@
                     @endauth
                     <!-- BOTON DARKMODE -->
                     <label class="relative inline-flex items-center cursor-pointer">
-                        <input class="sr-only peer" value="" type="checkbox" onchange="toggleTheme()" />
+                        <input id="theme" class="sr-only peer" value="" type="checkbox" onchange="toggleTheme()" />
                         <div
                             class="w-16 h-9 pt-1 rounded-full ring-0 peer duration-500 outline-none bg-[#fbedb6] overflow-hidden
                                    before:flex before:items-center before:justify-center
@@ -71,7 +71,7 @@
                                    peer-checked:before:opacity-0 peer-checked:before:translate-x-0
                                    shadow-lg shadow-gray-400 peer-checked:shadow-lg peer-checked:shadow-gray-700
                                    peer-checked:bg-[#043449]
-                                   after:content-['🌑'] after:absolute after:bg-[#25b6f4]
+                                   after:content-['🌙'] after:text-white after:absolute after:bg-[#25b6f4]
                                    after:rounded-full after:right-1 after:-translate-x-full
                                    after:w-7 after:h-7 after:opacity-0
                                    after:transition-all after:duration-700 peer-checked:after:opacity-100
@@ -366,11 +366,13 @@
         /* var iconoSol = document.getElementById('iconoSol');
         var iconoLuna = document.getElementById('iconoLuna'); */
         var iconoCarrito = document.getElementById('icon-cart');
+        let iconoDarkMode = document.getElementById('theme');
 
         if (currentTheme === 'dark') {
             localStorage.setItem('theme', 'ligth');
             /* iconoLuna.removeAttribute('hidden');
             iconoSol.setAttribute('hidden', true); */
+            iconoDarkMode.checked = false;
             if (iconoCarrito) {
                 iconoCarrito.setAttribute('style', 'color: black');
             }
@@ -379,7 +381,7 @@
             localStorage.setItem('theme', 'dark');
             /* iconoSol.removeAttribute('hidden');
             iconoLuna.setAttribute('hidden', true); */
-
+            iconoDarkMode.checked = true;
             if (iconoCarrito) {
                 iconoCarrito.setAttribute('style', 'color: white');
             }

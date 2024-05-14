@@ -13,7 +13,11 @@ class Bicicletas extends Component
     public string $valor= '';
     public function render()
     {
-        $bicicletas = Producto::where("categoria_id", 2)->orderBy($this->atributo, $this->orden)->get();
+        
+        $bicicletas = Producto::where("categoria_id", 2)
+             ->orderBy($this->atributo, $this->orden)
+             ->with('valoraciones') 
+             ->get();
         return view('livewire.bicicletas', compact('bicicletas'));
     }
     public function ordenar(){

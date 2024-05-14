@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(PedidoSeeder::class);
         $this->call(LogisticApiSeeder::class);
+        $this->call(ValoracionSeeder::class);
         //Aqui van a ir todos mis usuarios administradores
         User::create([
             'name' => 'Antonio',

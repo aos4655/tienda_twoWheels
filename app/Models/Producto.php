@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Producto extends Model
 {
@@ -50,5 +51,9 @@ class Producto extends Model
     public function usersCart(): BelongsToMany
     {
         return $this->belongsToMany(User::class)->withPivot('cantidad');
+    }
+    public function valoraciones(): HasMany
+    {
+        return $this->hasMany(Valoracion::class);
     }
 }
