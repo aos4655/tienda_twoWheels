@@ -73,10 +73,10 @@ class PedidoController extends Controller
         $pdf = Pdf::loadView('pdf', compact('pedido')); 
         return $pdf->download('productos.pdf'); 
     }
-    public static function pdfMail($id) {
+    /* public static function pdfMail($id) {
         $pedido = Pedido::findOrFail($id); 
         
         $pdf = Pdf::loadView('pdf', compact('pedido')); 
         Storage::put('pdf/pedido_'.$id.'.pdf',$pdf->output()); 
-    }
+    } */
 }

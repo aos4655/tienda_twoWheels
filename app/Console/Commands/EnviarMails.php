@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Mail\PedidoRecibido;
 use App\Models\Pedido;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 
@@ -29,9 +30,11 @@ class EnviarMails extends Command
     public function handle()
     {
         $pedidos = Pedido::select('*')->whereRaw("DATE_FORMAT(pedidos.created_at, '%Y-%m-%d') = ?", [date('Y-m-d')])
-        ->get();
+            ->get();
         foreach ($pedidos as $pedido) {
-            Mail::to($pedido->user->email)->send(new PedidoRecibido($pedido->id));
+            $pdf = Pdf::loadView('pdf', compact('pedido'));
+            $id = $pedido->id;
+            Mail::to($pedido->user->email)->send(new PedidoRecibido($id, $pdf->output()));
         }
     }
 }

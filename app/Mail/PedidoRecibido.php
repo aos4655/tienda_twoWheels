@@ -17,7 +17,7 @@ class PedidoRecibido extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(private $pedido)
+    public function __construct(private $pedido, private $pdf)
     {
         //
     }
@@ -40,7 +40,7 @@ class PedidoRecibido extends Mailable
         return new Content(
             view: 'emails.pedidoMail',
             with: [
-                'pedido' => $this->pedido
+                'pedido_id' => $this->pedido
             ]
         );
     }
@@ -53,7 +53,9 @@ class PedidoRecibido extends Mailable
     public function attachments(): array
     {
         return [
-            Attachment::fromPath('public/storage/pdf/pedido_'.$this->pedido.'.pdf')->as('pedido_'.$this->pedido.'.pdf')
+            Attachment::fromData(fn () => $this->pdf, 'pedido_'.$this->pedido.'.pdf')
+            ->withMime('application/pdf')
+            //Attachment::fromPath('public/storage/pdf/pedido_'.$this->pedido.'.pdf')->as('pedido_'.$this->pedido.'.pdf')
         ];
     }
 }

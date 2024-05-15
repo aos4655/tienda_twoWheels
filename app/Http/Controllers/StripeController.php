@@ -103,7 +103,7 @@ class StripeController extends Controller
             $pedido->productos()->attach($producto, ['cantidad' => $cantidad]);
         }
         /* No es necesario añadirle un tracking ya que lo tenemos automatizado.  */
-        PedidoController::pdfMail($pedido->id);
+        //PedidoController::pdfMail($pedido->id);
         //Mail::to($usuario->email)->send(new PedidoRecibido($pedido->id));
     }
     public function generateTrackingNumber($pedidoModel, $prefix = 'PK')
