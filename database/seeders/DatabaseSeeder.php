@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
         Storage::deleteDirectory('imgProduct');
         Storage::createDirectory('imgProduct');
         $this->call(CategoriaSeeder::class);
-        Producto::factory(50)->create();
+        //Producto::factory(50)->create();
         $this->call(ProductoSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(PedidoSeeder::class);
