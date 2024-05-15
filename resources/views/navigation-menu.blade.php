@@ -43,10 +43,11 @@
                             <x-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.*')">
                                 Administracion
                             </x-nav-link>
+                        @else
+                            <x-nav-link href="{{ route('pedidos.index') }}" :active="request()->routeIs('pedidos.*')">
+                                Mis pedidos
+                            </x-nav-link>
                         @endif
-                        <x-nav-link href="{{ route('pedidos.index') }}" :active="request()->routeIs('pedidos.*')">
-                            Mis pedidos
-                        </x-nav-link>
                     @endauth
 
                 </div>
@@ -273,10 +274,12 @@
                         </x-slot>
 
                     </x-dropdown>
+                @else
+                    <x-responsive-nav-link href="{{ route('pedidos.index') }}" :active="request()->routeIs('pedidos.*')">
+                        Mis Pedidos
+                    </x-responsive-nav-link>
                 @endif
-                <x-responsive-nav-link href="{{ route('pedidos.index') }}" :active="request()->routeIs('pedidos.*')">
-                    Mis Pedidos
-                </x-responsive-nav-link>
+                
             @endauth
 
         </div>

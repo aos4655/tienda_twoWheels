@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pedido;
-use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PedidoController extends Controller
 {
@@ -12,9 +15,11 @@ class PedidoController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $pedidos = Pedido::where("user_id", Auth::user()->id)->orderBy("id", "desc")->get();
 
+        return view('mis-pedidos', compact('pedidos'));
+    }
+    
     /**
      * Show the form for creating a new resource.
      */
@@ -61,5 +66,17 @@ class PedidoController extends Controller
     public function destroy(Pedido $pedido)
     {
         //
+    }
+    public function pdf($id) {
+        $pedido = Pedido::findOrFail($id); 
+        
+        $pdf = Pdf::loadView('pdf', compact('pedido')); 
+        return $pdf->download('productos.pdf'); 
+    }
+    public static function pdfMail($id) {
+        $pedido = Pedido::findOrFail($id); 
+        
+        $pdf = Pdf::loadView('pdf', compact('pedido')); 
+        Storage::put('pdf/pedido_'.$id.'.pdf',$pdf->output()); 
     }
 }

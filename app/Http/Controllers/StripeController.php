@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Console\Commands\GenerateTracking;
 use App\Jobs\ActualizarSeguimiento;
+use App\Mail\PedidoRecibido;
 use App\Models\Pedido;
 use App\Models\User;
 use Exception;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class StripeController extends Controller
 {
@@ -93,13 +95,16 @@ class StripeController extends Controller
         $pedidoModel = app(Pedido::class);
         $pedido = Pedido::create([
             'user_id' => $usuario->id,
-            'track_num' => $this->generateTrackingNumber($pedidoModel)
+            'track_num' => $this->generateTrackingNumber($pedidoModel),
+            'direccion' => $usuario->direccion
         ]);
         foreach ($productosUsuario as $producto) {
             $cantidad = $producto->pivot->cantidad;
             $pedido->productos()->attach($producto, ['cantidad' => $cantidad]);
         }
         /* No es necesario añadirle un tracking ya que lo tenemos automatizado.  */
+        PedidoController::pdfMail($pedido->id);
+        //Mail::to($usuario->email)->send(new PedidoRecibido($pedido->id));
     }
     public function generateTrackingNumber($pedidoModel, $prefix = 'PK')
     {

@@ -13,26 +13,26 @@
                         </svg>
                     </div>
                     <x-input
-                        class="w-3/4 pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class=" pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Buscar..." type="search" wire:model.live="search"></x-input>
                 </div>
             </div>
             @if (!$users->count())
                 No hay resultados!!
             @endif
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <table class="w-full text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead
                     class="block md:table-header-group text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr
                         class="border border-grey-500 md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto  md:relative ">
-                        <th class=" p-2  font-bold md:border md:border-none text-left block md:table-cell">
+                        <th class=" p-2  font-bold md:border md:border-none block md:table-cell">
                             Nombre</th>
-                        <th class=" p-2  font-bold md:border md:border-none text-left block md:table-cell">
+                        <th class=" p-2  font-bold md:border md:border-none block md:table-cell">
                             Email</th>
-                        <th class=" p-2  font-bold md:border md:border-none text-left block md:table-cell">
+                        <th class=" p-2  font-bold md:border md:border-none block md:table-cell">
                             Status</th>
-                        <th class=" p-2  font-bold md:border md:border-none text-left block md:table-cell">
-                            Action</th>
+                        <th class=" p-2  font-bold md:border md:border-none block md:table-cell">
+                            Acciones</th>
 
                     </tr>
                 </thead>
@@ -52,7 +52,7 @@
                                 {{ $user->is_admin == 'SI' ? 'Administrador' : 'Normal' }}
                             </td>
                             <td class="p-2 ml-8 md:border md:border-none block md:table-cell">
-                                <span class="inline-block w-1/3 md:hidden font-bold">Action</span>
+                                <span class="inline-block w-1/3 md:hidden font-bold">Acciones</span>
 
                                 <!-- Menú desplegable -->
                                 <div class="dropdown-container ">

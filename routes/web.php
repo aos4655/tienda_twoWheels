@@ -1,9 +1,11 @@
 <?php
 
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\StripeController;
 use App\Livewire\Accesorios;
@@ -16,6 +18,7 @@ use App\Livewire\ShowCategories;
 use App\Livewire\ShowOrders;
 use App\Livewire\ShowProducts;
 use App\Livewire\ShowUsers;
+use App\Models\Pedido;
 use App\Models\Producto;
 
 /*
@@ -66,25 +69,24 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('miOrders', MisPedidos::class)->name('pedidos.index');
+    Route::resource('pedidos', PedidoController::class);
+    Route::get('/pedido/pdf/{id}', [PedidoController::class, 'pdf'])->name('pedido.pdf')->middleware('verificar.pedido.usuario');
+    
+
     /* RUTA PREVIA DE PAGO */
-Route::get('/checkout2', Checkout::class)->name('checkout2');
-/* Route::get('/checkout', [StripeController::class, 'checkout'])->name('checkout');
- */
-/* RUTA PAYPAL */
+    Route::get('/checkout2', Checkout::class)->name('checkout2');
+    /* Route::get('/checkout', [StripeController::class, 'checkout'])->name('checkout');
+    */
+    /* RUTA PAYPAL */
 
 
-/* RUTA PASARELA DE PAGO */
-Route::post('/session', [StripeController::class, 'session'])->name('session');
-Route::get('/success', [StripeController::class, 'success'])->name('success');
-Route::get('/cancel', [StripeController::class, 'cancel'])->name('cancel');
+    /* RUTA PASARELA DE PAGO */
+    Route::post('/session', [StripeController::class, 'session'])->name('session');
+    Route::get('/success', [StripeController::class, 'success'])->name('success');
+    Route::get('/cancel', [StripeController::class, 'cancel'])->name('cancel');
 });
+
 Route::resource('productos', ProductoController::class);
 Route::get('scooter', Patinetes::class)->name('patinetes.index');
 Route::get('bikes', Bicicletas::class)->name('bicicletas.index');
 Route::get('accessories', Accesorios::class)->name('accesorios.index');
-
-
-
-
-

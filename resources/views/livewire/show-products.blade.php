@@ -42,7 +42,7 @@
                         <th class=" p-2  font-bold md:border md:border-none text-left block md:table-cell">
                             QR</th>
                         <th class=" p-2  font-bold md:border md:border-none text-left block md:table-cell">
-                            Actions</th>
+                            Acciones</th>
 
                     </tr>
                 </thead>
@@ -81,7 +81,7 @@
                                 </button>
                             </td>
                             <td class="p-2 ml-8 md:border md:border-none text-left block md:table-cell">
-                                <span class="inline-block w-1/3 md:hidden font-bold">Action</span>
+                                <span class="inline-block w-1/3 md:hidden font-bold">Acciones</span>
                                 <!-- Menú desplegable -->
                                 <div class="dropdown-container">
                                     <!-- Botón para abrir el dropdown -->
