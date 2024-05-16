@@ -208,23 +208,26 @@
                 </div>
                 <div class="w-11/12 ml-7 my-4 flex flex-row justify-center  items-center">
                     <!-- PAYPAL -->
-                    <input id="paypal" name="pago" type="radio" value="PagarCard" class="mr-2">
+                    <input id="paypal" onchange="cambiarLink('paypal')" name="pago" type="radio"
+                        value="PagarCard" class="mr-2">
                     <div for="paypal"
                         class="flex rounded-full bg-green-50 px-auto p-2 px-4 w-24 justify-center items-center mr-2">
                         <img class="w-9 h-9 " src="{{ Storage::url('imgPago/paypal.png') }}" alt="foto">
                     </div>
 
                     <!-- STRIPE -->
-                    <input id="card" name="pago" type="radio" value="PagarCard" class="ml-2">
+                    <input id="card" onchange="cambiarLink('stripe')" name="pago" type="radio"
+                        value="PagarCard" class="ml-2">
                     <div for="card"
                         class="flex rounded-full bg-green-50 px-auto p-2 px-4 w-24 justify-center items-center ml-2">
                         <img class="w-9 h-9 " src="{{ Storage::url('imgPago/card.png') }}" alt="foto">
                     </div>
                 </div>
                 <div class="flex flex-row-reverse text-white mt-8 pb-3">
-                    <form action="/session" method="POST">
+                    <form id="form-pago" action="/session" method="POST">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <button type="submit" class="rounded-full bg-blue-900 mx-6 p-2 w-20">Pagar</button>
+                        <button disabled id="btn-pagar" type="submit"
+                            class="rounded-full bg-blue-900 mx-6 p-2 w-20">Pagar</button>
                     </form>
                     <a href="{{ url()->previous() }}" class="rounded-full bg-red-600 p-2 w-20">Cancelar</a>
                 </div>
@@ -236,6 +239,24 @@
 
     @livewireScripts
     <script>
+        function cambiarLink(metodo) {
+            let paypal = document.getElementById('paypal');
+            let card = document.getElementById('card');
+            let btnPago = document.getElementById('btn-pagar');
+            let formPago = document.getElementById('form-pago');
+
+            if (paypal.checked) {
+                btnPago.removeAttribute('disabled');
+                formPago.action="/";
+            }else if (card.checked) {
+                btnPago.removeAttribute('disabled');
+                formPago.action="/session";
+            } else {
+                btnPago.setAttribute('disabled', true);
+            }
+        }
+
+
         function editarNombreYDireccion() {
             const nombre = document.getElementById('user_nombre');
             const direccion = document.getElementById('user_direccion');

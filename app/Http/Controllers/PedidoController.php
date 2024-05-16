@@ -70,7 +70,10 @@ class PedidoController extends Controller
     public function pdf($id) {
         $pedido = Pedido::findOrFail($id); 
         
-        $pdf = Pdf::loadView('pdf', compact('pedido')); 
+        $pdf = Pdf::loadView('pdf', compact('pedido'))->setOption('padding_top', '400px')
+        ->setOption('padding_right', '0')
+        ->setOption('padding_bottom', '0')
+        ->setOption('padding_left', '0'); 
         return $pdf->download('productos.pdf'); 
     }
     /* public static function pdfMail($id) {
