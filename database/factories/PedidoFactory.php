@@ -23,6 +23,7 @@ class PedidoFactory extends Factory
             'user_id'=>$usuario->id, 
             'track_num'=>$this->generateTrackingNumber($pedidoModel),
             'direccion' => $usuario->direccion,
+            'nombre' => $usuario->name,
         ];
         
     }

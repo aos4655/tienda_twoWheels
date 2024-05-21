@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\PaypalController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\StripeController;
@@ -78,15 +79,21 @@ Route::middleware([
     /* Route::get('/checkout', [StripeController::class, 'checkout'])->name('checkout');
     */
     /* RUTA PAYPAL */
-
+    Route::post('/paypal-session', [PaypalController::class, 'paypal'])->name('paypal-session');
+    Route::get('/paypal-success/{direccion}/{nombre}', [PaypalController::class, 'success'])->name('paypal-success');
+    Route::get('/paypal-cancel', [PaypalController::class, 'cancel'])->name('paypal-cancel');
 
     /* RUTA PASARELA DE PAGO */
-    Route::post('/session', [StripeController::class, 'session'])->name('session');
-    Route::get('/success', [StripeController::class, 'success'])->name('success');
-    Route::get('/cancel', [StripeController::class, 'cancel'])->name('cancel');
+    Route::post('/stripe-session', [StripeController::class, 'session'])->name('stripe-session');
+    Route::get('/stripe-success/{direccion}/{nombre}', [StripeController::class, 'success'])->name('stripe-success');
+    Route::get('/stripe-cancel', [StripeController::class, 'cancel'])->name('stripe-cancel');
 });
 
 Route::resource('productos', ProductoController::class);
 Route::get('scooter', Patinetes::class)->name('patinetes.index');
 Route::get('bikes', Bicicletas::class)->name('bicicletas.index');
 Route::get('accessories', Accesorios::class)->name('accesorios.index');
+
+/* WHATSAPP */
+Route::get('/enviarWhatsapp', [PedidoController::class, 'enviarWhatsapp']);
+Route::get('/enviarWhatsappPDF', [PedidoController::class, 'enviarWhatsappPDF']);

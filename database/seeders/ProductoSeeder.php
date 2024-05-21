@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
+use Image;
+use Intervention\Image\ImageManager;
 
 class ProductoSeeder extends Seeder
 {
@@ -56,7 +58,7 @@ class ProductoSeeder extends Seeder
                 "imagen" => "https://ridenroll.es/wp-content/uploads/2022/04/capri-silver-1-300x300.jpg",
                 "descripcion" => "Nuevo modelo de bicicleta eléctrica plegable Biwbik.\n\nMás ligera gracias a su cuadro de aluminio y con ruedas más anchas para circular por cualquier terreno. Además, con Frenos hidráulicos.\n\nEl mejor precio en una bicicleta eléctrica de sus características.\n\n* El puño acelerador se entrega instalado si se compra junto a la bicicleta. El adecuado uso será bajo la total responsabilidad del cliente, en ámbito privado y no en vías públicas.",
                 "categoria_id" => 2,
-                "nombre" => "Bicicleta eléctrica Biwbik Capri Silver | Black",
+                "nombre" => "Bicicleta eléctrica Biwbik Capri Silver",
                 "precio" => "1,224.00€"
             ],
             [
@@ -75,9 +77,9 @@ class ProductoSeeder extends Seeder
             ],
             [
                 "imagen" => "https://ridenroll.es/wp-content/uploads/2024/01/roma20plus-300x300.jpg",
-                "descripcion" => "Bicicleta eléctrica plegable Biwbik Roma 20+. Permite realizar cómodos trayecto gracias a su Pedaleo asistido (PAS) Aprobado CE con 5 niveles de asistencia. Motor central VINKA E40N, 250W – 80Nm 110Rpm Sensor Torque Vinka DR23. Cambios Shimano Altus ARDM310DLC. Ruedas de 20×2,25 antipinchazos. Dispone de un Display LCD con 5 velocidades. Con sus frenos delanteros y traseros de disco hidráulico RUSH con disco 180mm podrás frenar con seguridad. Recorre una Autonomía estimada entre 35Km-100Km.",
+                "descripcion" => "Bicicleta eléctrica plegable Biwbik Roma 20plus. Permite realizar cómodos trayecto gracias a su Pedaleo asistido (PAS) Aprobado CE con 5 niveles de asistencia. Motor central VINKA E40N, 250W – 80Nm 110Rpm Sensor Torque Vinka DR23. Cambios Shimano Altus ARDM310DLC. Ruedas de 20×2,25 antipinchazos. Dispone de un Display LCD con 5 velocidades. Con sus frenos delanteros y traseros de disco hidráulico RUSH con disco 180mm podrás frenar con seguridad. Recorre una Autonomía estimada entre 35Km-100Km.",
                 "categoria_id" => 2,
-                "nombre" => "Bicicleta Eléctrica Biwbik Roma 20+",
+                "nombre" => "Bicicleta Eléctrica Biwbik Roma 20plus",
                 "precio" => "1,999.00€"
             ],
             [
@@ -105,7 +107,7 @@ class ProductoSeeder extends Seeder
                 "imagen" => "https://ridenroll.es/wp-content/uploads/2021/04/bicicleta-electrica-plegable-book-sport-black-300x300.jpg",
                 "descripcion" => "Esta bicicleta tiene un motor Brushless de 250W que lo permite alcanzar una potencia especialmente alta. Tiene dos modelos de batería: una batería de 36V 12Ah y otra de 36V 16Ah para que la bicicleta con las que la bicicleta puede alcanzar una autonomía de 45 a 80 km.\n\nTodo esto en tan solo 25 kg de peso con la batería incluida! Así que está ligera y muy práctica.\n\nEstá disponible en blanco, negro para que puedas elegir según tu gusto.\n\nCon sus frenos de disco hidráulico LOGAN F8000 160mm, uno delantero y otro trasero, te permitirás frenar con seguridad. Su cambio Shimano 6 velocidades, te garantizará un cambio preciso y una velocidad de crucero fácil de alcanzar. ",
                 "categoria_id" => 2,
-                "nombre" => "Biwbik Book Sport Black | White",
+                "nombre" => "Biwbik Book Sport Black",
                 "precio" => "1,024.00€"
             ],
             [
@@ -131,9 +133,9 @@ class ProductoSeeder extends Seeder
             ],
             [
                 "imagen" => "https://ridenroll.es/wp-content/uploads/2022/06/Gocycle_G4i_Red_02_Webstore-300x300.jpg",
-                "descripcion" => "Una edición exclusiva, el Gocycle G4i + con una variante ligera de carbono del récord mundial de velocidad de Gocycle PitstopWheels®.\n\nGuardabarros y luces ahora incluidos de serie.\n\nNuevo motor eléctrico G4drive™\nSuave y silencioso, el nuevo motor eléctrico G4drive™ a medida de Gocycle ofrece más par con un embalaje compacto líder en su clase.\n\nCuadro central de fibra\nde carbono\nEste componente central del chasis monocasco de G4i+ tiene el importante trabajo de conectar el bastidor delantero de aluminio hidroformado y el Cleandrive de magnesio patentado de Gocycle.",
+                "descripcion" => "Una edición exclusiva, el Gocycle G4i plus con una variante ligera de carbono del récord mundial de velocidad de Gocycle PitstopWheels®.\n\nGuardabarros y luces ahora incluidos de serie.\n\nNuevo motor eléctrico G4drive™\nSuave y silencioso, el nuevo motor eléctrico G4drive™ a medida de Gocycle ofrece más par con un embalaje compacto líder en su clase.\n\nCuadro central de fibra\nde carbono\nEste componente central del chasis monocasco de G4iplus tiene el importante trabajo de conectar el bastidor delantero de aluminio hidroformado y el Cleandrive de magnesio patentado de Gocycle.",
                 "categoria_id" => 2,
-                "nombre" => "Gocycle G4i+",
+                "nombre" => "Gocycle G4iplus",
                 "precio" => "6,662.00€"
             ],
             [
@@ -146,16 +148,16 @@ class ProductoSeeder extends Seeder
             ],
             [
                 "imagen" => "https://ridenroll.es/wp-content/uploads/2023/04/khali-white1-300x300.jpg",
-                "descripcion" => "El triciclo de Biwbik Khali Black | White es perfecto para viajes cortos en la ciudad por su comodidad, gracias a ser más estable y segura que bicicletas convencionales. Además, es una excelente opción para personas mayores o personas con diversidad funcional.\n\nEn la parte técnica, cuenta con un motor de 250W Brushless delantero acompañado de 6 velocidades. Así como un freno de disco hidráulico RUSH 160mm para poder frenar sin problema. Sostenido por la batería de litio de 12Ah o 16Ah que le dará una autonomía máxima de 70km.",
+                "descripcion" => "El triciclo de Biwbik Khali Black es perfecto para viajes cortos en la ciudad por su comodidad, gracias a ser más estable y segura que bicicletas convencionales. Además, es una excelente opción para personas mayores o personas con diversidad funcional.\n\nEn la parte técnica, cuenta con un motor de 250W Brushless delantero acompañado de 6 velocidades. Así como un freno de disco hidráulico RUSH 160mm para poder frenar sin problema. Sostenido por la batería de litio de 12Ah o 16Ah que le dará una autonomía máxima de 70km.",
                 "categoria_id" => 2,
-                "nombre" => "Triciclo eléctrico Biwbik Khali Black | White",
+                "nombre" => "Triciclo eléctrico Biwbik Khali Black",
                 "precio" => "1,824.00€"
             ],
             [
                 "imagen" => "https://ridenroll.es/wp-content/uploads/2023/04/paris-white1-300x300.jpg",
-                "descripcion" => "El nuevo triciclo de Biwbik París Black | White es perfecto para viajes cortos en la ciudad por su comodidad, gracias a ser más estable y segura que bicicletas convencionales. Además, es una excelente opción para personas mayores o personas con diversidad funcional.\n\nEn la parte técnica, cuenta con un motor de 250W Brushless delantero acompañado de 6 velocidades. Así como un freno de disco hidráulico RUSH 160mm para poder frenar sin problema. Sostenido por la batería de litio de 12Ah o 16Ah que le dará una autonomía máxima de 70km.",
+                "descripcion" => "El nuevo triciclo de Biwbik París Black es perfecto para viajes cortos en la ciudad por su comodidad, gracias a ser más estable y segura que bicicletas convencionales. Además, es una excelente opción para personas mayores o personas con diversidad funcional.\n\nEn la parte técnica, cuenta con un motor de 250W Brushless delantero acompañado de 6 velocidades. Así como un freno de disco hidráulico RUSH 160mm para poder frenar sin problema. Sostenido por la batería de litio de 12Ah o 16Ah que le dará una autonomía máxima de 70km.",
                 "categoria_id" => 2,
-                "nombre" => "Triciclo eléctrico Biwbik París Black | White",
+                "nombre" => "Triciclo eléctrico Biwbik París Black",
                 "precio" => "1,624.00€"
             ]
         ];
@@ -166,7 +168,7 @@ class ProductoSeeder extends Seeder
             Producto::create([
                 'nombre' => $item['nombre'],
                 'descripcion' => $item['descripcion'],
-                'imagen' => $this->obtenerImagen($item['imagen']),
+                'imagen' => $this->obtenerImagen($item['imagen'],  $item['nombre']),
                 'precio' => (float) str_replace('€', '', str_replace(',', '', $item['precio'])), // Convertir precio a float
                 'categoria_id' => $item['categoria_id'],
                 'stock' => $stock,
@@ -349,7 +351,7 @@ class ProductoSeeder extends Seeder
             Producto::create([
                 'nombre' => $item['nombre'],
                 'descripcion' => $item['descripcion'],
-                'imagen' => $this->obtenerImagen($item['imagen']),
+                'imagen' => $this->obtenerImagen($item['imagen'],  $item['nombre']),
                 'precio' => (float) str_replace('€', '', $item['precio']), // Convertir precio a float
                 'categoria_id' => $item['categoria_id'],
                 'stock' => $stock,
@@ -357,230 +359,236 @@ class ProductoSeeder extends Seeder
         }
         $patinetes = [
             [
-             "categoria_id"=> 1,
-             "imagen"=> "https://ridenroll.es/wp-content/uploads/2024/04/2trottinette-electrique-bluetran-lightning-72v-35ah-lg-300x300.jpg",
-             "nombre"=> "Bluetran Lightning 72V",
-             "precio"=> "1,299.00€",
-             "descripcion"=> "Bluetran Lightning de Minimotors, el nuevo miembro de la familia acaba de llegar para revolucionar la gama de 72V con un increíble patinete eléctrico. Minimotors se ha superado una vez más con un nuevo concepto de ultrapotencia, calidad y diseño innovador en tamaño contenido y precio ajustado. Sus 5040W de pico máximo están alimentados por una batería de 72V 35ah LG (próximamente 26Ah y 32Ah), impulsando al patinete hasta los 80-90km\/h (limitado de fábrica a 25 km\/h con certificado de importador) y una autonomía máxima de 150km. Su diseño deportivo y compacto enamora a primera vista y resulta muy práctico en el día a día."
+                "categoria_id" => 1,
+                "imagen" => "https://ridenroll.es/wp-content/uploads/2024/04/2trottinette-electrique-bluetran-lightning-72v-35ah-lg-300x300.jpg",
+                "nombre" => "Bluetran Lightning 72V",
+                "precio" => "1,299.00€",
+                "descripcion" => "Bluetran Lightning de Minimotors, el nuevo miembro de la familia acaba de llegar para revolucionar la gama de 72V con un increíble patinete eléctrico. Minimotors se ha superado una vez más con un nuevo concepto de ultrapotencia, calidad y diseño innovador en tamaño contenido y precio ajustado. Sus 5040W de pico máximo están alimentados por una batería de 72V 35ah LG (próximamente 26Ah y 32Ah), impulsando al patinete hasta los 80-90km\/h (limitado de fábrica a 25 km\/h con certificado de importador) y una autonomía máxima de 150km. Su diseño deportivo y compacto enamora a primera vista y resulta muy práctico en el día a día."
             ],
             [
-             "categoria_id"=> 1,
-             "imagen"=> "https://ridenroll.es/wp-content/uploads/2023/11/dualtron-achilleus-300x300.jpg",
-             "nombre"=> "Dualtron Achilleus",
-             "precio"=> "2,989.00€",
-             "descripcion"=> "Dualtron Achilleus, la nueva “máquina” de Dualtron que llega para sustituir el legendario Dualtron Thunder con mejoras muy interesantes. El nuevo Dualtron Achilleus hereda todas las ventajas del Thunder pero con un diseño mas compacto y ligero. Su increíble potencia máxima de 4648W es alimentada por una batería de litio 60V 35Ah (LG 21700), impulsándolo hasta los 80km\/h (limitado a 25km\/h con certificado de importador) y 120km de autonomía máxima. El Dualtron Achilleus incorpora un nuevo diseño de base mas estrecho y 3kg menos, además de incorporar un asa de agarre y apoyo de pie trasero, lo que lo convierten en un patinete mas manejable y práctico. Y como no, los frenos hidráulicos y las ruedas tubeless de 11″ confieren al patinete una seguridad  increíbles. ¡Ha nacido una nueva leyenda!"
+                "categoria_id" => 1,
+                "imagen" => "https://ridenroll.es/wp-content/uploads/2023/11/dualtron-achilleus-300x300.jpg",
+                "nombre" => "Dualtron Achilleus",
+                "precio" => "2,989.00€",
+                "descripcion" => "Dualtron Achilleus, la nueva “máquina” de Dualtron que llega para sustituir el legendario Dualtron Thunder con mejoras muy interesantes. El nuevo Dualtron Achilleus hereda todas las ventajas del Thunder pero con un diseño mas compacto y ligero. Su increíble potencia máxima de 4648W es alimentada por una batería de litio 60V 35Ah (LG 21700), impulsándolo hasta los 80km\/h (limitado a 25km\/h con certificado de importador) y 120km de autonomía máxima. El Dualtron Achilleus incorpora un nuevo diseño de base mas estrecho y 3kg menos, además de incorporar un asa de agarre y apoyo de pie trasero, lo que lo convierten en un patinete mas manejable y práctico. Y como no, los frenos hidráulicos y las ruedas tubeless de 11″ confieren al patinete una seguridad  increíbles. ¡Ha nacido una nueva leyenda!"
             ],
             [
-             "categoria_id"=> 1,
-             "imagen"=> "https://ridenroll.es/wp-content/uploads/2023/04/Blade-x-transparent-300x300.png",
-             "nombre"=> "Dualtron Blade X v2023",
-             "precio"=> "1,990.00€",
-             "descripcion"=> "Dualtron Blade X o Teverun Blade X, Minimotors se reinventa y nos sorprende con un alucinante patinete eléctrico que va a revolucionar el sector. Un nuevo concepto de vehículo que se rediseña desde 0 para los usuarios más exigentes. Sus increíbles 4000W de pico máximo están alimentados por una batería de litio 60V 24Ah o 30Ah LG, impulsando al patinete hasta los 80km\/h de velocidad máxima (limitado a 25km\/h con certificado). Como novedades el Blade X destaca su gran suspensión hidráulica ultracómoda y estable, intermitentes de gran tamaño, nuevos LED supervisibles, nuevo sistema de plegado, deck de goma, frenos hidráulicos… Dualtron Blade X es pura diversión, diseño y calidad."
+                "categoria_id" => 1,
+                "imagen" => "https://ridenroll.es/wp-content/uploads/2023/04/Blade-x-transparent-300x300.png",
+                "nombre" => "Dualtron Blade X v2023",
+                "precio" => "1,990.00€",
+                "descripcion" => "Dualtron Blade X o Teverun Blade X, Minimotors se reinventa y nos sorprende con un alucinante patinete eléctrico que va a revolucionar el sector. Un nuevo concepto de vehículo que se rediseña desde 0 para los usuarios más exigentes. Sus increíbles 4000W de pico máximo están alimentados por una batería de litio 60V 24Ah o 30Ah LG, impulsando al patinete hasta los 80km\/h de velocidad máxima (limitado a 25km\/h con certificado). Como novedades el Blade X destaca su gran suspensión hidráulica ultracómoda y estable, intermitentes de gran tamaño, nuevos LED supervisibles, nuevo sistema de plegado, deck de goma, frenos hidráulicos… Dualtron Blade X es pura diversión, diseño y calidad."
             ],
             [
-             "categoria_id"=> 1,
-             "imagen"=> "https://ridenroll.es/wp-content/uploads/2022/05/Dualtron-City-Big-Wheels-Electric-Scooter-New-Generation-1-300x300.jpeg",
-             "nombre"=> "Dualtron City",
-             "precio"=> "2,089.00€",
-             "descripcion"=> "Dualtron City, el nuevo concepto de movilidad de Minimotors. La marca asiática se reinventa con un nuevo modelo de patinete que no deja indiferente por sus ruedas extragrandes de 15″, cuyo objetivo es mejorar exponencialmente la comodidad, estabilidad y seguridad de conducción. Las prestaciones del Dualtron City no se queda atrás, ya que gracias a sus 4000W de pico máximo y su batería de 60V 25Ah LG extraible es capaz de alcanzar los 70km\/h (limitado a 25km\/h con certificado) y los 80km de autonomía máxima."
+                "categoria_id" => 1,
+                "imagen" => "https://ridenroll.es/wp-content/uploads/2022/05/Dualtron-City-Big-Wheels-Electric-Scooter-New-Generation-1-300x300.jpeg",
+                "nombre" => "Dualtron City",
+                "precio" => "2,089.00€",
+                "descripcion" => "Dualtron City, el nuevo concepto de movilidad de Minimotors. La marca asiática se reinventa con un nuevo modelo de patinete que no deja indiferente por sus ruedas extragrandes de 15″, cuyo objetivo es mejorar exponencialmente la comodidad, estabilidad y seguridad de conducción. Las prestaciones del Dualtron City no se queda atrás, ya que gracias a sus 4000W de pico máximo y su batería de 60V 25Ah LG extraible es capaz de alcanzar los 70km\/h (limitado a 25km\/h con certificado) y los 80km de autonomía máxima."
             ],
             [
-             "categoria_id"=> 1,
-             "imagen"=> "https://ridenroll.es/wp-content/uploads/2023/11/dualtron-mini-1-300x300.jpg",
-             "nombre"=> "Dualtron Mini Dual Brake",
-             "precio"=> "1,125.00€",
-             "descripcion"=> "Autonomía=> 55-65km (21Ah) \/ 50-55km (17Ah) o 35-40km (13Ah)\n\nVelocidad máxima=> 55 Km\/h (Limitado a 25 Km\/h, Delimitado a 55 Km\/h por uso privado)"
+                "categoria_id" => 1,
+                "imagen" => "https://ridenroll.es/wp-content/uploads/2023/11/dualtron-mini-1-300x300.jpg",
+                "nombre" => "Dualtron Mini Dual Brake",
+                "precio" => "1,125.00€",
+                "descripcion" => "Autonomía=> 55-65km (21Ah) \/ 50-55km (17Ah) o 35-40km (13Ah)\n\nVelocidad máxima=> 55 Km\/h (Limitado a 25 Km\/h, Delimitado a 55 Km\/h por uso privado)"
             ],
             [
-             "categoria_id"=> 1,
-             "imagen"=> "https://ridenroll.es/wp-content/uploads/2023/03/dualtron-mini-special-300x300.jpg",
-             "nombre"=> "Dualtron Mini Special 52V 12.8Ah LG | 13Ah | 17.5Ah | 21Ah LG",
-             "precio"=> "965.00€",
-             "descripcion"=> "El Dualtron Mini Special supone un punto de inflexión de diseño en los patinetes eléctricos Dualtron. La marca inicia una nueva era con un espectacular diseño ultramoderno y de altísima calidad. Un nuevo estilo que rompe con la estética habitual de los Dualtron pero manteniendo el espíritu diferenciador de la marca. Un diseño que enamora desde el primero momento gracias también a sus luces led en deck y manillar para ser visto en las situaciones con menor visibilidad. La nuevo versión Special además incorpora manillar con puños plegables"
+                "categoria_id" => 1,
+                "imagen" => "https://ridenroll.es/wp-content/uploads/2023/03/dualtron-mini-special-300x300.jpg",
+                "nombre" => "Dualtron Mini Special 52V 12.8Ah LG",
+                "precio" => "965.00€",
+                "descripcion" => "El Dualtron Mini Special supone un punto de inflexión de diseño en los patinetes eléctricos Dualtron. La marca inicia una nueva era con un espectacular diseño ultramoderno y de altísima calidad. Un nuevo estilo que rompe con la estética habitual de los Dualtron pero manteniendo el espíritu diferenciador de la marca. Un diseño que enamora desde el primero momento gracias también a sus luces led en deck y manillar para ser visto en las situaciones con menor visibilidad. La nuevo versión Special además incorpora manillar con puños plegables"
             ],
             [
-             "categoria_id"=> 1,
-             "imagen"=> "https://ridenroll.es/wp-content/uploads/2023/04/Dualtron-Mini-Special-LongBody-300x300.webp",
-             "nombre"=> "Dualtron Mini Special Dual",
-             "precio"=> "1,069.00€",
-             "descripcion"=> "Dualtron Mini Special Dual Long Body, el patinete más esperado de Minimotors y que sus fieles seguidores estaban reclamando desde hace tiempo. Minimotors nos sorprende con un nuevo e increible Dualtron Mini Special Dual mejorado al limite destacando su doble motor para obtener una potencia dual impresionante, que te permitirá subir cualquier tipo de cuesta si esfuerzo. Posiblemente se convierta en el mejor patinete dual compacto del 2023. "
+                "categoria_id" => 1,
+                "imagen" => "https://ridenroll.es/wp-content/uploads/2023/04/Dualtron-Mini-Special-LongBody-300x300.webp",
+                "nombre" => "Dualtron Mini Special Dual",
+                "precio" => "1,069.00€",
+                "descripcion" => "Dualtron Mini Special Dual Long Body, el patinete más esperado de Minimotors y que sus fieles seguidores estaban reclamando desde hace tiempo. Minimotors nos sorprende con un nuevo e increible Dualtron Mini Special Dual mejorado al limite destacando su doble motor para obtener una potencia dual impresionante, que te permitirá subir cualquier tipo de cuesta si esfuerzo. Posiblemente se convierta en el mejor patinete dual compacto del 2023. "
             ],
             [
-             "categoria_id"=> 1,
-             "imagen"=> "https://ridenroll.es/wp-content/uploads/2023/06/Dualtron-Popular-scaled-1-scaled-1-300x300.jpg",
-             "nombre"=> "Dualtron Popular",
-             "precio"=> "879.00€",
-             "descripcion"=> "Dualtron Popular, el nuevo modelo de Minimotors que reinventa el concepto de la movilidad urbana con un patinete eléctrico sorprendente por su diseño ultramoderno premium y grandes prestaciones con caracter urbano. Dualtron Popular incorpora un chasis novedoso de gran resistencia, doble suspensión y nuevo display integrado de gran tamaño. Disponible en versiones de 1 motor de 450W o 2x450W  además de 3 opciones de baterías de litio de 52V 14Ah, 20Ah y 25Ah LG, consiguiendo unas grandes prestaciones de hasta 65km\/h (limitado de fábrica a 25km\/h con certificado) y hasta 80km de autonomía máxima. Tecnología, diseño y potencia para mantener el liderato del mercado y satisfacer las necesidades de los riders más exigentes."
+                "categoria_id" => 1,
+                "imagen" => "https://ridenroll.es/wp-content/uploads/2023/06/Dualtron-Popular-scaled-1-scaled-1-300x300.jpg",
+                "nombre" => "Dualtron Popular",
+                "precio" => "879.00€",
+                "descripcion" => "Dualtron Popular, el nuevo modelo de Minimotors que reinventa el concepto de la movilidad urbana con un patinete eléctrico sorprendente por su diseño ultramoderno premium y grandes prestaciones con caracter urbano. Dualtron Popular incorpora un chasis novedoso de gran resistencia, doble suspensión y nuevo display integrado de gran tamaño. Disponible en versiones de 1 motor de 450W o 2x450W  además de 3 opciones de baterías de litio de 52V 14Ah, 20Ah y 25Ah LG, consiguiendo unas grandes prestaciones de hasta 65km\/h (limitado de fábrica a 25km\/h con certificado) y hasta 80km de autonomía máxima. Tecnología, diseño y potencia para mantener el liderato del mercado y satisfacer las necesidades de los riders más exigentes."
             ],
             [
-             "categoria_id"=> 1,
-             "imagen"=> "https://ridenroll.es/wp-content/uploads/2021/04/patinete-electrico-dualtron-raptor-ii-300x300.jpg",
-             "nombre"=> "Dualtron Raptor 2",
-             "precio"=> "1,490.00€",
-             "descripcion"=> "Dualtron Raptor 2 S ahora con nuevo display EYE 3, es uno de los patinetes eléctricos mas ligeros de Dualtron, con tan solo 24,5kg. Compacto, superpotente y con excelente autonomía. Con sus 3000W de pico máximo y su batería de 60v 18Ah alcanza los 60km\/h (limitado a 25km\/h con certificado de importador) y hasta 60km de autonomía. Además incorpora ruedas solidas, por lo que te olvidarás de los pinchazos."
+                "categoria_id" => 1,
+                "imagen" => "https://ridenroll.es/wp-content/uploads/2021/04/patinete-electrico-dualtron-raptor-ii-300x300.jpg",
+                "nombre" => "Dualtron Raptor 2",
+                "precio" => "1,490.00€",
+                "descripcion" => "Dualtron Raptor 2 S ahora con nuevo display EYE 3, es uno de los patinetes eléctricos mas ligeros de Dualtron, con tan solo 24,5kg. Compacto, superpotente y con excelente autonomía. Con sus 3000W de pico máximo y su batería de 60v 18Ah alcanza los 60km\/h (limitado a 25km\/h con certificado de importador) y hasta 60km de autonomía. Además incorpora ruedas solidas, por lo que te olvidarás de los pinchazos."
             ],
             [
-             "categoria_id"=> 1,
-             "imagen"=> "https://ridenroll.es/wp-content/uploads/2022/04/Spider-2-aa-300x300.jpg",
-             "nombre"=> "Dualtron Spider II",
-             "precio"=> "1,719.00€",
-             "descripcion"=> "Dualtron Spider II, la evolución del poderoso y legendario Spider. destacamos su potencia total de 3984W gracias a su Motor Dual, con esto podrá llegar a una velocidad máxima de hasta 70km\/h (limitado de fábrica a 25km\/h)."
+                "categoria_id" => 1,
+                "imagen" => "https://ridenroll.es/wp-content/uploads/2022/04/Spider-2-aa-300x300.jpg",
+                "nombre" => "Dualtron Spider II",
+                "precio" => "1,719.00€",
+                "descripcion" => "Dualtron Spider II, la evolución del poderoso y legendario Spider. destacamos su potencia total de 3984W gracias a su Motor Dual, con esto podrá llegar a una velocidad máxima de hasta 70km\/h (limitado de fábrica a 25km\/h)."
             ],
             [
-             "categoria_id"=> 1,
-             "imagen"=> "https://ridenroll.es/wp-content/uploads/2023/04/dt-spider-max-1-300x300.jpg",
-             "nombre"=> "Dualtron Spider Max EY4",
-             "precio"=> "2,449.00€",
-             "descripcion"=> "Dualtron Spider Max, el nuevo modelo de Minimotors nos sorprende gratamente por sus espectaculares mejoras que lo convierten en unos de los mejores patinetes del 2023. La nueva “araña” de mantiene su espíritu de patinete portable de 31,5kg pero incrementando en prestaciones y tecnología, siendo un patinete realmente versátil ultrapotente para el uso por ciudad y largas rutas. Su nuevo display EYE 4 además mejora totalmente la experiencia de conducción. Dualtron Spider Max es el patinete perfecto para los riders exigentes que busque calidad y potencia si sacrificar versatilidad."
+                "categoria_id" => 1,
+                "imagen" => "https://ridenroll.es/wp-content/uploads/2023/04/dt-spider-max-1-300x300.jpg",
+                "nombre" => "Dualtron Spider Max EY4",
+                "precio" => "2,449.00€",
+                "descripcion" => "Dualtron Spider Max, el nuevo modelo de Minimotors nos sorprende gratamente por sus espectaculares mejoras que lo convierten en unos de los mejores patinetes del 2023. La nueva “araña” de mantiene su espíritu de patinete portable de 31,5kg pero incrementando en prestaciones y tecnología, siendo un patinete realmente versátil ultrapotente para el uso por ciudad y largas rutas. Su nuevo display EYE 4 además mejora totalmente la experiencia de conducción. Dualtron Spider Max es el patinete perfecto para los riders exigentes que busque calidad y potencia si sacrificar versatilidad."
             ],
             [
-             "categoria_id"=> 1,
-             "imagen"=> "https://ridenroll.es/wp-content/uploads/2022/04/DT-Storm-EY4-72V-300x300.jpg",
-             "nombre"=> "Dualtron Storm Limited EY4 v2024",
-             "precio"=> "5,049.00€",
-             "descripcion"=> "Dualtron Storm Limited, el nuevo patinete eléctrico de Dualtron. Llega con una potencia tan solo disponible en los patinetes eléctricos de alta gama, gracias a su potencia total de 11500w. Con esto logrará una velocidad máxima de hasta 115 km\/h (limitado de fábrica a 25km\/h). En terminos de autonomía, este patinete Dualtron Storm Limited será capaz de recorrer hasta 200 kilometros con una sola carga gracias a su batería de 84V 45Ah LG 27700. Nos encontramos ante un patinete que practicamente no tiene rival"
+                "categoria_id" => 1,
+                "imagen" => "https://ridenroll.es/wp-content/uploads/2022/04/DT-Storm-EY4-72V-300x300.jpg",
+                "nombre" => "Dualtron Storm Limited EY4 v2024",
+                "precio" => "5,049.00€",
+                "descripcion" => "Dualtron Storm Limited, el nuevo patinete eléctrico de Dualtron. Llega con una potencia tan solo disponible en los patinetes eléctricos de alta gama, gracias a su potencia total de 11500w. Con esto logrará una velocidad máxima de hasta 115 km\/h (limitado de fábrica a 25km\/h). En terminos de autonomía, este patinete Dualtron Storm Limited será capaz de recorrer hasta 200 kilometros con una sola carga gracias a su batería de 84V 45Ah LG 27700. Nos encontramos ante un patinete que practicamente no tiene rival"
             ],
             [
-             "categoria_id"=> 1,
-             "imagen"=> "https://ridenroll.es/wp-content/uploads/2023/04/Dualtron-ThunderIII-300x300.jpg",
-             "nombre"=> "Dualtron Thunder III 72V 40Ah LG",
-             "precio"=> "4,990.00€",
-             "descripcion"=> "Dualtron Thunder III, un patinete eléctrico que ha marcado un antes y un después en el mundo de los patinetes eléctricos de alta gama. Gracias a su descomunal motor dual de 11000 y su batería LG de 72V 40Ah conseguirás la escalofriante velocidad máxima de 100km\/h (limitado a 25km\/h) y una autonomía de hasta 170 km, dependiendo del modo de conducción."
+                "categoria_id" => 1,
+                "imagen" => "https://ridenroll.es/wp-content/uploads/2023/04/Dualtron-ThunderIII-300x300.jpg",
+                "nombre" => "Dualtron Thunder III 72V 40Ah LG",
+                "precio" => "4,990.00€",
+                "descripcion" => "Dualtron Thunder III, un patinete eléctrico que ha marcado un antes y un después en el mundo de los patinetes eléctricos de alta gama. Gracias a su descomunal motor dual de 11000 y su batería LG de 72V 40Ah conseguirás la escalofriante velocidad máxima de 100km\/h (limitado a 25km\/h) y una autonomía de hasta 170 km, dependiendo del modo de conducción."
             ],
             [
-             "categoria_id"=> 1,
-             "imagen"=> "https://ridenroll.es/wp-content/uploads/2023/11/dt-togo-1-300x300.jpg",
-             "nombre"=> "Dualtron Togo",
-             "precio"=> "629.00€",
-             "descripcion"=> "Nuevo Dualtron Togo, Minimotors nos presenta su última novedad que llega para apoderarse de la ciudad y convertirse en un auténtico top ventas por su increíble diseño, calidad, potencia y gran precio. Se trata el patinete Dualtron más económico y compacto del mercado sin renunciar a su filosofía, con el objetivo de satisfacer las necesidades de los riders mas urbanos. Destaca su diseño, agilidad y acabados que nos recuerda al Dualtron Mini. Sus suspensiones de aire regulable y estructura resistente te permitirá realizar viajes muy cómodos y seguros. "
+                "categoria_id" => 1,
+                "imagen" => "https://ridenroll.es/wp-content/uploads/2023/11/dt-togo-1-300x300.jpg",
+                "nombre" => "Dualtron Togo",
+                "precio" => "629.00€",
+                "descripcion" => "Nuevo Dualtron Togo, Minimotors nos presenta su última novedad que llega para apoderarse de la ciudad y convertirse en un auténtico top ventas por su increíble diseño, calidad, potencia y gran precio. Se trata el patinete Dualtron más económico y compacto del mercado sin renunciar a su filosofía, con el objetivo de satisfacer las necesidades de los riders mas urbanos. Destaca su diseño, agilidad y acabados que nos recuerda al Dualtron Mini. Sus suspensiones de aire regulable y estructura resistente te permitirá realizar viajes muy cómodos y seguros. "
             ],
             [
-             "categoria_id"=> 1,
-             "imagen"=> "https://ridenroll.es/wp-content/uploads/2024/04/Dualtron-Togo-Homologado-DGT-3-300x300.jpg",
-             "nombre"=> "Dualtron Togo (Homologado DGT)",
-             "precio"=> "699.00€",
-             "descripcion"=> "Dualtron Togo Certificado por la DGT, el nuevo modelo de Minimotors llega para apoderarse de la ciudad y convertirse en un auténtico top ventas por su increible diseño, calidad, potencia y gran precio. Se trata el patinete Dualtron más económico y compacto del mercado sin renunciar a su filosofía, con el objetivo de satisfacer las necesidades de los riders mas urbanos. Destaca su diseño, agilidad y acabados que nos recuerda al Dualtron Mini. Sus suspensiones de aire regulable y estructura resistente te permitirá realizar viajes muy cómodos y seguros. "
+                "categoria_id" => 1,
+                "imagen" => "https://ridenroll.es/wp-content/uploads/2024/04/Dualtron-Togo-Homologado-DGT-3-300x300.jpg",
+                "nombre" => "Dualtron Togo (Homologado DGT)",
+                "precio" => "699.00€",
+                "descripcion" => "Dualtron Togo Certificado por la DGT, el nuevo modelo de Minimotors llega para apoderarse de la ciudad y convertirse en un auténtico top ventas por su increible diseño, calidad, potencia y gran precio. Se trata el patinete Dualtron más económico y compacto del mercado sin renunciar a su filosofía, con el objetivo de satisfacer las necesidades de los riders mas urbanos. Destaca su diseño, agilidad y acabados que nos recuerda al Dualtron Mini. Sus suspensiones de aire regulable y estructura resistente te permitirá realizar viajes muy cómodos y seguros. "
             ],
             [
-             "categoria_id"=> 1,
-             "imagen"=> "https://ridenroll.es/wp-content/uploads/2022/04/DUALTRON-VICTOR3-scaled-1-300x300.jpg",
-             "nombre"=> "Dualtron Victor",
-             "precio"=> "1,559.00€",
-             "descripcion"=> "Dualtron Victor con nuevo display EYE 3 y APP, el nuevo patinete eléctrico de Minimotors que llega para mantener el liderato en la gama Premium. El Dualtron Victor es una evolución del Dualtron 3 con mejoras muy interesantes. La primera de ellas es su potencia máxima de 4000W, que impulsa al patinete hasta los 80km\/h (limitado a 25km\/h con certificado), un incremento notable que se dejará notar. Otras mejoras son los frenos hidráulicos y el nuevo sistema de plegado reforzado doble. "
+                "categoria_id" => 1,
+                "imagen" => "https://ridenroll.es/wp-content/uploads/2022/04/DUALTRON-VICTOR3-scaled-1-300x300.jpg",
+                "nombre" => "Dualtron Victor",
+                "precio" => "1,559.00€",
+                "descripcion" => "Dualtron Victor con nuevo display EYE 3 y APP, el nuevo patinete eléctrico de Minimotors que llega para mantener el liderato en la gama Premium. El Dualtron Victor es una evolución del Dualtron 3 con mejoras muy interesantes. La primera de ellas es su potencia máxima de 4000W, que impulsa al patinete hasta los 80km\/h (limitado a 25km\/h con certificado), un incremento notable que se dejará notar. Otras mejoras son los frenos hidráulicos y el nuevo sistema de plegado reforzado doble. "
             ],
             [
-             "categoria_id"=> 1,
-             "imagen"=> "https://ridenroll.es/wp-content/uploads/2023/03/dualtron-victor-luxury-electric-scooter-300x300.jpg",
-             "nombre"=> "Dualtron Victor Luxury",
-             "precio"=> "1,749.00€",
-             "descripcion"=> "El diseño de este modelo es similar al del Dualtron 3, los Dualtron Victor lucen con orgullo un color negro general asociado con las líneas coloridas que representan la marca. También podemos notar algunos patrones y letras de color blanco en ambos lados. El Dualtron Victor está rodeado por un marco de aluminio 6082 T6 y esta armadura le asegura una resistencia a cualquier prueba."
+                "categoria_id" => 1,
+                "imagen" => "https://ridenroll.es/wp-content/uploads/2023/03/dualtron-victor-luxury-electric-scooter-300x300.jpg",
+                "nombre" => "Dualtron Victor Luxury",
+                "precio" => "1,749.00€",
+                "descripcion" => "El diseño de este modelo es similar al del Dualtron 3, los Dualtron Victor lucen con orgullo un color negro general asociado con las líneas coloridas que representan la marca. También podemos notar algunos patrones y letras de color blanco en ambos lados. El Dualtron Victor está rodeado por un marco de aluminio 6082 T6 y esta armadura le asegura una resistencia a cualquier prueba."
             ],
             [
-             "categoria_id"=> 1,
-             "imagen"=> "https://ridenroll.es/wp-content/uploads/2022/04/Dualtron-victor-luxury-plus-1-300x300.jpg",
-             "nombre"=> "Dualtron Victor Luxury Plus",
-             "precio"=> "2,099.00€",
-             "descripcion"=> "Dualtron Victor Luxury Plus es un Victor Luxury redimensionado que ofrece más espacio en la cubierta para el conductor y se adapta mejor a nuestros clientes más altos.\nElevamos la longitud del e-scooter en 60 mm adicionales y extendimos la plataforma en 60 mm adicionales.\nEl Dualtron Victor Luxury Plus tiene todo lo que hizo que el modelo Victor fuera un éxito pero, además, todo lo que le faltaba y lo hacía “imperfecto”.\n¡Además, el Dualtron Victor Luxury Plus tiene aún más alcance que los otros modelos Victor con sus potentes baterías CN 60V28Ah o LG 21700 60V35Ah!\nPerfil de los usuarios de Victor Luxury Plus=> usuarios que buscan un scooter eléctrico de alta calidad \/ alto rendimiento \/ alta gama diseñado principalmente para la ciudad."
+                "categoria_id" => 1,
+                "imagen" => "https://ridenroll.es/wp-content/uploads/2022/04/Dualtron-victor-luxury-plus-1-300x300.jpg",
+                "nombre" => "Dualtron Victor Luxury Plus",
+                "precio" => "2,099.00€",
+                "descripcion" => "Dualtron Victor Luxury Plus es un Victor Luxury redimensionado que ofrece más espacio en la cubierta para el conductor y se adapta mejor a nuestros clientes más altos.\nElevamos la longitud del e-scooter en 60 mm adicionales y extendimos la plataforma en 60 mm adicionales.\nEl Dualtron Victor Luxury Plus tiene todo lo que hizo que el modelo Victor fuera un éxito pero, además, todo lo que le faltaba y lo hacía “imperfecto”.\n¡Además, el Dualtron Victor Luxury Plus tiene aún más alcance que los otros modelos Victor con sus potentes baterías CN 60V28Ah o LG 21700 60V35Ah!\nPerfil de los usuarios de Victor Luxury Plus=> usuarios que buscan un scooter eléctrico de alta calidad \/ alto rendimiento \/ alta gama diseñado principalmente para la ciudad."
             ],
             [
-             "categoria_id"=> 1,
-             "imagen"=> "https://ridenroll.es/wp-content/uploads/2023/04/dualtron-x-limited1-300x300.jpeg",
-             "nombre"=> "Dualtron X Limited 84V 60Ah LG EY4",
-             "precio"=> "9,239.00€",
-             "descripcion"=> "El Dualtron X Limited es el modelo más exclusivo y de gama alta de la marca Dualtron, hecho para los que quieran el top de prestaciones y busquen el máximo rendimiento para todo tipo de terrenos.\n\nDiseñado a partir del modelo X2, su fortaleza reside en su tamaño más grande que es perfecto para las necesidades de nuestros clientes más avanzados, mejorando la estabilidad a velocidades más altas."
+                "categoria_id" => 1,
+                "imagen" => "https://ridenroll.es/wp-content/uploads/2023/04/dualtron-x-limited1-300x300.jpeg",
+                "nombre" => "Dualtron X Limited 84V 60Ah LG EY4",
+                "precio" => "9,239.00€",
+                "descripcion" => "El Dualtron X Limited es el modelo más exclusivo y de gama alta de la marca Dualtron, hecho para los que quieran el top de prestaciones y busquen el máximo rendimiento para todo tipo de terrenos.\n\nDiseñado a partir del modelo X2, su fortaleza reside en su tamaño más grande que es perfecto para las necesidades de nuestros clientes más avanzados, mejorando la estabilidad a velocidades más altas."
             ],
             [
-             "categoria_id"=> 1,
-             "imagen"=> "https://ridenroll.es/wp-content/uploads/2021/04/booster-plus-s-new-black-scaled-1-300x300.jpg",
-             "nombre"=> "E-TWOW Booster ES",
-             "precio"=> "799.00€",
-             "descripcion"=> "El patinete eléctrico Booster ES tiene un motor DC Brushless 500W que puede alcanzar una velocidad de hasta 38 km\/h.\n\nCon una batería de 36V – 7,8 Ah, el patinete puede recorrer 25-30 km con una carga.\n\nAdemás, el tamaño de las ruedas se ha incrementado a 8,5 pulgadas para mayor agarre y seguridad. Para una conducción perfecta, hay una suspensión delantera y trasera para una mejor estabilidad. Con tanta potencia es necesario un sistema de frenado eficaz, por esta razón el patinete eléctrico está dotado de un freno regenerativo en la rueda delantera y freno trasero tambor, para frenados precisos en toda seguridad."
+                "categoria_id" => 1,
+                "imagen" => "https://ridenroll.es/wp-content/uploads/2021/04/booster-plus-s-new-black-scaled-1-300x300.jpg",
+                "nombre" => "E-TWOW Booster ES",
+                "precio" => "799.00€",
+                "descripcion" => "El patinete eléctrico Booster ES tiene un motor DC Brushless 500W que puede alcanzar una velocidad de hasta 38 km\/h.\n\nCon una batería de 36V – 7,8 Ah, el patinete puede recorrer 25-30 km con una carga.\n\nAdemás, el tamaño de las ruedas se ha incrementado a 8,5 pulgadas para mayor agarre y seguridad. Para una conducción perfecta, hay una suspensión delantera y trasera para una mejor estabilidad. Con tanta potencia es necesario un sistema de frenado eficaz, por esta razón el patinete eléctrico está dotado de un freno regenerativo en la rueda delantera y freno trasero tambor, para frenados precisos en toda seguridad."
             ],
             [
-             "categoria_id"=> 1,
-             "imagen"=> "https://ridenroll.es/wp-content/uploads/2021/04/booster-plus-s-new-white-scaled-1-300x300.jpg",
-             "nombre"=> "E-twow Booster V",
-             "precio"=> "899.00€",
-             "descripcion"=> "El patinete eléctrico Booster V tiene un motor DC Brushless 500W que lo permite alcanzar una velocidad de 40 km\/h.\n\nCon una batería de 36V – 10.5 Ah, el patinete puede recorrer una autonomía de hasta 30-35 km con una carga."
+                "categoria_id" => 1,
+                "imagen" => "https://ridenroll.es/wp-content/uploads/2021/04/booster-plus-s-new-white-scaled-1-300x300.jpg",
+                "nombre" => "E-twow Booster V",
+                "precio" => "899.00€",
+                "descripcion" => "El patinete eléctrico Booster V tiene un motor DC Brushless 500W que lo permite alcanzar una velocidad de 40 km\/h.\n\nCon una batería de 36V – 10.5 Ah, el patinete puede recorrer una autonomía de hasta 30-35 km con una carga."
             ],
             [
-             "categoria_id"=> 1,
-             "imagen"=> "https://ridenroll.es/wp-content/uploads/2023/05/Patinets-Dual-GT-300x300.jpg",
-             "nombre"=> "E-TWOW Dual-GT10 Versión SE (Smart Edition)",
-             "precio"=> "1,699.00€",
-             "descripcion"=> "2 motores x 500w de potencia nominales\n\nBatería 48v 10,5Ah\n\nPeso=> 15 Kg"
+                "categoria_id" => 1,
+                "imagen" => "https://ridenroll.es/wp-content/uploads/2023/05/Patinets-Dual-GT-300x300.jpg",
+                "nombre" => "E-TWOW Dual-GT10 Versión SE (Smart Edition)",
+                "precio" => "1,699.00€",
+                "descripcion" => "2 motores x 500w de potencia nominales\n\nBatería 48v 10,5Ah\n\nPeso=> 15 Kg"
             ],
             [
-             "categoria_id"=> 1,
-             "imagen"=> "https://ridenroll.es/wp-content/uploads/2023/05/Patinets-Dual-GT-300x300.jpg",
-             "nombre"=> "E-TWOW Dual-GT15 Versión SE (Smart Edition)",
-             "precio"=> "1,949.00€",
-             "descripcion"=> "2 motores x 700W de potencia\n\nBatería 48v 15 Ah\n\nPeso=> 15 Kg"
+                "categoria_id" => 1,
+                "imagen" => "https://ridenroll.es/wp-content/uploads/2023/05/Patinets-Dual-GT-300x300.jpg",
+                "nombre" => "E-TWOW Dual-GT15 Versión SE (Smart Edition)",
+                "precio" => "1,949.00€",
+                "descripcion" => "2 motores x 700W de potencia\n\nBatería 48v 15 Ah\n\nPeso=> 15 Kg"
             ],
             [
-             "categoria_id"=> 1,
-             "imagen"=> "https://ridenroll.es/wp-content/uploads/2021/04/gtse-gri3-300x300.jpg",
-             "nombre"=> "E-twow GT SE (Smart Edition)",
-             "precio"=> "1,190.00€",
-             "descripcion"=> "El patinete eléctrico Booster GT Smart Edition 2020 tiene un motor Brushless DC de 700W que le permitirá alcanzar una velocidad máxima de 40 km\/h.\n\nCon una batería de Litio-Ion 48v 10,5Ah, este patinete puede recorrer una autonomía máxima entre 35 y 45 km."
+                "categoria_id" => 1,
+                "imagen" => "https://ridenroll.es/wp-content/uploads/2021/04/gtse-gri3-300x300.jpg",
+                "nombre" => "E-twow GT SE (Smart Edition)",
+                "precio" => "1,190.00€",
+                "descripcion" => "El patinete eléctrico Booster GT Smart Edition 2020 tiene un motor Brushless DC de 700W que le permitirá alcanzar una velocidad máxima de 40 km\/h.\n\nCon una batería de Litio-Ion 48v 10,5Ah, este patinete puede recorrer una autonomía máxima entre 35 y 45 km."
             ],
             [
-             "categoria_id"=> 1,
-             "imagen"=> "https://ridenroll.es/wp-content/uploads/2022/04/NewGT_SL_etwow.es_Black-1-1536x1385-1-300x300.jpg",
-             "nombre"=> "E-twow GT SL (Smart Edition)",
-             "precio"=> "899.00€",
-             "descripcion"=> "Te presentamos el nuevo patinete eléctrico E-TWOW GT SL Smart Edition. Tiene una batería de 48V 7,8Ah de Li-ion que nos proporciona un gran par y una autonomía de 35 km, gracias a ofrecer una potencia de 700W.\n\nEste modelo incluye tecnología Bluetooth con bloqueo de seguridad."
+                "categoria_id" => 1,
+                "imagen" => "https://ridenroll.es/wp-content/uploads/2022/04/NewGT_SL_etwow.es_Black-1-1536x1385-1-300x300.jpg",
+                "nombre" => "E-twow GT SL (Smart Edition)",
+                "precio" => "899.00€",
+                "descripcion" => "Te presentamos el nuevo patinete eléctrico E-TWOW GT SL Smart Edition. Tiene una batería de 48V 7,8Ah de Li-ion que nos proporciona un gran par y una autonomía de 35 km, gracias a ofrecer una potencia de 700W.\n\nEste modelo incluye tecnología Bluetooth con bloqueo de seguridad."
             ],
             [
-             "categoria_id"=> 1,
-             "imagen"=> "https://ridenroll.es/wp-content/uploads/2022/04/Oficial_GT_SPORT_Etwow.es_White-scaled-1-300x300.jpg",
-             "nombre"=> "E-twow GT Sport",
-             "precio"=> "1,149.00€",
-             "descripcion"=> "Te presentamos la variante deportiva de la gama GT de la conocida marca de patinetes eléctricos E-TWOW. Esta variante ahora ofrece picos de potencia de hasta 1000W en comparación de los 700W de su gama Smart Edition.\n\nTiene una batería de 48V 7,8Ah que te permiten alcanzar velocidades de más de 40 km\/h con un gran par de potencia. Su autonomía es de 30-35 km."
+                "categoria_id" => 1,
+                "imagen" => "https://ridenroll.es/wp-content/uploads/2022/04/Oficial_GT_SPORT_Etwow.es_White-scaled-1-300x300.jpg",
+                "nombre" => "E-twow GT Sport",
+                "precio" => "1,149.00€",
+                "descripcion" => "Te presentamos la variante deportiva de la gama GT de la conocida marca de patinetes eléctricos E-TWOW. Esta variante ahora ofrece picos de potencia de hasta 1000W en comparación de los 700W de su gama Smart Edition.\n\nTiene una batería de 48V 7,8Ah que te permiten alcanzar velocidades de más de 40 km\/h con un gran par de potencia. Su autonomía es de 30-35 km."
             ],
             [
-             "categoria_id"=> 1,
-             "imagen"=> "https://ridenroll.es/wp-content/uploads/2022/04/NewGT_SE_etwow.es_Black-1-scaled-1-300x300.jpg",
-             "nombre"=> "E-TWOW GT15 SE (Smart Edition)",
-             "precio"=> "1,399.00€",
-             "descripcion"=> "Te presentamos la gama alta de la linea GT de la marca E-TWOW. Esta vez llega con un importante cambio, una nueva batería de 48V 15Ah que nos ofrece una autonomía de 50 – 55 km manteniendo los 700 W de potencia.\n\nIncluye tecnología Bluetooth con sistema de seguridad."
+                "categoria_id" => 1,
+                "imagen" => "https://ridenroll.es/wp-content/uploads/2022/04/NewGT_SE_etwow.es_Black-1-scaled-1-300x300.jpg",
+                "nombre" => "E-TWOW GT15 SE (Smart Edition)",
+                "precio" => "1,399.00€",
+                "descripcion" => "Te presentamos la gama alta de la linea GT de la marca E-TWOW. Esta vez llega con un importante cambio, una nueva batería de 48V 15Ah que nos ofrece una autonomía de 50 – 55 km manteniendo los 700 W de potencia.\n\nIncluye tecnología Bluetooth con sistema de seguridad."
             ],
             [
-             "categoria_id"=> 1,
-             "imagen"=> "https://ridenroll.es/wp-content/uploads/2022/04/Oficial_GT_SPORT_Etwow.es_Grey-scaled-1-300x300.jpg",
-             "nombre"=> "E-TWOW GT15 Sport",
-             "precio"=> "1,490.00€",
-             "descripcion"=> "Te presentamos la gama alta de la linea GT de la marca E-TWOW. Esta vez con la variante GT 15 SPORT con una nueva batería de 48V 15Ah Samsung que nos ofrece una autonomía de 35 – 45 km que nos ofrece una potencia pico de 1000W (700W Nominal).\n\nIncluye tecnología Bluetooth con sistema de seguridad."
+                "categoria_id" => 1,
+                "imagen" => "https://ridenroll.es/wp-content/uploads/2022/04/Oficial_GT_SPORT_Etwow.es_Grey-scaled-1-300x300.jpg",
+                "nombre" => "E-TWOW GT15 Sport",
+                "precio" => "1,490.00€",
+                "descripcion" => "Te presentamos la gama alta de la linea GT de la marca E-TWOW. Esta vez con la variante GT 15 SPORT con una nueva batería de 48V 15Ah Samsung que nos ofrece una autonomía de 35 – 45 km que nos ofrece una potencia pico de 1000W (700W Nominal).\n\nIncluye tecnología Bluetooth con sistema de seguridad."
             ],
             [
-             "categoria_id"=> 1,
-             "imagen"=> "https://ridenroll.es/wp-content/uploads/2022/06/ice-m5-48v-15ah-dual-motor-1000w-300x300.jpg",
-             "nombre"=> "ICe M5",
-             "precio"=> "1,099.00€",
-             "descripcion"=> "El patinete eléctrico ICe M5 dispone de Certificado VMP, de acuerdo con el manual de características VMP publicado mediante Resolución de 12 de enero de 2022, de la Dirección General de Tráfico.\n\nEl ICe M5 que incorpora 2 potentes motores de 500W cada uno y una batería de 48V y 15.8Ah hace realidad el objetivo de un patinete resistente, a la vez que compacto, potente y controlable así como grande pero ligero."
+                "categoria_id" => 1,
+                "imagen" => "https://ridenroll.es/wp-content/uploads/2022/06/ice-m5-48v-15ah-dual-motor-1000w-300x300.jpg",
+                "nombre" => "ICe M5",
+                "precio" => "1,099.00€",
+                "descripcion" => "El patinete eléctrico ICe M5 dispone de Certificado VMP, de acuerdo con el manual de características VMP publicado mediante Resolución de 12 de enero de 2022, de la Dirección General de Tráfico.\n\nEl ICe M5 que incorpora 2 potentes motores de 500W cada uno y una batería de 48V y 15.8Ah hace realidad el objetivo de un patinete resistente, a la vez que compacto, potente y controlable así como grande pero ligero."
             ]
-            ];
-            foreach ($patinetes as $item) {
-                $stock = random_int(0, 50);
-                ($stock > 0 && $stock <= 10) ? $stock = 0 : $stock;
-                Producto::create([
-                    'nombre' => $item['nombre'],
-                    'descripcion' => $item['descripcion'],
-                    'imagen' => $this->obtenerImagen($item['imagen']),
-                    'precio' => (float) str_replace('€', '', str_replace(',', '', $item['precio'])), // Convertir precio a float
-                    'categoria_id' => $item['categoria_id'],
-                    'stock' => $stock,
-                ]);
-            }
+        ];
+        foreach ($patinetes as $item) {
+            $stock = random_int(0, 50);
+            ($stock > 0 && $stock <= 10) ? $stock = 0 : $stock;
+            $rutaImagen = $this->obtenerImagen($item['imagen'],  $item['nombre']);
+            Producto::create([
+                'nombre' => $item['nombre'],
+                'descripcion' => $item['descripcion'],
+                'imagen' => $rutaImagen,
+                'precio' => (float) str_replace('€', '', str_replace(',', '', $item['precio'])), // Convertir precio a float
+                'categoria_id' => $item['categoria_id'],
+                'stock' => $stock,
+            ]);
+        
+        }
     }
 
-    public function obtenerImagen($url)
+    public function obtenerImagen($url, $nombre)
     {
         //Obtengo la imagen
         $imgContenido = file_get_contents($url);
+        $nombreSinEspacios=  str_replace(" ", "_", $nombre);
         //Le doy un nombre unico
-        $imgNombre = 'imgProduct/' . uniqid() . '.jpg';
+        $imgNombre = 'imgProduct/' . $nombreSinEspacios . '.jpg';
         //Guardo la imagen en el storage
+        if (Storage::exists($imgNombre)) {
+            $imgNombre = str_replace('.jpg', '_2.jpg', $imgNombre);
+        }
         Storage::put($imgNombre, $imgContenido);
         return $imgNombre;
     }

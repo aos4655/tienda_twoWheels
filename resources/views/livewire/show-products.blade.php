@@ -177,7 +177,7 @@
                                 <h1 style="color: {{ $textColor }}" class="text-white text-3xl font-bold mb-2">
                                     {{ $titulo }}
                                 </h1>
-                                <div class="bg-white p-2">
+                                <div class="bg-green-500 p-2">
                                     {{ QrCode::size(150)->generate(route('home.show', $id)) }}
                                 </div>
                                 <p style="color: {{ $textColor }}" class=" mt-2 text-sm">{{ $descripcion }}</p>

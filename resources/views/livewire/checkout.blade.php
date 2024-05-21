@@ -183,7 +183,7 @@
                 </div>
 
                 <!-- Total amount -->
-                <div class="flex justify-end space-x-4 px-10 py-4 text-lg font-bold text-white">
+                <div class="flex justify-end space-x-4 px-10 py-4 text-lg font-bold dark:text-white text-blue-900">
                     <div>Total</div>
                     <div>{{ str_replace('.', ',', $subtotal) }} €</div>
                 </div>
@@ -224,9 +224,11 @@
                     </div>
                 </div>
                 <div class="flex flex-row-reverse text-white mt-8 pb-3">
-                    <form id="form-pago" action="/session" method="POST">
+                    <form id="form_pago" action="" method="POST">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <button disabled id="btn-pagar" type="submit"
+                        <input type="hidden" id="direccion_envio" name="direccion_envio">
+                        <input type="hidden" id="nombre_envio" name="nombre_envio">
+                        <button disabled id="btn_pagar" type="submit"
                             class="rounded-full bg-blue-900 mx-6 p-2 w-20">Pagar</button>
                     </form>
                     <a href="{{ url()->previous() }}" class="rounded-full bg-red-600 p-2 w-20">Cancelar</a>
@@ -239,46 +241,73 @@
 
     @livewireScripts
     <script>
+        var btnPago = document.getElementById('btn_pagar');
+        var formPago = document.getElementById('form_pago');
+
+
+        btnPago.addEventListener('click', function(event) {
+            var direccionEnvio = document.getElementById('direccion_envio');
+            var userDireccion = document.getElementById('user_direccion');
+            var nombre = document.getElementById('user_nombre');
+            var nombre_envio = document.getElementById('nombre_envio');
+            event.preventDefault();
+            direccionEnvio.value = userDireccion.value;
+            nombre_envio.value = nombre.value;
+            formPago.submit();
+        });
+
         function cambiarLink(metodo) {
             let paypal = document.getElementById('paypal');
             let card = document.getElementById('card');
-            let btnPago = document.getElementById('btn-pagar');
-            let formPago = document.getElementById('form-pago');
+            let btnPago = document.getElementById('btn_pagar');
+            let formPago = document.getElementById('form_pago');
 
             if (paypal.checked) {
                 btnPago.removeAttribute('disabled');
-                formPago.action="/";
-            }else if (card.checked) {
+                formPago.action = "/paypal-session";
+            } else if (card.checked) {
                 btnPago.removeAttribute('disabled');
-                formPago.action="/session";
+                formPago.action = "/stripe-session";
             } else {
                 btnPago.setAttribute('disabled', true);
             }
         }
-
 
         function editarNombreYDireccion() {
             const nombre = document.getElementById('user_nombre');
             const direccion = document.getElementById('user_direccion');
             const boton = document.getElementById('boton_cambiar');
             const habilitado = !(nombre.disabled && direccion.disabled);
-
+            const direccion_envio = document.getElementById('direccion_envio');
+            const modoOscuro = document.body.classList.contains('dark');
             if (habilitado) {
                 boton.innerText = "Cambiar";
                 nombre.disabled = true;
                 direccion.disabled = true;
-                nombre.classList.remove('border-white');
-                nombre.classList.add('border-none');
-                direccion.classList.remove('border-white');
                 direccion.classList.add('border-none');
+                nombre.classList.add('border-none');
+                if (modoOscuro) {
+                    direccion.classList.remove('border-white');
+                    nombre.classList.remove('border-white');
+                } else if (!modoOscuro) {
+                    direccion.classList.remove('border-blue-900');
+                    nombre.classList.remove('border-blue-900');
+                } 
+
+
             } else {
                 boton.innerText = "Ok";
                 nombre.disabled = false;
                 direccion.disabled = false;
                 nombre.classList.remove('border-none');
-                nombre.classList.add('border-white');
                 direccion.classList.remove('border-none');
-                direccion.classList.add('border-white');
+                if (modoOscuro) {
+                    direccion.classList.add('border-white');
+                    nombre.classList.add('border-white');
+                } else if(!modoOscuro){
+                    direccion.classList.add('border-blue-900');
+                    nombre.classList.add('border-blue-900');
+                }
             }
 
         }

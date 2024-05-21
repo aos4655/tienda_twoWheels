@@ -9,12 +9,14 @@
         "barryvdh/laravel-dompdf": "^2.2",
         "commerceguys/addressing": "^2.2",
         "guzzlehttp/guzzle": "^7.8",
+        "intervention/image": "^3.6",
         "laravel/framework": "^10.10",
         "laravel/jetstream": "^4.3",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.0",
         "simplesoftwareio/simple-qrcode": "~4",
+        "srmklive/paypal": "~3.0",
         "stripe/stripe-php": "^14.3"
     },
     "require-dev": {

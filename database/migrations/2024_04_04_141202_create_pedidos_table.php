@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             /* 'user_id', 'state', 'track_num' */
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->string('nombre');
             $table->string('direccion');
             $table->string('track_num');
             $table->timestamps();

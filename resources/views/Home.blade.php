@@ -6,7 +6,7 @@
                 <div class="container px-3 py-24 mx-auto ">
                     <div class="lg:w-4/5 mx-auto flex flex-wrap mt-2">
                         <div class="relative md:w-5/12 md:h-1/3 overflow-hidden">
-                            <img src="{{ Storage::url($productoMasVendido->imagen) }}" alt="Imagen"
+                            <img src="{{ Storage::url( str_replace('.jpg', '_SF.png', $productoMasVendido->imagen)) }}" alt="Imagen"
                                 class="mt-2 ml-8 block w-400 h-400 z-10 relative">
 
                             <div

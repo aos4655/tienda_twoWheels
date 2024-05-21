@@ -95,7 +95,7 @@
                     {{ $pedido->user->direccion }},<br>
                     {{ $pedido->user->ciudad }}, CP: {{ $pedido->user->zipcode }}<br>
                     {{ $pedido->user->email }}<br>
-                    911-234-567
+                    {{ $pedido->user->num_telefono }}
                 </td>
             </tr>
         </table>

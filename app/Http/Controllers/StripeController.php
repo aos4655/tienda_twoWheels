@@ -56,65 +56,23 @@ class StripeController extends Controller
             'line_items'  => $lineItems,
             'mode'        => 'payment',
             'customer_email' => Auth::user()->email, //Este seria el email del usuario que paga
-            'success_url' => route('success'),
-            'cancel_url'  => route('checkout2'),
+            'success_url' => route('stripe-success', ['direccion' => $request->direccion_envio, 'nombre' => $request->nombre_envio]),
+            'cancel_url'  => route('stripe-cancel'),
 
         ]);
 
         return redirect()->away($session->url);
     }
 
-    public function success()
+    public function success($direccion, $nombre)
     {
-
-        $this->crearPedido();
-        $this->elimnarProductosCarrito();
+        PedidoController::crearPedido($direccion, $nombre);
         return redirect()->route('pedidos.index')->with('success', "¡Pedido completado con éxito! Gracias por tu compra.");
     }
     public function cancel()
     {
         return "cancel";
     }
-    public function elimnarProductosCarrito()
-    {
-        $usuario = User::findOrFail(Auth::user()->id);
-        $productosUsuario = $usuario
-            ->productsCart()
-            ->get();
-        foreach ($productosUsuario as $producto) {
-            $usuario->productsCart()->detach($producto->id);
-        }
-    }
-    public function crearPedido()
-    {
-        $usuario = User::findOrFail(Auth::user()->id);
-        $productosUsuario = $usuario
-            ->productsCart()
-            ->get();
-
-        $pedidoModel = app(Pedido::class);
-        $pedido = Pedido::create([
-            'user_id' => $usuario->id,
-            'track_num' => $this->generateTrackingNumber($pedidoModel),
-            'direccion' => $usuario->direccion
-        ]);
-        foreach ($productosUsuario as $producto) {
-            $cantidad = $producto->pivot->cantidad;
-            $pedido->productos()->attach($producto, ['cantidad' => $cantidad]);
-        }
-        /* No es necesario añadirle un tracking ya que lo tenemos automatizado.  */
-        //PedidoController::pdfMail($pedido->id);
-        //Mail::to($usuario->email)->send(new PedidoRecibido($pedido->id));
-    }
-    public function generateTrackingNumber($pedidoModel, $prefix = 'PK')
-    {
-        // Generar un número de seguimiento único que no este en la BD
-        do {
-            $randomPart = strtoupper(substr(uniqid(), -6)); // Genera una parte aleatoria de 6 caracteres
-            $trackingNumber = $prefix . $randomPart;
-        } while ($pedidoModel->where('track_num', $trackingNumber)->exists());
-
-        return $trackingNumber;
-    }
+    
     
 }
