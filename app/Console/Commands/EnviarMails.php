@@ -29,12 +29,15 @@ class EnviarMails extends Command
      */
     public function handle()
     {
-        $pedidos = Pedido::select('*')->whereRaw("DATE_FORMAT(pedidos.created_at, '%Y-%m-%d') = ?", [date('Y-m-d')])
-            ->get();
-        foreach ($pedidos as $pedido) {
+        foreach ($this->obtenerPedidosHoy() as $pedido) {
             $pdf = Pdf::loadView('pdf', compact('pedido'));
             $id = $pedido->id;
             Mail::to($pedido->user->email)->send(new PedidoRecibido($id, $pdf->output()));
         }
+    }
+    public function obtenerPedidosHoy(){
+        $pedidos = Pedido::select('*')->whereRaw("DATE_FORMAT(pedidos.created_at, '%Y-%m-%d') = ?", [date('Y-m-d')])
+            ->get();
+        return $pedidos;
     }
 }

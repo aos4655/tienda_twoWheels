@@ -95,5 +95,7 @@ Route::get('bikes', Bicicletas::class)->name('bicicletas.index');
 Route::get('accessories', Accesorios::class)->name('accesorios.index');
 
 /* WHATSAPP */
+/*  
 Route::get('/enviarWhatsapp', [PedidoController::class, 'enviarWhatsapp']);
 Route::get('/enviarWhatsappPDF', [PedidoController::class, 'enviarWhatsappPDF']);
+*/

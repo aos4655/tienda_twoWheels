@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\LogisticApiController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\UserController;
@@ -28,9 +29,9 @@ Route::post('/logistica/crearSeguimiento/{num_track}', [LogisticApiController::c
 
 Route::get('/carrito', [UserController::class, 'obtenerProductosUsuario']);
 
-Route::post('/carritoDelete', [UserController::class, 'eliminarProductoCarrito'])->name('carrito.delete');
-Route::post('/carritoAdd', [UserController::class, 'agregarProductoCarrito'])->name('carrito.add');
-Route::post('/carritoCantidad', [UserController::class, 'cambiarCantidadProductoCarrito'])->name('carrito.cambiar_cantidad');
+Route::post('/carritoDelete', [CarritoController::class, 'eliminarProductoCarrito'])->name('carrito.delete');
+Route::post('/carritoAdd', [CarritoController::class, 'agregarProductoCarrito'])->name('carrito.add');
+Route::post('/carritoCantidad', [CarritoController::class, 'cambiarCantidadProductoCarrito'])->name('carrito.cambiar_cantidad');
 
 /* CREAR SEGUIMIENTO PEDIDO CUANDO PAGA */
 Route::post('/crear-envio/{num_track}', [StripeController::class, 'crear'])->name('crear-envio');

@@ -20,7 +20,7 @@ class PedidoController extends Controller
 
         return view('mis-pedidos', compact('pedidos'));
     }
-    
+
     /**
      * Show the form for creating a new resource.
      */
@@ -100,10 +100,14 @@ class PedidoController extends Controller
             ->productsCart()
             ->get();
         foreach ($productosUsuario as $producto) {
+            $nuevoStock = (int) $producto->stock - (int) $producto->pivot->cantidad;
+            $producto->update([
+                'stock' => $nuevoStock,
+            ]);
             $usuario->productsCart()->detach($producto->id);
         }
     }
-    
+
     public static function generateTrackingNumber($pedidoModel, $prefix = 'PK')
     {
         // Generar un número de seguimiento único que no este en la BD
@@ -115,28 +119,25 @@ class PedidoController extends Controller
         return $trackingNumber;
     }
 
-    public function pdf($id) {
-        $pedido = Pedido::findOrFail($id); 
-        
-        $pdf = Pdf::loadView('pdf', compact('pedido')); 
-        return $pdf->download('productos.pdf'); 
-    }
-    /* public static function pdfMail($id) {
-        $pedido = Pedido::findOrFail($id); 
-        
-        $pdf = Pdf::loadView('pdf', compact('pedido')); 
-        Storage::put('pdf/pedido_'.$id.'.pdf',$pdf->output()); 
-    } */
+    public function pdf($id)
+    {
+        $pedido = Pedido::findOrFail($id);
 
-    /* whatsapp */
-    public function enviarWhatsapp(){
+        $pdf = Pdf::loadView('pdf', compact('pedido'));
+        return $pdf->download('productos.pdf');
+    }
+
+    /* WHATSAPP */
+    /*  
+    public function enviarWhatsapp()
+    {
         $token = $_ENV['TOKEN_WHATSAPP'];
         $telefono = $_ENV['DESTINATARIO_WHATSAPP'];
         $pedido = "83";
         $url = 'https://graph.facebook.com/v19.0/306167229249311/messages';
         //$mensaje = '{ "messaging_product": "whatsapp", "to": "'.$telefono.'", "type": "template", "template": { "name": "hello_world", "language": { "code": "en_US" } } }';
-        $mensaje = '{ "messaging_product": "whatsapp", "to": "'.$telefono.'", "type": "template", "template": { "name": "nuevopedido", "language": { "code": "es_ES" } , "components": [{"type": "body","parameters": [{"type": "text","text": '.$pedido.'}]}]}  }';
-        $header = array("Authorization: Bearer ".$token, "Content-Type: application/json");
+        $mensaje = '{ "messaging_product": "whatsapp", "to": "' . $telefono . '", "type": "template", "template": { "name": "nuevopedido", "language": { "code": "es_ES" } , "components": [{"type": "body","parameters": [{"type": "text","text": ' . $pedido . '}]}]}  }';
+        $header = array("Authorization: Bearer " . $token, "Content-Type: application/json");
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $mensaje);
@@ -147,19 +148,62 @@ class PedidoController extends Controller
         print_r($response);
         $status_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
-
     }
-
+    */
     /* ESTO AUN NO FUNCIONA */
-    public function enviarWhatsappPDF(){
-        $token = $_ENV['TOKEN_WHATSAPP'];
-        $telefono = $_ENV['DESTINATARIO_WHATSAPP'];
-        //$link = Storage::url('pdf/pedido-53.pdf');
-        $link = 'https://aprendeconalf.es/latex-manual/manual-latex.pdf';
+    /*  
+    public function enviarWhatsappPDF()
+    {
+        $to = '34690700209';
+        $pedido = '57';
+        $pdfUrl = 'https://aprendeconalf.es/latex-manual/manual-latex.pdf';
+        //$pdfUrl = Storage::url('pdf/pedido_53.pdf');
+        
+        // Datos de la API de WhatsApp
+        $token = env('TOKEN_WHATSAPP');
         $url = 'https://graph.facebook.com/v19.0/306167229249311/messages';
-        $mensaje = '{ "messaging_product": "whatsapp", "to": "'.$telefono.'", "type": "text", "text": { "body": "hola como estas"} }';
-        //$mensaje = '{ "messaging_product": "whatsapp","recipient_type": "individual", "to": "'.$telefono.'", "type": "document", "document": { "link": "https://download.msi.com/archive/mnu_exe/nb/14B3_v2.0_Spanish.pdf", "filename": "mimanual.pdf"}}';
-        $header = array("Authorization: Bearer ".$token, "method"  => "POST", "Content-Type: application/json");
+
+        // Crear el mensaje en formato JSON
+        $mensaje = json_encode([
+            'messaging_product' => 'whatsapp',
+            'to' => $to,
+            'type' => 'template',
+            'template' => [
+                'name' => 'nuevopedido', 
+                'language' => [
+                    'code' => 'es_ES',
+                ],
+                'components' => [
+                    [
+                        'type' => 'header',
+                        'parameters' => [
+                            [
+                                'type' => 'document',
+                                'document' => [
+                                    'link' => $pdfUrl,
+                                    'filename' => 'factura_pedido_'.$pedido.'.pdf', 
+                                ],
+                            ],
+                        ],
+                    ],
+                    [
+                        'type' => 'body',
+                        'parameters' => [
+                            [
+                                'type' => 'text',
+                                'text' => $pedido,
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ]);
+
+        // Configurar cURL
+        $header = [
+            "Authorization: Bearer $token",
+            "Content-Type: application/json",
+        ];
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $mensaje);
@@ -167,10 +211,20 @@ class PedidoController extends Controller
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
         $response = json_decode(curl_exec($curl), true);
-        print_r($response);
         $status_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
 
+        // Verificar el estado de la respuesta
+        if ($status_code == 200) {
+            return response()->json(['message' => 'Mensaje enviado correctamente', 'response' => $response], 200);
+        } else {
+            return response()->json(['error' => 'Error al enviar el mensaje', 'response' => $response], $status_code);
+        }
     }
-
+    private function checkUrlAccessible($url)
+    {
+        $headers = @get_headers($url);
+        return is_array($headers) && strpos($headers[0], '200') !== false;
+    }
+    */
 }
