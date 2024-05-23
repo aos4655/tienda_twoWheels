@@ -25,7 +25,7 @@
                         class="relative rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300">
                         <a href="{{ route('productos.show', $item->id) }}">
                             <div class="relative flex items-end overflow-hidden rounded-xl">
-                                <img src="{{ Storage::url($item->imagen) }}" alt="{{ $item->nombre }}" class="h-40" />
+                                <img src="{{ Storage::url($item->imagen) }}" alt="{{ $item->nombre }}"  />
                                 <div
                                     class="absolute bottom-3 left-3 inline-flex items-center rounded-lg bg-white p-2 shadow-md">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400"

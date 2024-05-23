@@ -1,5 +1,8 @@
 <div>
     <x-plantilla-admin>
+        <h2 class="md:hidden  text-center font-semibold text-2xl text-blue-900 dark:text-white mb-5">
+            PEDIDOS
+        </h2>
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
             <div
                 class="flex items-center justify-between flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 py-4 bg-white dark:bg-gray-900">
@@ -13,109 +16,122 @@
                         </svg>
                     </div>
                     <x-input
-                        class="w-3/4 pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class=" pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Buscar..." type="search" wire:model.live="search"></x-input>
                 </div>
             </div>
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                        <th scope="col" class="px-6 py-3 cursor-pointer" wire:click="ordenar('id')">
-                            Num pedido
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Nombre Usuario
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Num Seguimiento
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Estado
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Actions
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($pedidos as $pedido)
+            @if (!$pedidos->count())
+                <h1
+                    class="mb-4 text-4xl mt-6 font-extrabold text-center leading-none tracking-tight text-red-600 md:text-5xl lg:text-6xl dark:text-white">
+                    No hay resultados 😭</h1>
+            @else
+                <table class="w-full text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead
+                        class="block md:table-header-group text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr
-                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <td class="px-6 py-4">
-                                <div class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            class="border border-grey-500 md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto  md:relative ">
+                            <th class="p-2  font-bold md:border md:border-none block md:table-cell cursor-pointer"
+                                wire:click="ordenar('id')">
+                                Num pedido
+                            </th>
+                            <th class="p-2  font-bold md:border md:border-none block md:table-cell">
+                                Nombre Usuario
+                            </th>
+                            <th class="p-2  font-bold md:border md:border-none block md:table-cell">
+                                Num Seguimiento
+                            </th>
+                            <th class="p-2  font-bold md:border md:border-none block md:table-cell">
+                                Estado
+                            </th>
+                            <th class="p-2  font-bold md:border md:border-none block md:table-cell">
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="block md:table-row-group">
+                        @foreach ($pedidos as $pedido)
+                            <tr class=" border-b-2 md:border-none block md:table-row ml-5">
+                                <td
+                                    class="p-2 ml-8 md:border md:border-none text-left md:text-center  block md:table-cell">
+                                    <span class="inline-block w-1/3 md:hidden font-bold">Numero Pedido </span>
                                     {{ $pedido->id }}
-                                </div>
-                            </td>
-                            <td class="px-6 py-4">
-                                <div class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+
+                                </td>
+                                <td
+                                    class="p-2 ml-8 md:border md:border-none text-left md:text-center block md:table-cell">
+                                    <span class="inline-block w-1/3 md:hidden font-bold">Nombre</span>
                                     {{ $pedido->user->name }}
-                                </div>
-                            </td>
-                            <td class="px-6 py-4">
-                                <div class="flex items-center">
-                                    <div class="font-normal text-gray-500">
-                                        {{ $pedido->track_num }}
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4">
-                                <div class="flex items-center">
-                                    <div class="font-normal text-gray-500" id="ult_estado_{{ $pedido->id }}">
+                                </td>
+                                <td
+                                    class="p-2 ml-8 md:border md:border-none text-left md:text-center block md:table-cell">
+                                    <span class="inline-block w-1/3 md:hidden font-bold">Numero Seguimiento</span>
+                                    {{ $pedido->track_num }}
+
+                                </td>
+                                <td
+                                    class="p-2 ml-8 md:border md:border-none text-left md:text-center block md:table-cell">
+                                    <span class="inline-block w-1/3 md:hidden font-bold">Estado</span>
+                                    <div class="font-normal inline-block text-gray-500"
+                                        id="ult_estado_{{ $pedido->id }}">
                                         <!-- Modal toggle -->
                                         <button class="seguimiento-btn font-medium text-blue-600 hover:underline ms-3"
                                             data-pedido-track="{{ $pedido->track_num }}">
                                             <i class="fa-solid fa-location-arrow"></i>
                                         </button>
                                     </div>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4">
-                                <!-- Menú desplegable -->
-                                <div class="dropdown-container">
-                                    <!-- Botón para abrir el dropdown -->
-                                    <button id="dropdownActionButton" onclick="toggleDropdown('{{ $pedido->id }}')"
-                                        class="text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-centerdark:bg-gray-800 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-                                        type="button">
-                                        Action
-                                        <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2" d="m1 1 4 4 4-4" />
-                                        </svg>
-                                    </button>
-
+                                </td>
+                                <td
+                                    class="p-2 ml-8 md:border md:border-none text-left md:text-center block md:table-cell">
+                                    <span class="inline-block w-1/3 md:hidden font-bold">Actions</span>
                                     <!-- Menú desplegable -->
-                                    <div id="dropdownAction_{{ $pedido->id }}"
-                                        class="dropdown-menu z-10 hidden bg-white  rounded-lg shadow dark:bg-gray-700">
-                                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
-                                            aria-labelledby="dropdownActionButton">
-                                            <li>
-                                                <!-- Acción de editar usuario -->
-                                                <button wire:click="edit({{ $pedido->id }})"
-                                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                                    <p class="text-red-800 ">Editar</p>
-                                                </button>
-                                            </li>
-                                            <!-- Acción de eliminar usuario -->
-                                            <li>
-                                                <button wire:click="pedirConfirmacion('{{ $pedido->id }}')"
-                                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                                    <p class="text-blue-800 ">Eliminar</p>
-                                                </button>
-                                            </li>
-                                        </ul>
+                                    <div class="dropdown-container">
+                                        <!-- Botón para abrir el dropdown -->
+                                        <button id="dropdownActionButton"
+                                            onclick="toggleDropdown('{{ $pedido->id }}')"
+                                            class="text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-centerdark:bg-gray-800 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                                            type="button">
+                                            Action
+                                            <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                                <path stroke="currentColor" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+                                            </svg>
+                                        </button>
+
+                                        <!-- Menú desplegable -->
+                                        <div id="dropdownAction_{{ $pedido->id }}"
+                                            class="dropdown-menu z-10 hidden bg-white  rounded-lg shadow dark:bg-gray-700">
+                                            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                                                aria-labelledby="dropdownActionButton">
+                                                <li>
+                                                    <!-- Acción de editar usuario -->
+                                                    <button wire:click="edit({{ $pedido->id }})"
+                                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                                        <p class="text-red-800 ">Editar</p>
+                                                    </button>
+                                                </li>
+                                                <!-- Acción de eliminar usuario -->
+                                                <li>
+                                                    <button wire:click="pedirConfirmacion('{{ $pedido->id }}')"
+                                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                                        <p class="text-blue-800 ">Eliminar</p>
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
 
-                            </td>
-                        </tr>
-                    @endforeach
+                                </td>
+                            </tr>
+                        @endforeach
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            @endif
+
             <!-- Seguimiento modal -->
             <div id="seguimiento-modal" tabindex="-1" aria-hidden="true"
-                class="hidden overflow-y-auto overflow-x-hidden fixed z-50 inset-0 flex justify-center items-center">
+                class="hidden overflow-y-auto overflow-x-hidden fixed z-50 inset-0  justify-center items-center top-1/2 md:left-1/2 transform md;-translate-x-1/4 -translate-y-1/2">
                 <div class="relative p-4 w-full max-w-md max-h-full">
                     <!-- Modal content -->
                     <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -138,7 +154,7 @@
                         <!-- Modal body -->
                         <div class="p-4 md:p-5">
                             {{-- Aqui deberia ir icono de cargando dureante un par desegundos --}}
-                            <div id="load_seguimiento" ></div>
+                            <div id="load_seguimiento"></div>
 
                             <ol id="lista_seguimiento"
                                 class="relative border-s border-gray-200 dark:border-gray-600 ms-3.5 mb-4 md:mb-5"

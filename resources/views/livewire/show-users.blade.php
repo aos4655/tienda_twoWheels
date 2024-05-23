@@ -1,5 +1,8 @@
 <div>
     <x-plantilla-admin>
+        <h2 class="md:hidden  text-center font-semibold text-2xl text-blue-900 dark:text-white mb-5">
+            USUARIOS
+        </h2>
         <div class=" overflow-hidden shadow-xl sm:rounded-lg">
             <div
                 class="flex items-center justify-between flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 py-4 bg-white dark:bg-gray-900">
@@ -18,85 +21,94 @@
                 </div>
             </div>
             @if (!$users->count())
-                No hay resultados!!
-            @endif
-            <table class="w-full text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead
-                    class="block md:table-header-group text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr
-                        class="border border-grey-500 md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto  md:relative ">
-                        <th class=" p-2  font-bold md:border md:border-none block md:table-cell">
-                            Nombre</th>
-                        <th class=" p-2  font-bold md:border md:border-none block md:table-cell">
-                            Email</th>
-                        <th class=" p-2  font-bold md:border md:border-none block md:table-cell">
-                            Status</th>
-                        <th class=" p-2  font-bold md:border md:border-none block md:table-cell">
-                            Acciones</th>
+                <h1
+                    class="mb-4 text-4xl text-center mt-6 font-extrabold leading-none tracking-tight text-red-600 md:text-5xl lg:text-6xl dark:text-white">
+                    No hay resultados 😭</h1>
+            @else
+                <table class="w-full text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead
+                        class="block md:table-header-group text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr
+                            class="border border-grey-500 md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto  md:relative ">
+                            <th class=" p-2  font-bold md:border md:border-none block md:table-cell">
+                                Nombre</th>
+                            <th class=" p-2  font-bold md:border md:border-none block md:table-cell">
+                                Email</th>
+                            <th class=" p-2  font-bold md:border md:border-none block md:table-cell">
+                                Status</th>
+                            <th class=" p-2  font-bold md:border md:border-none block md:table-cell">
+                                Acciones</th>
 
-                    </tr>
-                </thead>
-                <tbody class="mt-8">
-                    @foreach ($users as $user)
-                        <tr class="bg-gray-300 py-4 border-b-2 md:border-none block md:table-row ">
-                            <td class="p-2 ml-8 md:border md:border-none block md:table-cell">
-                                <span class="inline-block w-1/3 md:hidden font-bold">Nombre</span>
-                                {{ $user->name }}
-                            </td>
-                            <td class="p-2 ml-8 md:border md:border-none block md:table-cell">
-                                <span class="inline-block w-1/3 md:hidden font-bold">Email</span>
-                                {{ $user->email }}
-                            </td>
-                            <td class="p-2 ml-8 md:border md:border-none block md:table-cell">
-                                <span class="inline-block w-1/3 md:hidden font-bold">Status</span>
-                                {{ $user->is_admin == 'SI' ? 'Administrador' : 'Normal' }}
-                            </td>
-                            <td class="p-2 ml-8 md:border md:border-none block md:table-cell">
-                                <span class="inline-block w-1/3 md:hidden font-bold">Acciones</span>
-
-                                <!-- Menú desplegable -->
-                                <div class="dropdown-container ">
-                                    <!-- Botón para abrir el dropdown -->
-                                    <button id="dropdownActionButton" onclick="toggleDropdown('{{ $user->id }}')"
-                                        class="text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-centerdark:bg-gray-800 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-                                        type="button">
-                                        Action
-                                        <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2" d="m1 1 4 4 4-4" />
-                                        </svg>
-                                    </button>
+                        </tr>
+                    </thead>
+                    <tbody class="block md:table-row-group">
+                        @foreach ($users as $user)
+                            <tr class=" border-b-2 md:border-none block md:table-row ml-5">
+                                <td
+                                    class="p-2 ml-8 md:border md:border-none text-left md:text-center block md:table-cell">
+                                    <span class="inline-block w-1/3 md:hidden font-bold">Nombre</span>
+                                    {{ $user->name }}
+                                </td>
+                                <td
+                                    class="p-2 ml-8 md:border md:border-none text-left md:text-center block md:table-cell">
+                                    <span class="inline-block w-1/3 md:hidden font-bold">Email</span>
+                                    {{ $user->email }}
+                                </td>
+                                <td
+                                    class="p-2 ml-8 md:border md:border-none text-left md:text-center block md:table-cell">
+                                    <span class="inline-block w-1/3 md:hidden font-bold">Status</span>
+                                    {{ $user->is_admin == 'SI' ? 'Administrador' : 'Normal' }}
+                                </td>
+                                <td
+                                    class="p-2 ml-8 md:border md:border-none text-left md:text-center block md:table-cell">
+                                    <span class="inline-block w-1/3 md:hidden font-bold">Acciones</span>
 
                                     <!-- Menú desplegable -->
-                                    <div id="dropdownAction_{{ $user->id }}"
-                                        class="dropdown-menu z-10 hidden bg-white  rounded-lg shadow dark:bg-gray-700">
-                                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
-                                            aria-labelledby="dropdownActionButton">
-                                            <li>
-                                                <!-- Acción de editar usuario -->
-                                                <button wire:click="edit({{ $user->id }})"
-                                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                                    <p class="text-red-800 ">Editar</p>
-                                                </button>
-                                            </li>
-                                            <!-- Acción de eliminar usuario -->
-                                            <li>
-                                                <button wire:click="pedirConfirmacion('{{ $user->id }}')"
-                                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                                    <p class="text-blue-800 ">Eliminar</p>
-                                                </button>
-                                            </li>
-                                        </ul>
+                                    <div class="dropdown-container ">
+                                        <!-- Botón para abrir el dropdown -->
+                                        <button id="dropdownActionButton"
+                                            onclick="toggleDropdown('{{ $user->id }}')"
+                                            class="text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-centerdark:bg-gray-800 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                                            type="button">
+                                            Action
+                                            <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                                <path stroke="currentColor" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+                                            </svg>
+                                        </button>
+
+                                        <!-- Menú desplegable -->
+                                        <div id="dropdownAction_{{ $user->id }}"
+                                            class="dropdown-menu z-10 hidden bg-white  rounded-lg shadow dark:bg-gray-700">
+                                            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                                                aria-labelledby="dropdownActionButton">
+                                                <li>
+                                                    <!-- Acción de editar usuario -->
+                                                    <button wire:click="edit({{ $user->id }})"
+                                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                                        <p class="text-red-800 ">Editar</p>
+                                                    </button>
+                                                </li>
+                                                <!-- Acción de eliminar usuario -->
+                                                <li>
+                                                    <button wire:click="pedirConfirmacion('{{ $user->id }}')"
+                                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                                        <p class="text-blue-800 ">Eliminar</p>
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
 
-                            </td>
-                        </tr>
-                    @endforeach
+                                </td>
+                            </tr>
+                        @endforeach
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            @endif
+
 
             @isset($form->user)
                 <x-dialog-modal wire:model='abrirModalUpdate'>

@@ -1,6 +1,6 @@
 <div>
     <button
-        class="relative justify-start inline-flex items-center p-3 text-sm font-medium text-center rounded-lg focus:ring-4 focus:outline-none"
+        class="relative mt-1 justify-start inline-flex items-center p-3 text-sm font-medium text-center rounded-lg focus:ring-4 focus:outline-none"
         wire:click="$set('abrirModalCart', true)">
         <i id="icon-cart" class="fa-solid fa-cart-shopping fa-xl"></i>
         <div id="cant_cart"

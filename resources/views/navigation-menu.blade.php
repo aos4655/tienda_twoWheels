@@ -54,13 +54,13 @@
 
             </div>
             <div class="flex items-center">
-                <div class="flex flex-row justify-between w-20">
+                <div class="flex flex-row justify-between w-28 ">
                     <!-- BOTON CARRITO -->
                     @auth
                         @livewire('cart')
                     @endauth
                     <!-- BOTON DARKMODE -->
-                    <label class="relative inline-flex items-center cursor-pointer">
+                    <label class="relative inline-flex items-center cursor-pointer ml-3">
                         <input id="theme" class="sr-only peer" value="" type="checkbox" onchange="toggleTheme()" />
                         <div
                             class="w-16 h-9 pt-1 rounded-full ring-0 peer duration-500 outline-none bg-[#fbedb6] overflow-hidden

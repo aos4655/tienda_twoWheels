@@ -18,7 +18,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    
+
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -86,6 +86,28 @@
             }, 3000);
 
         });
+        Livewire.on('mensaje', txt => {
+            const modoOscuro = document.querySelector('html').classList.contains('dark');
+            Swal.fire({
+                icon: 'success',
+                title: txt,
+                showConfirmButton: false,
+                timer: 2500,
+                toast: true,
+                position: 'bottom-end',
+                background: (modoOscuro ? '#072342' : '#EFFAEB' ),
+                color: (modoOscuro ? '#EFFAEB' : '#072342'),
+                timerProgressBar: true,
+                customClass: {
+                    popup: 'rounded-lg shadow-lg',
+                    icon: 'text-green-500 text-3xl',
+                },
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer);
+                    toast.addEventListener('mouseleave', Swal.resumeTimer);
+                }
+            });
+        })
         /* if (isset(session('success'))) {
             Swal.fire({
                 icon: "success",
