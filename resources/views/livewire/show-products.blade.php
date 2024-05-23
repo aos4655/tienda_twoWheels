@@ -215,7 +215,7 @@
                         <!-- Pinto el QR -->
                         <div class="flex flex-col items-center justify-center">
                             <div id="qr" style="background-color: {{ $backgroundColor }}"
-                                class="w-1/2 mb-2 p-10 rounded-xl text-center flex flex-col items-center justify-center">
+                                class="w-72 mb-2 p-10 rounded-xl text-center flex flex-col items-center justify-center">
                                 <h1 style="color: {{ $textColor }}" class="text-white text-3xl font-bold mb-2">
                                     {{ $titulo }}
                                 </h1>
