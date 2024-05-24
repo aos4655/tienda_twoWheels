@@ -31,9 +31,32 @@
                                 });
                             } else {
                                 const elementos = document.querySelectorAll(`.ultimoEstado_${pedidoId}`);
+                                const iconosPendienteEnvio = document.querySelectorAll(`.icono-pendiente-envio-${pedidoId}`);
+                                const iconosEntregado = document.querySelectorAll(`.icono-entregado-${pedidoId}`);
+
+
                                 elementos.forEach(elemento => {
                                     elemento.innerText = `${data.ult_estado} el día ${data[fecha[data.ult_estado]]}`;
                                 });
+                                if (data.ult_estado == "PENDIENTE DE ENVIO") {
+                                    iconosPendienteEnvio.forEach(icono => {
+                                        icono.removeAttribute('hidden');
+                                    });
+                                } else if (data.ult_estado == "ENTREGADO") {
+                                    iconosEntregado.forEach(icono => {
+                                        icono.removeAttribute('hidden');
+                                    });
+                                }
+                                /* else if (condition) {
+                                                                   iconos.forEach(icono => {
+                                                                       icono.removeAttribute('hidden');
+                                                                   });
+                                                               } else if (condition) {
+                                                                   iconos.forEach(icono => {
+                                                                       icono.removeAttribute('hidden');
+                                                                   });
+                                                               } */
+
                             }
 
                         } catch (error) {
@@ -77,7 +100,7 @@
                             </div>
                             <div class="justify-end mr-3 my-auto">
                                 <!-- BOTON DESCARGAR FACTURA -->
-                                <div class="button" onclick='descargarFactura({{ $pedido->id }})'
+                                <div class="button cursor-pointer" onclick='descargarFactura({{ $pedido->id }})'
                                     data-tooltip="Factura {{ $pedido->id }}">
                                     <div class="button-wrapper">
                                         <div class="text">Factura</div>
@@ -121,18 +144,14 @@
                                         {{-- Parte2 --}}
                                         <div class="justify-between flex flex-row mt-3">
                                             <div class="flex flex-row items-center">
-                                                <svg class="icono" xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20" aria-hidden="true" class="w-8">
-                                                    <path fill-rule="evenodd"
-                                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
-                                                        clip-rule="evenodd"></path>
-                                                </svg>
+                                                <img class="icono-entregado-{{ $pedido->id }}" hidden width="32" hidden class="icono-pendiente-envio-{{ $pedido->id }}" height="32" src="https://img.icons8.com/windows/32/000000/hand-box.png" alt="hand-box"/>
                                                 <p
                                                     class="ml-4 text-gray-500 dark:text-white ultimoEstado_{{ $pedido->id }}">
                                                 </p>
                                             </div>
                                             <div class="flex flex-row items-center justify-center">
-                                                <a href="{{ route('productos.show', $producto->id) }}" class="mr-4 dark:text-green-50">Ver producto</a>
+                                                <a href="{{ route('productos.show', $producto->id) }}"
+                                                    class="mr-4 dark:text-green-50">Ver producto</a>
                                                 <button
                                                     onclick="aniadirCarrito({{ Auth::user()->id }}, {{ $producto->id }})"
                                                     class="text-blue-900 dark:text-green-50 relative overflow-hidden">
@@ -296,29 +315,29 @@
                 attributes: true, // Observar cambios en los atributos
                 attributeFilter: ['class'] // Filtrar cambios solo en la clase
             });
-            function descargarFactura(id){
+
+            function descargarFactura(id) {
                 fetch(`/pedido/pdf/${id}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.blob();
-                })
-                .then(blob => {
-                    const url = window.URL.createObjectURL(new Blob([blob]));
-                    const a = document.createElement('a');
-                    a.style.display = 'none';
-                    a.href = url;
-                    a.download = 'factura'+id+'.pdf';
-                    document.body.appendChild(a);
-                    a.click();
-                    window.URL.revokeObjectURL(url);
-                })
-                .catch(error => {
-                    console.error('Error al descargar PDF:', error);
-                });
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.blob();
+                    })
+                    .then(blob => {
+                        const url = window.URL.createObjectURL(new Blob([blob]));
+                        const a = document.createElement('a');
+                        a.style.display = 'none';
+                        a.href = url;
+                        a.download = 'factura' + id + '.pdf';
+                        document.body.appendChild(a);
+                        a.click();
+                        window.URL.revokeObjectURL(url);
+                    })
+                    .catch(error => {
+                        console.error('Error al descargar PDF:', error);
+                    });
             }
-            
         </script>
     </x-principal-home>
 </x-app-layout>

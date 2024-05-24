@@ -49,7 +49,7 @@ class ShowOrders extends Component
     public function delete(Pedido $pedido)
     {
         $pedido->delete();
-        $this->dispatch("mensaje", "Pedido Eliminado.");
+        $this->dispatch("mensaje-success", "Pedido Eliminado.");
     }
     /* METODOS PARA ACTUALIZAR REGISTROS */
     public function edit(Pedido $pedido)
@@ -61,7 +61,7 @@ class ShowOrders extends Component
     {
         $this->form->updatePedido();
         $this->limpiarCerrarUpdate();
-        $this->dispatch('mensaje', "Editado con exito");
+        $this->dispatch('mensaje-success', "Editado con exito");
     }
     public function limpiarCerrarUpdate()
     {

@@ -50,7 +50,7 @@ class ShowCategories extends Component
     public function delete(Categoria $categoria)
     {
         $categoria->delete();
-        $this->dispatch("mensaje", "Usuario Eliminado.");
+        $this->dispatch("mensaje-success", "Usuario Eliminado.");
     }
     /* METODOS PARA ACTUALIZAR REGISTROS */
     public function edit(Categoria $categoria)
@@ -63,7 +63,7 @@ class ShowCategories extends Component
     {
         $this->form->updateCategory();
         $this->limpiarCerrarUpdate();
-        $this->dispatch('mensaje', "Editado con exito");
+        $this->dispatch('mensaje-success', "Editado con exito");
     }
     public function limpiarCerrarUpdate()
     {

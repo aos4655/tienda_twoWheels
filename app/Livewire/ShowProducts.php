@@ -62,7 +62,7 @@ class ShowProducts extends Component
     public function delete(Producto $producto)
     {
         $producto->delete();
-        $this->dispatch("mensaje", "Producto Eliminado.");
+        $this->dispatch("mensaje-success", "Producto Eliminado.");
     }
     /* METODOS PARA ACTUALIZAR REGISTROS */
     public function edit(Producto $producto)
@@ -74,7 +74,7 @@ class ShowProducts extends Component
     {
         $this->form->updateProducto();
         $this->limpiarCerrarUpdate();
-        $this->dispatch('mensaje', "Editado con exito");
+        $this->dispatch('mensaje-success', "Editado con exito");
     }
     public function limpiarCerrarUpdate()
     {

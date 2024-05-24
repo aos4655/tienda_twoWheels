@@ -58,7 +58,7 @@ class ShowUsers extends Component
     public function delete(User $user)
     {
         $user->delete();
-        $this->dispatch("mensaje", "Usuario Eliminado.");
+        $this->dispatch("mensaje-success", "Usuario Eliminado.");
     }
     /* METODOS PARA ACTUALIZAR REGISTROS */
     public function edit(User $user)
@@ -71,7 +71,7 @@ class ShowUsers extends Component
     {
         $this->form->updateUser();
         $this->limpiarCerrarUpdate();
-        $this->dispatch('mensaje', "Editado con exito");
+        $this->dispatch('mensaje-success', "Editado con exito");
     }
     public function limpiarCerrarUpdate()
     {

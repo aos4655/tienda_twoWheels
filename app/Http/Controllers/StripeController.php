@@ -67,7 +67,8 @@ class StripeController extends Controller
     public function success($direccion, $nombre)
     {
         PedidoController::crearPedido($direccion, $nombre);
-        return redirect()->route('pedidos.index')->with('success', "¡Pedido completado con éxito! Gracias por tu compra.");
+        $this->dispatch("mensaje-success", "¡Pedido completado con éxito! Gracias por tu compra.");
+        return redirect()->route('pedidos.index');
     }
     public function cancel()
     {

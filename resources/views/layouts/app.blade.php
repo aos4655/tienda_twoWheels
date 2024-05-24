@@ -52,6 +52,30 @@
     @stack('modals')
 
     @livewireScripts
+    {{-- @if (session('mensaje-success'))
+        <script>
+            const modoOscuro = document.querySelector('html').classList.contains('dark');
+            Swal.fire({
+                icon: 'success',
+                title: "{{session('mensaje-success')}}",
+                showConfirmButton: false,
+                timer: 2500,
+                toast: true,
+                position: 'bottom-end',
+                background: (modoOscuro ? '#072342' : '#EFFAEB'),
+                color: (modoOscuro ? '#EFFAEB' : '#072342'),
+                timerProgressBar: true,
+                customClass: {
+                    popup: 'rounded-lg shadow-lg',
+                    icon: 'text-green-500 text-3xl',
+                },
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer);
+                    toast.addEventListener('mouseleave', Swal.resumeTimer);
+                }
+            });
+        </script>
+    @endif --}}
     <script>
         function descargarqr() {
             var node = document.getElementById('qr');
@@ -86,7 +110,7 @@
             }, 3000);
 
         });
-        Livewire.on('mensaje', txt => {
+        Livewire.on('mensaje-success', txt => {
             const modoOscuro = document.querySelector('html').classList.contains('dark');
             Swal.fire({
                 icon: 'success',
@@ -95,7 +119,7 @@
                 timer: 2500,
                 toast: true,
                 position: 'bottom-end',
-                background: (modoOscuro ? '#072342' : '#EFFAEB' ),
+                background: (modoOscuro ? '#072342' : '#EFFAEB'),
                 color: (modoOscuro ? '#EFFAEB' : '#072342'),
                 timerProgressBar: true,
                 customClass: {
@@ -108,14 +132,7 @@
                 }
             });
         })
-        /* if (isset(session('success'))) {
-            Swal.fire({
-                icon: "success",
-                title: session('success'),
-                showConfirmButton: false,
-                timer: 2000
-            });
-        } */
+
 
         /* dark mode se debe inicializar aqui ya que si no en caso de duplicar pestania 
                 o lo que sea no se aplica el tema bien  */

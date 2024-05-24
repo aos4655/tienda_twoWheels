@@ -11,6 +11,7 @@ class PaypalController extends Controller
 {
     public function paypal(Request $request)
     {
+        
         $productos = User::findOrFail(Auth::user()->id)
             ->productsCart()
             ->get();
@@ -40,10 +41,11 @@ class PaypalController extends Controller
             // Agregar el producto a la lista de ítems de línea
             $lineItems[] = $item;
         }
+        
         $response = $provider->createorder([
             "intent" => "CAPTURE",
             "application_context" => [
-                "return_url" => route('paypal-success', ['direccion' => $request->direccion_envio, , 'nombre' => $request->nombre_envio]),
+                "return_url" => route('paypal-success', ['direccion' => $request->direccion_envio, 'nombre' => $request->nombre_envio]),
                 "cancel_url" => route('paypal-cancel')
             ],
             "purchase_units" => [
@@ -77,7 +79,8 @@ class PaypalController extends Controller
     public function success($direccion, $nombre)
     {
         PedidoController::crearPedido($direccion, $nombre);
-        return redirect()->route('pedidos.index')->with('success', "¡Pedido completado con éxito! Gracias por tu compra.");
+        $this->dispatch("mensaje-success", "¡Pedido completado con éxito! Gracias por tu compra.");
+        return redirect()->route('pedidos.index');
     }
     public function cancel()
     {
