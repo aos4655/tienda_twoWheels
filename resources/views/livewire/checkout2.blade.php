@@ -105,88 +105,14 @@
 
     <section
         class="h-screen flex justify-center items-center dark:bg-blue-900 bg-green-50 px-4 text-gray-600 antialiased">
-        <div class="flex h-full md:w-3/4 w-11/12 flex-col justify-center">
+        <div class="flex h-full w-3/4 flex-col justify-center">
             <!-- Table -->
             <div class="mx-auto py-7 w-full max-w-2xl rounded-3xl bg-white dark:bg-blue-800 shadow-lg">
                 <header class="px-9 py-4">
                     <div class="font-extrabold text-3xl dark:text-white text-blue-900">Tu carrito</div>
                 </header>
-                <div class="block w-full overflow-x-auto">
-                    <table class="items-center bg-transparent w-full border-collapse ">
-                        <thead class="bg-green-50 text-xs font-semibold uppercase dark:text-blue-900-400 ">
-                            <tr>
-                                <th
-                                    class="md:px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center">
-                                    Producto
-                                </th>
-                                <th
-                                    class="md:px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center">
-                                    Cantidad
-                                </th>
-                                <th
-                                    class="md:px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center">
-                                    Precio
-                                </th>
-                                <th
-                                    class="md:px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center">
-                                    Accion
-                                </th>
-                            </tr>
-                        </thead>
 
-                        <tbody>
-                            @foreach ($productosUsuario as $producto)
-                                <tr class="dark:text-white">
-                                    <th
-                                        class="border-t-0 md:px-6 align-middle items-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex flex-row text-blueGray-700 ">
-                                        <img class="w-12 h-12"
-                                            src="https://ridenroll.es/wp-content/uploads/2024/04/2trottinette-electrique-bluetran-lightning-72v-35ah-lg-600x615.jpg"
-                                            alt="">
-                                        <span
-                                            class="font-medium hidden sm:block dark:text-white flex-wrap ml-4">{{ $producto->nombre }}</span>
-                                    </th>
-                                    <td
-                                        class="border-t-0 md:px-6 text-center border-l-0 border-r-0 text-xs whitespace-nowrap md:p-4 ">
-                                        {{ $producto->pivot->cantidad }}
-                                    </td>
-                                    <td
-                                        class="border-t-0 md:px-6 text-center border-l-0 border-r-0 text-xs whitespace-nowrap md:p-4">
-                                        {{ $producto->precio }} €
-                                    </td>
-                                    <td
-                                        class="border-t-0 md:px-6 justify-center items-center border-l-0 border-r-0 text-xs whitespace-nowrap md:p-4">
-                                        <button class="bin-button ml-4 " wire:click="eliminar({{ $producto->id }})">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 39 7"
-                                                class="bin-top">
-                                                <line stroke-width="4" stroke="white" y2="5" x2="39"
-                                                    y1="5"></line>
-                                                <line stroke-width="3" stroke="white" y2="1.5" x2="26.0357"
-                                                    y1="1.5" x1="12"></line>
-                                            </svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 33 39"
-                                                class="bin-bottom">
-                                                <path mask="url(#path-1-inside-1_8_19)" fill="white"
-                                                    d="M0 0H33H0ZM37 35C37 39.4183 33.4183 43 29 43H4C-0.418278 43 -4 39.4183 -4 35H4H29H37ZM4 43C-0.418278 43 -4 39.4183 -4 35V0H4V35V43ZM37 0V35C37 39.4183 33.4183 43 29 43V35V0H37Z">
-                                                </path>
-                                                <path stroke-width="4" stroke="white" d="M12 6L12 29"></path>
-                                                <path stroke-width="4" stroke="white" d="M21 6V29"></path>
-                                            </svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 89 80"
-                                                class="garbage">
-                                                <path fill="white"
-                                                    d="M20.5 10.5L37.5 15.5L42.5 11.5L51.5 12.5L68.75 0L72 11.5L79.5 12.5H88.5L87 22L68.75 31.5L75.5066 25L86 26L87 35.5L77.5 48L70.5 49.5L80 50L77.5 71.5L63.5 58.5L53.5 68.5L65.5 70.5L45.5 73L35.5 79.5L28 67L16 63L12 51.5L0 48L16 25L22.5 17L20.5 10.5Z">
-                                                </path>
-                                            </svg>
-                                        </button>
-                                    </td>
-                                </tr>
-                            @endforeach
-
-                        </tbody>
-
-                    </table>
-                </div>
-                {{-- <div class="p-3">
+                <div class="p-3">
                     <table class="w-11/12 mx-auto table-auto">
                         <thead class="bg-green-50 text-xs font-semibold uppercase dark:text-blue-900-400">
                             <tr>
@@ -254,7 +180,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                </div> --}}
+                </div>
 
                 <!-- Total amount -->
                 <div class="flex justify-end space-x-4 px-10 py-4 text-lg font-bold dark:text-white text-blue-900">
@@ -366,7 +292,7 @@
                 } else if (!modoOscuro) {
                     direccion.classList.remove('border-blue-900');
                     nombre.classList.remove('border-blue-900');
-                }
+                } 
 
 
             } else {
@@ -378,7 +304,7 @@
                 if (modoOscuro) {
                     direccion.classList.add('border-white');
                     nombre.classList.add('border-white');
-                } else if (!modoOscuro) {
+                } else if(!modoOscuro){
                     direccion.classList.add('border-blue-900');
                     nombre.classList.add('border-blue-900');
                 }

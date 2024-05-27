@@ -3,8 +3,8 @@
         <div class="bg-white h-fit mx-4 dark:bg-blue-800 overflow-hidden shadow-xl sm:rounded-lg">
 
             <div class="flex justify-end items-center mt-4 mr-4">
-                <p class="text-gray-500 dark:text-gray-300 mr-5">Sort</p>
-                <select wire:model="valor" wire:change="ordenar" class="font-medium text-gray-700 bg-transparent dark:text-white focus:outline-none rounded-full">
+                <p class="text-gray-500 dark:text-gray-300 mr-5">Ordenar por</p>
+                <select wire:model="valor" wire:change="ordenar" class="font-medium text-gray-700 bg-transparent dark:border-white dark:text-white focus:outline-none rounded-full">
 {{--                     <option value="">Recomendado</option>
  --}}                    <option value="precio_asc">Precio Ascendente</option>
                     <option value="precio_desc">Precio Descendente</option>

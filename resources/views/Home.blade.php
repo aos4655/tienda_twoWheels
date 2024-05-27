@@ -70,30 +70,30 @@
                         class="inline-block mt-12 rounded-full py-1 px-3 max-w-full text-white md:mb-12 mb-3 bg-blue-900 dark:bg-white dark:text-blue-900 dark:font-bold ">
                         Top Ventas</div>
                     <div id="animation-carousel" class="relative w-11/12 md:w-3/4 ">
-                        <div class="relative h-72 overflow-hidden rounded-2xl md:h-96">
+                        <div class="relative h-72 overflow-hidden rounded-2xl md:h-96 bg-white">
                             <div class="carousel-slide">
-                                <img src="{{ Storage::url($productosTopVentas[0]->imagen) }}"
-                                    class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                                <img width="344" src="{{ Storage::url($productosTopVentas[0]->imagen) }}"
+                                    class="absolute block  -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                                     alt="Slide 1">
                             </div>
                             <div class="carousel-slide hidden">
-                                <img src="{{ Storage::url($productosTopVentas[1]->imagen) }}"
-                                    class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                                <img width="344" src="{{ Storage::url($productosTopVentas[1]->imagen) }}"
+                                    class="absolute block  -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                                     alt="Slide 2">
                             </div>
                             <div class="carousel-slide hidden">
-                                <img src="{{ Storage::url($productosTopVentas[2]->imagen) }}"
-                                    class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                                <img width="344" src="{{ Storage::url($productosTopVentas[2]->imagen) }}"
+                                    class="absolute block  -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                                     alt="Slide 3">
                             </div>
                             <div class="carousel-slide hidden">
-                                <img src="{{ Storage::url($productosTopVentas[3]->imagen) }}"
-                                    class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                                <img width="344" src="{{ Storage::url($productosTopVentas[3]->imagen) }}"
+                                    class="absolute block  -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                                     alt="Slide 4">
                             </div>
                             <div class="carousel-slide hidden">
-                                <img src="{{ Storage::url($productosTopVentas[4]->imagen) }}"
-                                    class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                                <img width="344" src="{{ Storage::url($productosTopVentas[4]->imagen) }}"
+                                    class="absolute block  -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                                     alt="Slide 5">
                             </div>
                         </div>
@@ -101,10 +101,10 @@
                             class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
                             id="prevBtn">
                             <span
-                                class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                                <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true"
+                                class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-gray-800/70 dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                                <svg class="w-4 h-4 text-gray-800 rtl:rotate-180" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    <path stroke="#093564" stroke-linecap="round" stroke-linejoin="round"
                                         stroke-width="2" d="M5 1 1 5l4 4" />
                                 </svg>
                                 <span class="sr-only">Previous</span>
@@ -114,10 +114,10 @@
                             class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
                             id="nextBtn">
                             <span
-                                class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                                <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true"
+                                class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-gray-800/70 dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                                <svg class="w-4 h-4 text-gray-800 rtl:rotate-180" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    <path stroke="#093564" stroke-linecap="round" stroke-linejoin="round"
                                         stroke-width="2" d="m1 9 4-4-4-4" />
                                 </svg>
                                 <span class="sr-only">Next</span>

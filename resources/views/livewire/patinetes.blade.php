@@ -3,9 +3,9 @@
         <div class="bg-white h-fit dark:bg-blue-800 overflow-hidden shadow-xl sm:rounded-lg">
 
             <div class="flex justify-end items-center mt-4 mr-4">
-                <p class="text-gray-500 dark:text-gray-300 mr-5">Sort</p>
+                <p class="text-gray-500 dark:text-gray-300 mr-5">Ordenar por</p>
                 <select wire:model="valor" wire:change="ordenar"
-                    class="font-medium text-gray-700 bg-transparent dark:text-gray-500 focus:outline-none rounded-full">
+                    class="font-medium text-gray-700 bg-transparent dark:text-white dark:border-white focus:outline-none rounded-full">
                     {{-- <option value="">Recomendado</option> --}}
                     <option>__SELECCIONA__</option>
                     <option value="precio_asc">Precio Ascendente</option>
