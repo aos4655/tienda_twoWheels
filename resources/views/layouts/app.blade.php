@@ -52,30 +52,6 @@
     @stack('modals')
 
     @livewireScripts
-    {{-- @if (session('mensaje-success'))
-        <script>
-            const modoOscuro = document.querySelector('html').classList.contains('dark');
-            Swal.fire({
-                icon: 'success',
-                title: "{{session('mensaje-success')}}",
-                showConfirmButton: false,
-                timer: 2500,
-                toast: true,
-                position: 'bottom-end',
-                background: (modoOscuro ? '#072342' : '#EFFAEB'),
-                color: (modoOscuro ? '#EFFAEB' : '#072342'),
-                timerProgressBar: true,
-                customClass: {
-                    popup: 'rounded-lg shadow-lg',
-                    icon: 'text-green-500 text-3xl',
-                },
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer);
-                    toast.addEventListener('mouseleave', Swal.resumeTimer);
-                }
-            });
-        </script>
-    @endif --}}
     <script>
         function descargarqr() {
             var node = document.getElementById('qr');
@@ -141,25 +117,20 @@
             //Si no existe la pondremos en modo claro
             //Obtenemos los iconos para ir mostrando/ocultando segun interes
             let currentTheme = localStorage.getItem('theme');
-
-            if (window.location.pathname !== '/checkout2') {
-                let iconoDarkMode = document.getElementById('theme');
-                /* var iconoSol = document.getElementById('iconoSol');
-                var iconoLuna = document.getElementById('iconoLuna'); */
+            let iconoDarkMode = document.getElementById('ip-darkmode');
+            
+            if (window.location.pathname != '/checkout2') {
                 var iconoCarrito = document.getElementById('icon-cart');
             }
 
 
             if (currentTheme === null) {
                 localStorage.setItem('theme', 'ligth');
-                /* iconoDarkMode.checked = false; */
             } else {
                 if (currentTheme === 'dark') {
                     localStorage.setItem('theme', 'dark');
                     if (window.location.pathname !== '/checkout2') {
-                        /* iconoSol.removeAttribute('hidden');
-                        iconoLuna.setAttribute('hidden', true); */
-                        /* iconoDarkMode.checked = true; */
+                        iconoDarkMode.checked = true;
                         if (iconoCarrito) {
                             iconoCarrito.setAttribute('style', 'color: white');
                         }
@@ -169,9 +140,7 @@
                 } else {
                     localStorage.setItem('theme', 'ligth');
                     if (window.location.pathname !== '/checkout2') {
-                        /* iconoLuna.removeAttribute('hidden');
-                        iconoSol.setAttribute('hidden', true); */
-                        /* iconoDarkMode.checked = false; */
+                        iconoDarkMode.checked = false;
                         if (iconoCarrito) {
                             iconoCarrito.setAttribute('style', 'color: black');
                         }

@@ -61,7 +61,8 @@
                     @endauth
                     <!-- BOTON DARKMODE -->
                     <label class="relative inline-flex items-center cursor-pointer ml-3">
-                        <input id="theme" class="sr-only peer" value="" type="checkbox" onchange="toggleTheme()" />
+                        <input id="ip-darkmode" class="sr-only peer" value="" type="checkbox"
+                            onchange="toggleTheme()" />
                         <div
                             class="w-16 h-9 pt-1 rounded-full ring-0 peer duration-500 outline-none bg-[#fbedb6] overflow-hidden
                                    before:flex before:items-center before:justify-center
@@ -80,16 +81,6 @@
                         </div>
                     </label>
 
-
-
-                    {{-- <button onclick="toggleTheme()" class="ml-2 mr-4">
-                        <div id="iconoLuna">
-                            <i class="fa-regular fa-moon fa-xl"></i>
-                        </div>
-                        <div id="iconoSol" hidden>
-                            <i class="fa-regular fa-sun fa-xl" style="color:white;"></i>
-                        </div>
-                    </button> --}}
                 </div>
                 <div class="hidden sm:block sm:items-center sm:ms-6">
                     @auth
@@ -211,12 +202,12 @@
                         @else
                             @if (Route::has('login'))
                                 <a href="{{ route('login') }}"
-                                    class="font-semibold text-gray-600 hover:text-gray-900 dark:text-white dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log
-                                    in</a>
+                                    class="font-semibold text-gray-600 hover:text-gray-900 dark:text-white dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
+                                    Acceder</a>
 
                                 @if (Route::has('register'))
                                     <a href="{{ route('register') }}"
-                                        class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-white dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
+                                        class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-white dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Registrarse</a>
                                 @endif
                             @endif
                         @endauth
@@ -279,7 +270,17 @@
                         Mis Pedidos
                     </x-responsive-nav-link>
                 @endif
-                
+            @else
+                @if (Route::has('login'))
+                    <x-responsive-nav-link href="{{ route('login') }}"
+                        class="font-semibold text-gray-600 hover:text-gray-900 dark:text-white dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
+                        Acceder</x-responsive-nav-link>
+
+                    @if (Route::has('register'))
+                        <x-responsive-nav-link href="{{ route('register') }}"
+                            class="font-semibold text-gray-600 hover:text-gray-900 dark:text-white dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Registrarse</x-responsive-nav-link>
+                    @endif
+                @endif
             @endauth
 
         </div>
@@ -366,25 +367,19 @@
         //Si no existe la pondremos en modo claro
         //Obtenemos los iconos para ir mostrando/ocultando segun interes
         let currentTheme = localStorage.getItem('theme');
-        /* var iconoSol = document.getElementById('iconoSol');
-        var iconoLuna = document.getElementById('iconoLuna'); */
         var iconoCarrito = document.getElementById('icon-cart');
-        let iconoDarkMode = document.getElementById('theme');
+        let iconoDarkMode = document.getElementById('ip-darkmode');
 
         if (currentTheme === 'dark') {
             localStorage.setItem('theme', 'ligth');
-            /* iconoLuna.removeAttribute('hidden');
-            iconoSol.setAttribute('hidden', true); */
-            /* iconoDarkMode.checked = false; */
+            iconoDarkMode.checked = false;
             if (iconoCarrito) {
                 iconoCarrito.setAttribute('style', 'color: black');
             }
             document.documentElement.classList.remove('dark');
         } else {
             localStorage.setItem('theme', 'dark');
-            /* iconoSol.removeAttribute('hidden');
-            iconoLuna.setAttribute('hidden', true); */
-            /* iconoDarkMode.checked = true; */
+            iconoDarkMode.checked = true;
             if (iconoCarrito) {
                 iconoCarrito.setAttribute('style', 'color: white');
             }
