@@ -1,6 +1,5 @@
 <?php
 return [
-    //TODO: terminar validaciones
     /*
     |--------------------------------------------------------------------------
     | Validation Language Lines
@@ -114,6 +113,9 @@ return [
     'uploaded' => 'Error al subir :attribute.',
     'url' => 'El formato de :attribute es inválido.',
     'uuid' => 'El campo :attribute debe ser un UUID válido.',
+    'failed' => 'Estas credenciales no coinciden con nuestros registros.',
+    'password' => 'La contraseña proporcionada es incorrecta.',
+    'throttle' => 'Demasiados intentos de acceso. Por favor intenta nuevamente en :seconds segundos.',
 
     /*
     |--------------------------------------------------------------------------

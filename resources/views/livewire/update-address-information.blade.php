@@ -1,10 +1,10 @@
 <x-form-section submit="updateAddressInformation">
     <x-slot name="title">
-        Address Information
+        Dirección
     </x-slot>
 
     <x-slot name="description">
-        Update your address to send the packages.
+        Actualiza tu dirección para recibir los pedidos.
     </x-slot>
 
     <x-slot name="form">

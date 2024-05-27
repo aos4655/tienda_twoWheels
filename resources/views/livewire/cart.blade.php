@@ -2,7 +2,8 @@
     <button
         class="relative mt-1 justify-start inline-flex items-center p-3 text-sm font-medium text-center rounded-lg focus:ring-4 focus:outline-none"
         wire:click="$set('abrirModalCart', true)">
-        <i id="icon-cart" class="fa-solid fa-cart-shopping fa-xl"></i>
+        <i id="icon-cart" class="hidden dark:block fa-solid fa-cart-shopping fa-xl" style="color: white;"></i>
+        <i id="icon-cart" class="dark:hidden fa-solid fa-cart-shopping fa-xl" style="color: black;"></i>
         <div id="cant_cart"
             class="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white
                                  bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
@@ -11,7 +12,8 @@
     </button>
     <x-cart-modal wire:model='abrirModalCart' maxWidth="sm">
         <x-slot name="title">
-            <h5 id="drawer-navigation-label" class=" text-base font-semibold text-gray-500 uppercase dark:text-gray-400">
+            <h5 id="drawer-navigation-label"
+                class=" text-base font-semibold text-gray-500 uppercase dark:text-gray-400">
                 Shopping Cart</h5>
             <button type="button" wire:click="$set('abrirModalCart', false)"
                 class=" text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 end-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
@@ -21,26 +23,26 @@
                         d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
                         clip-rule="evenodd"></path>
                 </svg>
-                <span class="sr-only">Close menu</span>
+                <span class="sr-only">Cerrar carrito</span>
             </button>
         </x-slot>
         <x-slot name="content">
             @foreach ($this->productosUsuario as $producto)
-                <div class="my-3">
+                <div class="my-6 md:flex md:flex-row md:mx-4 ">
                     <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                         <img src="{{ Storage::url($producto->imagen) }}" alt="{{ $producto->nombre }}"
                             class="h-full w-full object-cover object-center">
                     </div>
-                    <div class="ml-4 flex flex-1 flex-col">
-                        <div class="flex justify-between text-base font-medium text-gray-900">
+                    <div class="md:ml-4 flex flex-1 mt-2 flex-col">
+                        <div class="flex justify-between text-base font-medium text-gray-900 dark:text-white">
                             <h3>{{ $producto->nombre }}</h3>
                             <p class="ml-4">{{ $producto->precio }} €</p>
                         </div>
                         <div class="flex flex-1 items-end justify-between text-sm">
                             <div class="flex flex-1 flex-col">
                                 <label for="quantity-input"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Choose
-                                    quantity:</label>
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Elegir
+                                    cantidad:</label>
                                 <div class="relative flex items-center max-w-[6rem]">
                                     <button type="button" id="decrement-button"
                                         wire:click="decrementar({{ $producto->id }})"
@@ -67,25 +69,26 @@
                             </div>
                             <div class="flex">
                                 <button type="button" wire:click="eliminar({{ $producto->id }})"
-                                    class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
+                                    class="font-medium text-indigo-600 hover:text-indigo-500">Eliminar</button>
                             </div>
                         </div>
                     </div>
                     @if (!$loop->last)
-                        <hr class="mt-3">
+                        <hr class=" h-2 dark:border-white mt-3">
                     @endif
                 </div>
+                <hr class="h-2 hidden sm:block dark:border-white">
             @endforeach
         </x-slot>
         <x-slot name="footer">
             <div>
-                <div class="flex justify-between text-base font-medium text-gray-900">
+                <div class="flex justify-between text-base font-medium text-gray-900 dark:text-white">
                     <div class="flex flex-col text-left">
                         <p>Subtotal</p>
                         <p class="mt-0.5 text-sm text-gray-500">Los gastos de envio son gratuitos.
                         </p>
                     </div>
-                    <p id="subtotal">{{ str_replace('.', ',', $subtotal)  }} €</p>
+                    <p id="subtotal">{{ str_replace('.', ',', $subtotal) }} €</p>
 
                 </div>
 

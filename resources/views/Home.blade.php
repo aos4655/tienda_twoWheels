@@ -68,7 +68,7 @@
                 <div class="md:ml-96 ml-8">
                     <div
                         class="inline-block mt-12 rounded-full py-1 px-3 max-w-full text-white md:mb-12 mb-3 bg-blue-900 dark:bg-white dark:text-blue-900 dark:font-bold ">
-                        Top Ventas</div>
+                        Top Ventas </div>
                     <div id="animation-carousel" class="relative w-11/12 md:w-3/4 ">
                         <div class="relative h-72 overflow-hidden rounded-2xl md:h-96 bg-white">
                             <div class="carousel-slide">

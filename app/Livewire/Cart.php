@@ -18,11 +18,11 @@ class Cart extends Component
     public int $cantidadProductos = 0; //Esto tampoco soluciona el problema
 /*     protected $listeners = ['actualizarComponente'];
  */    /* protected $listeners = ['incrementarNum' => 'subirTotal']; */
-    public function actualizarComponente()
+    /* public function actualizarComponente()
     {
         // Actualizar la cantidad de productos
         $this->cantidadProductos = $this->obtenerCantidadProductos();
-    }
+    } */
     
     public function subirTotal()
     {

@@ -104,8 +104,8 @@
     <!-- Page Content -->
 
     <section
-        class="h-screen flex justify-center items-center dark:bg-blue-900 bg-green-50 px-4 text-gray-600 antialiased">
-        <div class="flex h-full md:w-3/4 w-11/12 flex-col justify-center">
+        class="flex justify-center items-center dark:bg-blue-900 bg-green-50 px-4 text-gray-600 antialiased">
+        <div class="flex h-full md:w-3/4 w-11/12 py-7 flex-col justify-center">
             <!-- Table -->
             <div class="mx-auto py-7 w-full max-w-2xl rounded-3xl bg-white dark:bg-blue-800 shadow-lg">
                 <header class="px-9 py-4">
@@ -129,7 +129,7 @@
                                 </th>
                                 <th
                                     class="md:px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center">
-                                    Accion
+                                    Acción
                                 </th>
                             </tr>
                         </thead>
@@ -147,7 +147,22 @@
                                     </th>
                                     <td
                                         class="border-t-0 md:px-6 text-center border-l-0 border-r-0 text-xs whitespace-nowrap md:p-4 ">
-                                        {{ $producto->pivot->cantidad }}
+                                        <div class="relative flex items-center max-w-[4rem] md:max-w-[6rem]">
+                                            <!-- Botón para decrementar la cantidad -->
+                                            <button type="button"  class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-1.5 h-8 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
+                                                <i class="fa-solid fa-minus" style="color: #ffffff;"></i>
+                                            </button>
+                                        
+                                            <!-- Campo de entrada para mostrar la cantidad -->
+                                            <input type="text" readonly class="bg-gray-50 border-x-0 border-gray-300 h-8 font-medium text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-10 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  value="{{$producto->pivot->cantidad}}"  />
+                                        
+                                            <!-- Botón para incrementar la cantidad -->
+                                            <button  type="button" wire:click="incrementar({{ $producto->id }})" class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-1.5 h-8 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
+                                                <i class="fa-solid fa-plus" style="color: #ffffff;"></i>
+                                            </button>
+                                        </div>
+                                        
+                                        
                                     </td>
                                     <td
                                         class="border-t-0 md:px-6 text-center border-l-0 border-r-0 text-xs whitespace-nowrap md:p-4">
@@ -155,7 +170,7 @@
                                     </td>
                                     <td
                                         class="border-t-0 md:px-6 justify-center items-center border-l-0 border-r-0 text-xs whitespace-nowrap md:p-4">
-                                        <button class="bin-button ml-4 " wire:click="eliminar({{ $producto->id }})">
+                                        <button class="bin-button ml-4 " >
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 39 7"
                                                 class="bin-top">
                                                 <line stroke-width="4" stroke="white" y2="5" x2="39"
@@ -257,11 +272,11 @@
                 </div> --}}
 
                 <!-- Total amount -->
-                <div class="flex justify-end space-x-4 px-10 py-4 text-lg font-bold dark:text-white text-blue-900">
+                <div class="flex justify-end space-x-4 md:px-10 px-4 py-4 text-lg font-bold dark:text-white text-blue-900">
                     <div>Total</div>
                     <div>{{ str_replace('.', ',', $subtotal) }} €</div>
                 </div>
-                <div class="flex ml-9 w-full dark:text-white text-blue-950">
+                {{-- <div class="hidden md:flex md:ml-9 w-full dark:text-white text-blue-950">
                     <div class="flex flex-col w-4/5">
                         <div class="flex justify-start ml-3 items-center">Entregando a
                             <input id="user_nombre" type="text" disabled class="ml-1 h-3 bg-transparent border-none"
@@ -276,11 +291,27 @@
                         <button id="boton_cambiar" onclick="editarNombreYDireccion()"
                             class=" italic font-extrabold text-lg text-blue-800 dark:text-green-50">Cambiar</button>
                     </div>
+                </div> --}}
+                <div class="flex flex-col w-11/12 ml-4 dark:text-white text-blue-950">
+                    <div class="flex flex-col md:flex-row w-full md:items-center md:ml-3 md:mb-0">
+                        <span class="font-bold">Entregando a:</span>
+                        {{-- <textarea id="user_nombre" disabled name="text" rows="14" cols="10" wrap="soft" maxlength="40" 
+                        class="min-h-fit h-16 w-full mb-4 md:w-4/5 bg-transparent border-none md:mr-4 overflow-auto resize-none" >{{ Auth::user()->name }} </textarea> --}}
+                        <input id="user_nombre" type="text" disabled class="h-3 w-full md:w-2/4 bg-transparent border-none overflow-wrap break-words" value="{{ Auth::user()->name }}">
+                   </div>
+                    <div class="flex flex-col md:flex-row w-full md:items-center mb-4 md:mb-0">
+                        <span class="font-bold md:hidden">Dirección:</span>
+                        <textarea id="user_direccion" disabled name="text" rows="14" cols="10" wrap="soft" maxlength="40" 
+                        class="min-h-fit h-16 w-full mb-4 md:w-4/5 bg-transparent border-none md:mr-10 overflow-auto resize-none " >{{ Auth::user()->direccion }}</textarea>
+{{--                         <input  type="text" disabled class="h-3 w-full md:w-4/5 bg-transparent border-none  md:mr-4 overflow-wrap break-words" value="{{ Auth::user()->direccion }}">
+ --}}                   <button id="boton_cambiar" onclick="editarNombreYDireccion()" class="italic font-extrabold text-lg text-blue-800 dark:text-green-50 mt-4 md:-mt-8  ">Cambiar</button>
+                    </div>
                 </div>
-                <div class="w-11/12 ml-7 my-4">
+                
+                <div class="w-11/12 mx-auto{{-- ml-7 --}} my-4">
                     <hr class=" border-blue-800 dark:border-green-50">
                 </div>
-                <div class="w-11/12 ml-7 my-4 flex flex-row justify-center  items-center">
+                <div class="w-11/12 mx-auto {{-- ml-7 --}} my-4 flex flex-row justify-center  items-center">
                     <!-- PAYPAL -->
                     <input id="paypal" onchange="cambiarLink('paypal')" name="pago" type="radio"
                         value="PagarCard" class="mr-2">

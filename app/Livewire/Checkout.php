@@ -65,6 +65,7 @@ class Checkout extends Component
             ->productsCart()
             ->get();
     }
+
     public function calcularSubtotal()
     {
         $subtotal = 0;

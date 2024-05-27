@@ -13,7 +13,7 @@
 @endphp
 
 <div x-data="{ show: @entangle($attributes->wire('model')) }" x-on:close.stop="show = false" x-on:keydown.escape.window="show = false" x-show="show"
-    id="{{ $id }}" class="fixed inset-0 px-4 py-6 sm:px-0 z-50 flex items-center justify-end m-4"
+    id="{{ $id }}" class="fixed inset-0 px-4 md:py-6 py-14  sm:px-0 z-50 flex items-start justify-end m-4"
     style="display: none;">
     <!-- Fondo oscuro transparente al hacer clic fuera del modal -->
     <div x-show="show" class="fixed inset-0  opacity-75" x-on:click="show = false"

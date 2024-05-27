@@ -1,5 +1,5 @@
 <nav x-data="{ open: false }" style = "border-color: #093564"
-    class="bg-white dark:bg-blue-950 border-b-2 dark:border-blue-950 fixed w-full top-0 z-20">
+    class="bg-white dark:bg-blue-950 border-b-2 dark:border-blue-950 fixed w-full top-0 z-40">
     {{-- AÑADIDO AL NAV fixed w-full top-0 z-10, La clase z-10 es opcional y se utiliza para garantizar que el nav esté 
         siempre por encima de otros elementos en la página. Puedes ajustar el valor según sea necesario  --}}
     <!-- Primary Navigation Menu -->
@@ -41,7 +41,7 @@
                     @auth
                         @if (Auth::user()->is_admin == 'SI')
                             <x-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.*')">
-                                Administracion
+                                Administración
                             </x-nav-link>
                         @else
                             <x-nav-link href="{{ route('pedidos.index') }}" :active="request()->routeIs('pedidos.*')">
@@ -174,11 +174,11 @@
                                 <x-slot name="content">
                                     <!-- Account Management -->
                                     <div class="block px-4 py-2 text-xs text-gray-400">
-                                        {{ __('Manage Account') }}
+                                        Administrar cuenta
                                     </div>
 
                                     <x-dropdown-link href="{{ route('profile.show') }}">
-                                        {{ __('Profile') }}
+                                        Perfil
                                     </x-dropdown-link>
 
                                     @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
@@ -194,7 +194,7 @@
                                         @csrf
 
                                         <x-dropdown-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
-                                            {{ __('Log Out') }}
+                                            Salir
                                         </x-dropdown-link>
                                     </form>
                                 </x-slot>
@@ -238,7 +238,7 @@
                         <x-slot name=trigger>
                             <button type="button"
                                 class="inline-flex items-center px-3 py-2 border border-transparent leading-4 font-medium rounded-md text-gray-600 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-50 dark:focus:bg-gray-700 active:bg-gray-50 dark:active:bg-gray-700 transition ease-in-out duration-150">
-                                Administracion
+                                Administración
 
                                 <svg class="ms-2 -me-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
                                     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -250,13 +250,13 @@
                         <x-slot name=content>
                             <div class="w-30">
                                 <x-dropdown-link href="{{ route('categories.index') }}">
-                                    Category
+                                    Categorias
                                 </x-dropdown-link>
                                 <x-dropdown-link href="{{ route('users.index') }}">
-                                    Users
+                                    Usuarios
                                 </x-dropdown-link>
                                 <x-dropdown-link href="{{ route('todos-productos.index') }}">
-                                    Products
+                                    Productos
                                 </x-dropdown-link>
                                 <x-dropdown-link href="{{ route('todos-pedidos.index') }}">
                                     Pedidos
@@ -304,7 +304,7 @@
                 <div class="mt-3 space-y-1">
                     <!-- Account Management -->
                     <x-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
-                        {{ __('Profile') }}
+                        Perfil
                     </x-responsive-nav-link>
 
                     @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
@@ -318,7 +318,7 @@
                         @csrf
 
                         <x-responsive-nav-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
-                            {{ __('Log Out') }}
+                            Salir
                         </x-responsive-nav-link>
                     </form>
 
@@ -374,14 +374,16 @@
             localStorage.setItem('theme', 'ligth');
             iconoDarkMode.checked = false;
             if (iconoCarrito) {
-                iconoCarrito.setAttribute('style', 'color: black');
+                iconoCarrito.style.color = 'black';
+                //iconoCarrito.setAttribute('style', 'color: black');
             }
             document.documentElement.classList.remove('dark');
         } else {
             localStorage.setItem('theme', 'dark');
             iconoDarkMode.checked = true;
             if (iconoCarrito) {
-                iconoCarrito.setAttribute('style', 'color: white');
+                iconoCarrito.style.color = 'white';
+                //iconoCarrito.setAttribute('style', 'color: white');
             }
             document.documentElement.classList.add('dark');
         }
