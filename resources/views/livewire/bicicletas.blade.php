@@ -6,15 +6,13 @@
                 <p class="text-gray-500 dark:text-gray-300 mr-5">Ordenar por</p>
                 <select wire:model="valor" wire:change="ordenar"
                     class="font-medium text-gray-700 bg-transparent dark:text-white dark:border-white focus:outline-none rounded-full">
-                    {{--                     <option value="">Recomendado</option>
- --}} <option value="precio_asc">Precio Ascendente</option>
+                    <option value="precio_asc">Precio Ascendente</option>
                     <option value="precio_desc">Precio Descendente</option>
                     <option value="stock_desc">Mayor disponibilidad</option>
                     <option value="stock_asc">Menor disponibilidad</option>
+                    <option value="valoracion_desc">Mas valorados</option>
+                    <option value="valoracion_asc">Menos valorados</option>
                     <option value="id_desc">Novedades</option>
-                    {{-- 
-                    <option value="">Mas valorados</option>
-                    <option value="">Menos valorados</option> --}}
                 </select>
             </div>
             <!-- Product List -->

@@ -10,10 +10,10 @@
                     <option value="precio_desc">Precio Descendente</option>
                     <option value="stock_desc">Mayor disponibilidad</option>
                     <option value="stock_asc">Menor disponibilidad</option>
+                    <option value="valoracion_desc">Mas valorados</option>
+                    <option value="valoracion_asc">Menos valorados</option>
                     <option value="id_desc">Novedades</option>
-                    {{-- 
-                    <option value="">Mas valorados</option>
-                    <option value="">Menos valorados</option> --}}
+
                 </select>
             </div>
             <!-- Product List -->
