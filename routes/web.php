@@ -9,6 +9,7 @@ use App\Http\Controllers\PaypalController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\StripeController;
+use App\Http\Livewire\Counter;
 use App\Livewire\Accesorios;
 use App\Livewire\Bicicletas;
 use App\Livewire\Checkout;

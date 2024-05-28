@@ -10,72 +10,70 @@ use Livewire\Component;
 class Checkout extends Component
 {
     public $subtotal;
-
     public $productosUsuario;
     public $user_id;
-    public function render()
+    
+    public function mount()
     {
         $this->user_id = Auth::user()->id;
         $this->productosUsuario = User::findOrFail($this->user_id)
             ->productsCart()
             ->get();
         $this->calcularSubtotal();
+    }
+
+    public function render()
+    {
         return view('livewire.checkout');
     }
+
     public function incrementar($producto_id)
     {
         $usuario = User::findOrFail($this->user_id);
-
-        //Obtengo la cantidad de un producto
-        $cantidad = User::findOrFail($this->user_id)
-            ->productsCart()
+        $cantidad = $usuario->productsCart()
             ->wherePivot('producto_id', $producto_id)
             ->value('cantidad');
-        //ACTUALIZO
         $usuario->productsCart()->updateExistingPivot($producto_id, ['cantidad' => $cantidad + 1]);
-        $this->productosUsuario = $usuario
-            ->productsCart()
-            ->get();
+        $this->actualizarDatos();
     }
+
     public function decrementar($producto_id)
     {
         $usuario = User::findOrFail($this->user_id);
-
-        $cantidad = User::findOrFail($this->user_id)
-            ->productsCart()
+        $cantidad = $usuario->productsCart()
             ->wherePivot('producto_id', $producto_id)
             ->value('cantidad');
-        //ACTUALIZO
         if ($cantidad > 1) {
             $usuario->productsCart()->updateExistingPivot($producto_id, ['cantidad' => $cantidad - 1]);
-
-            $this->productosUsuario = $usuario
-                ->productsCart()
-                ->get();
+            $this->actualizarDatos();
         }
     }
+
     public function eliminar($producto_id)
     {
-
         $usuario = User::findOrFail($this->user_id);
         $usuario->productsCart()->detach($producto_id);
+        $this->actualizarDatos();
+    }
 
-
-        $this->productosUsuario = $usuario
+    public function actualizarDatos()
+    {
+        $this->productosUsuario = User::findOrFail($this->user_id)
             ->productsCart()
             ->get();
+        $this->calcularSubtotal();
     }
 
     public function calcularSubtotal()
     {
         $subtotal = 0;
-
         foreach ($this->productosUsuario as $producto) {
             $precioSinPunto = str_replace('.', '', $producto->precio);
             $precioSinComa = str_replace(',', '.', $precioSinPunto);
-            $subtotal += (float)$precioSinComa * $producto->pivot->cantidad;
+            $cantidad = $producto->pivot->cantidad;
+            $subtotal += $precioSinComa * $cantidad;
         }
-
-        $this->subtotal = $subtotal;
+        $this->subtotal = number_format($subtotal, 2, ',', '.');
     }
 }
+

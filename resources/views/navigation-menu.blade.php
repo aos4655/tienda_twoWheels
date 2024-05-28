@@ -295,32 +295,53 @@
                         </div>
                     @endif
 
-                    <div>
-                        <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
-                        <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
-                    </div>
+
+                    <x-dropdown align='left' :contentClasses="'py-1 bg-green-600 dark:bg-blue-900'">
+                        <x-slot name=trigger>
+                            <button type="button"
+                                class="inline-flex items-center  py-2 border border-transparent leading-4 font-medium rounded-md text-gray-600 
+                                dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none  
+                                 transition ease-in-out duration-150">
+                                <div>
+                                    <div class="font-medium text-base text-left text-gray-800 dark:text-gray-200">
+                                        {{ Auth::user()->name }}</div>
+                                    <div class="font-medium text-sm text-left text-gray-500">{{ Auth::user()->email }}</div>
+                                </div>
+
+                                <svg class="ms-2 -me-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                </svg>
+                            </button>
+                        </x-slot>
+                        <x-slot name=content :contentClasses="'py-1 bg-green-600 dark:bg-blue-900'">
+                            <div class="w-30 ">
+                                <x-dropdown-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
+                                    Perfil
+                                </x-dropdown-link>
+                                @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
+                                    <x-dropdown-link href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')">
+                                        {{ __('API Tokens') }}
+                                    </x-dropdown-link>
+                                @endif
+                                <form method="POST" action="{{ route('logout') }}" x-data>
+                                    @csrf
+            
+                                    <x-dropdown-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
+                                        Salir
+                                    </x-dropdown-link>
+                                </form>
+                            </div>
+                        </x-slot>
+
+                    </x-dropdown>
                 </div>
 
                 <div class="mt-3 space-y-1">
-                    <!-- Account Management -->
-                    <x-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
-                        Perfil
-                    </x-responsive-nav-link>
-
-                    @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                        <x-responsive-nav-link href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')">
-                            {{ __('API Tokens') }}
-                        </x-responsive-nav-link>
-                    @endif
 
                     <!-- Authentication -->
-                    <form method="POST" action="{{ route('logout') }}" x-data>
-                        @csrf
-
-                        <x-responsive-nav-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
-                            Salir
-                        </x-responsive-nav-link>
-                    </form>
+                    
 
                     <!-- Team Management -->
                     @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
