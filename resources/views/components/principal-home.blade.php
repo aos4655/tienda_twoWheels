@@ -20,10 +20,10 @@
                                 LEGAL</h2>
                             <nav class="list-none mb-10">
                                 <li>
-                                    <a class="cursor-pointer" href="{{route('politica.show')}}">Aviso Legal y Terminos de uso</a>
+                                    <a class="cursor-pointer" href="{{route('terminos.show')}}">Aviso Legal y Terminos de uso</a>
                                 </li>
                                 <li>
-                                    <a class="">Política de privacidad</a>
+                                    <a class="cursor-pointer" href="{{route('politica.show')}}">Política de privacidad</a>
                                 </li>
                             </nav>
                         </div>

@@ -99,6 +99,10 @@ Route::get('accessories', Accesorios::class)->name('accesorios.index');
 Route::get('/politica', function () {
     return view('policy');
 })->name('politica.show');
+/* Enlaces terminos */
+Route::get('/terminos', function () {
+    return view('terms');
+})->name('terminos.show');
 /* WHATSAPP */
 /*  
 Route::get('/enviarWhatsapp', [PedidoController::class, 'enviarWhatsapp']);
