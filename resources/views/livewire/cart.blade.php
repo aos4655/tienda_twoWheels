@@ -1,17 +1,18 @@
 <div>
     
     <button
-        class="relative mt-1 justify-start inline-flex items-center p-3 text-sm font-medium text-center rounded-lg focus:ring-4 focus:outline-none"
-        wire:click="$set('abrirModalCart', true)">
-        <i id="icon-cart" class="hidden dark:block fa-solid fa-cart-shopping fa-xl" style="color: white;"></i>
-        <i id="icon-cart" class="dark:hidden fa-solid fa-cart-shopping fa-xl" style="color: black;"></i>
+        class="relative mt-1 justify-start inline-flex items-center p-3 text-sm font-medium text-center rounded-lg   "
+        wire:click="$set('abrirModalCart', true)" >
+        <i id="icon-cart" class=" hidden dark:block fa-solid fa-cart-shopping fa-xl {{$shake}}" style="color: white;"></i>
+        <i id="icon-cart" class="icon-cart dark:hidden fa-solid fa-cart-shopping fa-xl {{$shake}}" style="color: black;"></i>
+
         <div id="cant_cart"
             class="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white
-                                 bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
+                                 bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-red-500">
             {{ $cantidadProductos }}
         </div>
     </button>
-    
+
     <x-cart-modal wire:model='abrirModalCart' maxWidth="sm">
         <x-slot name="title">
             <h5 id="drawer-navigation-label"

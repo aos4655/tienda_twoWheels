@@ -168,6 +168,11 @@
                                 error);
                         });
                     Livewire.dispatch('rendCarrito');
+                    Livewire.dispatch('ponerShake');
+                    setTimeout(() => {
+                        Livewire.dispatch('quitarShake');
+                    }, 3000);
+
                 }
                 /* ANIMACION PARA ICONOS CONTACTO FOOTER*/
                 function addAnimation(elemento) {
@@ -180,6 +185,7 @@
                     miElemento.classList.remove('fa-spin-pulse');
                 }
             </script>
+            
         </div>
         <style>
             .cart-icon {
@@ -224,10 +230,11 @@
                 transition: opacity 0.5s ease;
             }
         </style>
+
+        <!-- ANIMACION PARA AÑADIR AL CARRITO -->
         <script>
             const buttons = document.querySelectorAll('.button-container');
 
-            // Itera sobre cada botón y agrega un evento de clic a cada uno
             buttons.forEach(button => {
                 button.addEventListener('click', function() {
                     const currentButton = this;
@@ -235,12 +242,12 @@
 
                     setTimeout(() => {
                         currentButton.querySelector('.cart-icon').classList.add('hidden');
-                    }, 1500); // Ocultar el carrito después de que haya terminado su animación
+                    }, 1500); 
 
                     setTimeout(() => {
                         currentButton.classList.remove('clicked');
                         currentButton.querySelector('.cart-icon').classList.remove('hidden');
-                    }, 3000); // Ajustar el tiempo de acuerdo con la duración de la animación
+                    }, 3000); 
                 });
             });
         </script>

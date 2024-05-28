@@ -14,7 +14,7 @@ class Cart extends Component
 
     public $productosUsuario;
     public $user_id;
-
+    public $shake = '';
     public int $cantidadProductos = 0; //Esto tampoco soluciona el problema
 /*     protected $listeners = ['actualizarComponente'];
  */    /* protected $listeners = ['incrementarNum' => 'subirTotal']; */
@@ -42,6 +42,18 @@ class Cart extends Component
         ->productsCart()
         ->count(); ///Esto tampoco soluciona el problema
         return view('livewire.cart');
+    }
+    #[On("ponerShake")]
+    public function ponershake(){
+        
+        $this->shake = 'fa-shake';
+
+    }
+    #[On("quitarShake")]
+    public function quitarShake(){
+       
+        $this->shake = '';
+
     }
     public function incrementar($producto_id)
     {
