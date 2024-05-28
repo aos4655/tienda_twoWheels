@@ -1,7 +1,7 @@
 <x-app-layout>
 
     <x-principal-home>
-        <div class="py-28 max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="py-28 max-w-7xl md:min-h-[calc(100vh-280px)]  mx-auto sm:px-6 lg:px-8">
             <div class="bg-white h-fit dark:bg-blue-800 overflow-hidden  shadow-xl sm:rounded-3xl">
                 <div class="px-8 py-8">
                     <h2 class="text-4xl font-extrabold dark:text-white text-blue-900">

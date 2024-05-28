@@ -3,7 +3,7 @@
             <main class="dark:bg-blue-900  bg-[#EFFAEB]">
                 {{ $slot }}
             </main>
-            <footer class="text-white rounded-t-3xl  px-2 bg-blue-950 dark:bg-blue-950">
+            <footer class="text-white rounded-t-3xl w-full md:bottom-0 px-2 bg-blue-950 dark:bg-blue-950">
                 <div
                     class="container px-5 py-24 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
                     <div class="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left ">
@@ -20,7 +20,7 @@
                                 LEGAL</h2>
                             <nav class="list-none mb-10">
                                 <li>
-                                    <a class="">Términos y Condiciones</a>
+                                    <a class="cursor-pointer" href="{{route('politica.show')}}">Aviso Legal y Terminos de uso</a>
                                 </li>
                                 <li>
                                     <a class="">Política de privacidad</a>

@@ -95,6 +95,10 @@ Route::get('scooter', Patinetes::class)->name('patinetes.index');
 Route::get('bikes', Bicicletas::class)->name('bicicletas.index');
 Route::get('accessories', Accesorios::class)->name('accesorios.index');
 
+/* Enlaces politica */
+Route::get('/politica', function () {
+    return view('policy');
+})->name('politica.show');
 /* WHATSAPP */
 /*  
 Route::get('/enviarWhatsapp', [PedidoController::class, 'enviarWhatsapp']);

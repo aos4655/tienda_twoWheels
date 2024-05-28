@@ -5,7 +5,7 @@
             <div class="flex justify-end items-center mt-4 mr-4">
                 <p class="text-gray-500 dark:text-gray-300 mr-5">Ordenar por</p>
                 <select wire:model="valor" wire:change="ordenar"
-                    class="font-medium text-gray-700 bg-transparent dark:text-white dark:border-white focus:outline-none rounded-full">
+                    class="font-medium text-gray-700 bg-transparent dark:bg-blue-800 dark:text-white dark:border-white focus:outline-none rounded-full">
                     <option>__SELECCIONA__</option>
                     <option value="precio_asc">Precio Ascendente</option>
                     <option value="precio_desc">Precio Descendente</option>
