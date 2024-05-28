@@ -18,8 +18,10 @@ class Accesorios extends Component
     }
     public function ordenar(){
         
-        $cadena = explode('_', $this->valor);
-        $this->atributo = $cadena[0];
-        $this->orden = $cadena[1];
+        if ($this->valor != "__SELECCIONA__") {
+            $cadena = explode('_', $this->valor);
+            $this->atributo = $cadena[0];
+            $this->orden = $cadena[1];
+        }
     } 
 }

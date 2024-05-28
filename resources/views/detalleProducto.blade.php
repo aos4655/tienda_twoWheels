@@ -32,22 +32,22 @@
                                             }
                                             for ($i = 0; $i < $numeroRedondeado; $i++) {
                                                 echo `<svg fill="currentColor" stroke="currentColor" stroke-linecap="round"
-                                                     stroke-linejoin="round" stroke-width="2"
-                                                     class="w-4 h-4 text-[#1D3AB6] dark:text-white" viewBox="0 0 24 24">
-                                                     <path
-                                                         d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
-                                                     </path>
-                                                 </svg>`;
+                                                                                                 stroke-linejoin="round" stroke-width="2"
+                                                                                                 class="w-4 h-4 text-[#1D3AB6] dark:text-white" viewBox="0 0 24 24">
+                                                                                                 <path
+                                                                                                     d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
+                                                                                                 </path>
+                                                                                             </svg>`;
                                             }
                                             
                                             for ($i = 0; $i < 5 - $valoracionMedia; $i++) {
                                                 echo `<svg fill="none" stroke="currentColor" stroke-linecap="round"
-                                                     stroke-linejoin="round" stroke-width="2"
-                                                     class="w-4 h-4 text-[#1D3AB6] dark:text-white" viewBox="0 0 24 24">
-                                                     <path
-                                                         d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
-                                                     </path>
-                                                 </svg>`;
+                                                                                                 stroke-linejoin="round" stroke-width="2"
+                                                                                                 class="w-4 h-4 text-[#1D3AB6] dark:text-white" viewBox="0 0 24 24">
+                                                                                                 <path
+                                                                                                     d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
+                                                                                                 </path>
+                                                                                             </svg>`;
                                             }
                                             
                                             ?>
@@ -86,7 +86,9 @@
                                                     d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
                                                 </path>
                                             </svg>
-                                            <span class="text-gray-600 ml-3 dark:text-white">{{$valoraciones->count()}} reseñas</span>
+                                            <span
+                                                class="text-gray-600 ml-3 dark:text-white">{{ $valoraciones->count() }}
+                                                reseñas</span>
                                         </span>
                                     </div>
                                 </a>
@@ -99,17 +101,25 @@
                                         €</span>
                                     @auth
                                         <button onclick="aniadirCarrito({{ Auth::user()->id }}, {{ $producto->id }})"
-                                            class="inline-flex items-center rounded-full py-1 px-3 max-w-full text-black bg-green-50 dark:bg-white md:mt-4  relative overflow-hidden">
-                                            Añadir al carrito
+                                            class="button-container inline-flex items-center rounded-full py-1 px-3 max-w-full text-black
+                                             bg-green-50 dark:bg-white md:mt-4 relative overflow-hidden cursor-pointer">
+                                            <span class="button-text">Añadir al carrito</span>
                                             <span
-                                                class="flex items-center justify-center rounded-full w-8 h-8 ml-2 bg-blue-900"
-                                                s>
+                                                class="button-span flex items-center justify-center rounded-full w-8 h-8 ml-2 bg-blue-900">
                                                 <svg fill="none" stroke="white" stroke-linecap="round"
                                                     stroke-linejoin="round" stroke-width="2" class="w-4 h-4"
                                                     viewBox="0 0 24 24">
                                                     <path d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                                                 </svg>
                                             </span>
+                                            <img class="cart-icon w-6 h-6"
+                                                src="https://img.icons8.com/?size=100&id=85080&format=png&color=000000"
+                                                alt="">
+                                            <svg class="checkmark w-6 h-6" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M5 13l4 4L19 7"></path>
+                                            </svg>
                                         </button>
                                     @else
                                         <a href="{{ route('login') }}"
@@ -136,7 +146,8 @@
                     <hr class="w-11/12 mx-auto border-blue-900 border-t-2 dark:border-white">
                     @foreach ($valoraciones as $item)
                         <div class="flex flex-row  ml-4 md:ml-36 -mx-2 mt-7 justify-start items-center">
-                            <p class="font-bold mr-5 max-w-40 text-[#083260] dark:text-white sm:max-w-none break-words">{{ $item->user->name }}</p>
+                            <p class="font-bold mr-5 max-w-40 text-[#083260] dark:text-white sm:max-w-none break-words">
+                                {{ $item->user->name }}</p>
                             <!-- Estrellas -->
                             <div class="flex ">
                                 <span class="flex items-center">
@@ -166,7 +177,8 @@
                         </div>
                         <div class="flex ml-4 md:ml-36 -mx-2 mt-3 w-3/4">
                             <blockquote>
-                                <p class="text-lg font-semibold text-[#093564] dark:text-white max-w-96 sm:max-w-none break-words">
+                                <p
+                                    class="text-lg font-semibold text-[#093564] dark:text-white max-w-96 sm:max-w-none break-words">
                                     "{{ $item->descripcion }}"</p>
                             </blockquote>
                         </div>

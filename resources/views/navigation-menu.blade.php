@@ -58,13 +58,12 @@
                     <!-- BOTON CARRITO -->
                     @auth
                         @livewire('cart')
-                    @endauth
-                    <!-- BOTON DARKMODE -->
-                    <label class="relative inline-flex items-center cursor-pointer ml-3">
-                        <input id="ip-darkmode" class="sr-only peer" value="" type="checkbox"
-                            onchange="toggleTheme()" />
-                        <div
-                            class="w-16 h-9 pt-1 rounded-full ring-0 peer duration-500 outline-none bg-[#fbedb6] overflow-hidden
+                        <!-- BOTON DARKMODE -->
+                        <label class="relative inline-flex items-center cursor-pointer ml-3">
+                            <input id="ip-darkmode" class="sr-only peer" value="" type="checkbox"
+                                onchange="toggleTheme()" />
+                            <div
+                                class="w-16 h-9 pt-1 rounded-full ring-0 peer duration-500 outline-none bg-[#fbedb6] overflow-hidden
                                    before:flex before:items-center before:justify-center
                                    after:flex after:items-center after:justify-center
                                    before:content-['☀️'] before:absolute before:h-7 before:w-7
@@ -78,8 +77,32 @@
                                    after:w-7 after:h-7 after:opacity-0
                                    after:transition-all after:duration-700 peer-checked:after:opacity-100
                                    peer-checked:after:translate-x-0">
-                        </div>
-                    </label>
+                            </div>
+                        </label>
+                    @else
+                        <!-- BOTON DARKMODE -->
+                        <label class="relative inline-flex items-center cursor-pointer ml-10">
+                            <input id="ip-darkmode" class="sr-only peer" value="" type="checkbox"
+                                onchange="toggleTheme()" />
+                            <div
+                                class="w-16 h-9 pt-1 rounded-full ring-0 peer duration-500 outline-none bg-[#fbedb6] overflow-hidden
+                                   before:flex before:items-center before:justify-center
+                                   after:flex after:items-center after:justify-center
+                                   before:content-['☀️'] before:absolute before:h-7 before:w-7
+                                   before:bg-[#f4ca25] before:rounded-full before:left-8
+                                   before:-translate-x-full before:transition-all before:duration-700
+                                   peer-checked:before:opacity-0 peer-checked:before:translate-x-0
+                                   shadow-lg shadow-gray-400 peer-checked:shadow-lg peer-checked:shadow-gray-700
+                                   peer-checked:bg-[#043449]
+                                   after:content-['🌙'] after:text-white after:absolute after:bg-[#25b6f4]
+                                   after:rounded-full after:right-1 after:-translate-x-full
+                                   after:w-7 after:h-7 after:opacity-0
+                                   after:transition-all after:duration-700 peer-checked:after:opacity-100
+                                   peer-checked:after:translate-x-0">
+                            </div>
+                        </label>
+                    @endauth
+
 
                 </div>
                 <div class="hidden sm:block sm:items-center sm:ms-6">
@@ -305,7 +328,8 @@
                                 <div>
                                     <div class="font-medium text-base text-left text-gray-800 dark:text-gray-200">
                                         {{ Auth::user()->name }}</div>
-                                    <div class="font-medium text-sm text-left text-gray-500">{{ Auth::user()->email }}</div>
+                                    <div class="font-medium text-sm text-left text-gray-500">{{ Auth::user()->email }}
+                                    </div>
                                 </div>
 
                                 <svg class="ms-2 -me-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -327,7 +351,7 @@
                                 @endif
                                 <form method="POST" action="{{ route('logout') }}" x-data>
                                     @csrf
-            
+
                                     <x-dropdown-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
                                         Salir
                                     </x-dropdown-link>
@@ -341,7 +365,7 @@
                 <div class="mt-3 space-y-1">
 
                     <!-- Authentication -->
-                    
+
 
                     <!-- Team Management -->
                     @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())

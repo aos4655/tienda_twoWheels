@@ -1,4 +1,5 @@
 <div>
+    
     <button
         class="relative mt-1 justify-start inline-flex items-center p-3 text-sm font-medium text-center rounded-lg focus:ring-4 focus:outline-none"
         wire:click="$set('abrirModalCart', true)">
@@ -10,6 +11,7 @@
             {{ $cantidadProductos }}
         </div>
     </button>
+    
     <x-cart-modal wire:model='abrirModalCart' maxWidth="sm">
         <x-slot name="title">
             <h5 id="drawer-navigation-label"

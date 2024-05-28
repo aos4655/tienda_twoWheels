@@ -49,12 +49,14 @@
                             <h2 class="title-font font-bold  text-white tracking-widest text-sm text-center mb-3">
                                 SÍGUENOS</h2>
                             <div class="card ml-10 md:ml-0">
-                                <a href="https://www.instagram.com/antoniyoortiz/" target="_blank" class="social-link-instagram">
+                                <a href="https://www.instagram.com/antoniyoortiz/" target="_blank"
+                                    class="social-link-instagram">
                                     <i class="fa-brands fa-instagram fa-lg" style="color: #ffffff;"></i>
                                 </a>
                                 <a href="https://github.com/aos4655" target="_blank" class="social-link-github">
                                     <i class="fa-brands fa-github fa-lg" style="color: #ffffff;"></i> </a>
-                                <a href="https://discordapp.com/users/tono6058" target="_blank" class="social-link-discord">
+                                <a href="https://discordapp.com/users/tono6058" target="_blank"
+                                    class="social-link-discord">
                                     <i class="fa-brands fa-discord fa-lg" style="color: #ffffff;"></i>
                                 </a>
                                 <a href="https://t.me/Tono4655" target="_blank" class="social-link-telegram">
@@ -86,7 +88,7 @@
                     width: 220px;
                 }
 
-                
+
 
                 .card .social-link-instagram,
                 .card .social-link-github,
@@ -179,4 +181,67 @@
                 }
             </script>
         </div>
+        <style>
+            .cart-icon {
+                transition: transform 1.5s ease, opacity 0.5s ease-in-out;
+                opacity: 0;
+                position: absolute;
+                left: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            .button-container.clicked .cart-icon {
+                transform: translateX(140px) translateY(-50%);
+                opacity: 1;
+            }
+
+            .button-container.clicked .cart-icon.hidden {
+                opacity: 0;
+            }
+
+            .button-container.clicked .button-text,
+            .button-container.clicked .button-span {
+                opacity: 0;
+                transition: opacity 0.5s ease;
+            }
+
+            .button-container.clicked .checkmark {
+                opacity: 1;
+                transition: opacity 0.5s ease 1.5s;
+            }
+
+            .checkmark {
+                opacity: 0;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            .button-text,
+            .button-span {
+                transition: opacity 0.5s ease;
+            }
+        </style>
+        <script>
+            const buttons = document.querySelectorAll('.button-container');
+
+            // Itera sobre cada botón y agrega un evento de clic a cada uno
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const currentButton = this;
+                    currentButton.classList.add('clicked');
+
+                    setTimeout(() => {
+                        currentButton.querySelector('.cart-icon').classList.add('hidden');
+                    }, 1500); // Ocultar el carrito después de que haya terminado su animación
+
+                    setTimeout(() => {
+                        currentButton.classList.remove('clicked');
+                        currentButton.querySelector('.cart-icon').classList.remove('hidden');
+                    }, 3000); // Ajustar el tiempo de acuerdo con la duración de la animación
+                });
+            });
+        </script>
     </div>

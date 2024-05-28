@@ -40,7 +40,7 @@
                                         foreach ($item->valoraciones as $valoracion) {
                                             $valoracionMedia += $valoracion->puntuacion;
                                         }
-                                        echo number_format(($valoracionMedia / $item->valoraciones->count()), 2);
+                                        echo number_format($valoracionMedia / $item->valoraciones->count(), 2);
                                         
                                         ?>
                                     </span>
@@ -53,16 +53,24 @@
 
                                 @auth
                                     <button onclick="aniadirCarrito({{ Auth::user()->id }}, {{ $item->id }})"
-                                        class="inline-flex items-center rounded-full py-1 px-3 max-w-full text-black bg-green-50 dark:bg-white md:mt-4  relative overflow-hidden">
-                                        Añadir al carrito
-                                        <span class="flex items-center justify-center rounded-full w-8 h-8 ml-2 bg-blue-900"
-                                            s>
+                                        class="button-container inline-flex items-center rounded-full py-1 px-3 max-w-full text-black bg-green-50 dark:bg-white md:mt-4 relative overflow-hidden cursor-pointer">
+                                        <span class="button-text">Añadir al carrito</span>
+                                        <span
+                                            class="button-span flex items-center justify-center rounded-full w-8 h-8 ml-2 bg-blue-900">
                                             <svg fill="none" stroke="white" stroke-linecap="round"
                                                 stroke-linejoin="round" stroke-width="2" class="w-4 h-4"
                                                 viewBox="0 0 24 24">
                                                 <path d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                                             </svg>
                                         </span>
+                                        <img class="cart-icon w-6 h-6"
+                                            src="https://img.icons8.com/?size=100&id=85080&format=png&color=000000"
+                                            alt="">
+                                        <svg class="checkmark w-6 h-6" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M5 13l4 4L19 7"></path>
+                                        </svg>
                                     </button>
                                 @else
                                     <a href="{{ route('login') }}"

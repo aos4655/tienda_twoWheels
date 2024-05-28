@@ -52,6 +52,7 @@
     @stack('modals')
 
     @livewireScripts
+
     <script>
         function descargarqr() {
             var node = document.getElementById('qr');
@@ -118,7 +119,7 @@
             //Obtenemos los iconos para ir mostrando/ocultando segun interes
             let currentTheme = localStorage.getItem('theme');
             let iconoDarkMode = document.getElementById('ip-darkmode');
-            
+
             if (window.location.pathname != '/checkout2') {
                 var iconoCarrito = document.getElementById('icon-cart');
             }
