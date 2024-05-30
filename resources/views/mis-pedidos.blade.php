@@ -33,6 +33,8 @@
                                 const elementos = document.querySelectorAll(`.ultimoEstado_${pedidoId}`);
                                 const iconosPendienteEnvio = document.querySelectorAll(`.icono-pendiente-envio-${pedidoId}`);
                                 const iconosEntregado = document.querySelectorAll(`.icono-entregado-${pedidoId}`);
+                                const iconosEnReparto = document.querySelectorAll(`.icono-en-reparto-${pedidoId}`);
+                                const iconosEnviado = document.querySelectorAll(`.icono-enviado-${pedidoId}`);
 
 
                                 elementos.forEach(elemento => {
@@ -42,7 +44,15 @@
                                     iconosPendienteEnvio.forEach(icono => {
                                         icono.removeAttribute('hidden');
                                     });
-                                } else if (data.ult_estado == "ENTREGADO") {
+                                } else if (data.ult_estado == "ENVIADO") {
+                                    iconosEnviado.forEach(icono => {
+                                        icono.removeAttribute('hidden');
+                                    });
+                                }else if (data.ult_estado == "EN REPARTO") {
+                                    iconosEnReparto.forEach(icono => {
+                                        icono.removeAttribute('hidden');
+                                    });
+                                }else if (data.ult_estado == "ENTREGADO") {
                                     iconosEntregado.forEach(icono => {
                                         icono.removeAttribute('hidden');
                                     });
@@ -66,22 +76,24 @@
                 </script>
 
                 @foreach ($pedidos as $pedido)
-                    <div class="px-8 pb-8">
+                    <div class="px-4 md:px-8 pb-8">
                         {{-- Para cada orden --}}
                         <div
                             class="flex flex-row justify-between border rounded-t-lg bg-green-50 dark:bg-transparent   py-3">
-                            <div class="flex flex-col w-3/4 ">
+                            <div class="flex flex-col md:w-3/4 w-11/12">
                                 <dl class="flex flex-row text-blue-900 dark:text-green-50 ">
-                                    <div class="mx-10">
-                                        <dt class="font-extrabold">Número pedido</dt>
+                                    <div class="md:mx-10 mx-auto">
+                                        <dt class="font-extrabold"><span class="hidden md:block">Número</span> <span
+                                                class="capitalize md:normal-case">pedido</span></dt>
                                         <dd class="text-gray-500 dark:text-white">{{ $pedido->id }}</dd>
                                     </div>
-                                    <div class="mx-10">
+                                    <div class="mx-10 hidden md:block">
                                         <dt class="font-extrabold">Fecha</dt>
                                         <dd class="text-gray-500 dark:text-white">{{ $pedido->created_at }}</dd>
                                     </div>
-                                    <div class="mx-10">
-                                        <dt class="font-extrabold">Total pagado</dt>
+                                    <div class="md:mx-10 mx-auto">
+                                        <dt class="font-extrabold"><span class="hidden md:block">Total</span> <span
+                                                class="capitalize  md:normal-case">pagado</span></dt>
                                         <dd>
                                             <?php
                                             $precioTotal = 0;
@@ -98,11 +110,18 @@
                                     </div>
                                 </dl>
                             </div>
-                            <div class="justify-end mr-3 my-auto">
+                            <div class="justify-end md:mr-3 my-auto mx-8">
                                 <!-- BOTON DESCARGAR FACTURA -->
-                                <div class="button cursor-pointer" onclick='descargarFactura({{ $pedido->id }})'
+                                <div class="md:hidden">
+                                    <button onclick='descargarFactura({{ $pedido->id }})'>
+                                        <i class="fa-solid fa-file-pdf fa-2xl text-[#093564] dark:text-white"></i>
+                                    </button>
+                                </div>
+                                <div class="button cursor-pointer hidden md:block"
+                                    onclick='descargarFactura({{ $pedido->id }})'
                                     data-tooltip="Factura {{ $pedido->id }}">
-                                    <div class="button-wrapper">
+
+                                    <div class="button-wrapper ">
                                         <div class="text">Factura</div>
                                         <span class="icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img"
@@ -127,34 +146,78 @@
                                     <div class="flex-row m-3 p-4">
                                         <div class="flex flex-row items-start">
                                             <div class="w-1/4 pl-4">
-                                                <img class="w-40 h-40" src="{{ Storage::url($producto->imagen) }}"
+                                                <img class="md:w-40 md:h-40 w-28 h-20"
+                                                    src="{{ Storage::url($producto->imagen) }}"
                                                     alt="{{ $producto->nombre }}" class="rounded-lg">
                                             </div>
                                             <div class="ml-4 w-3/4">
-                                                <div class="flex justify-between">
+                                                <div class="flex flex-col md:flex-row  justify-between">
                                                     <h5 class="font-extrabold text-lg text-blue-900 dark:text-green-50">
                                                         {{ $producto->nombre }}</h5>
                                                     <p class="dark:text-green-50">{{ $producto->precio }} €</p>
                                                 </div>
-                                                <p class="pt-3 text-gray-500 dark:text-white">
+                                                <p class="pt-3 text-gray-500 dark:text-white hidden md:block">
                                                     {{ $producto->descripcion }}
                                                 </p>
                                             </div>
                                         </div>
                                         {{-- Parte2 --}}
-                                        <div class="justify-between flex flex-row mt-3">
-                                            <div class="flex flex-row items-center">
+                                        {{-- <div class="justify-between flex flex-row mt-3">
+                                            <div class="flex md:flex-row flex-col items-center">
                                                 <img class="icono-entregado-{{ $pedido->id }}" hidden width="32" hidden class="icono-pendiente-envio-{{ $pedido->id }}" height="32" src="https://img.icons8.com/windows/32/000000/hand-box.png" alt="hand-box"/>
                                                 <p
                                                     class="ml-4 text-gray-500 dark:text-white ultimoEstado_{{ $pedido->id }}">
                                                 </p>
                                             </div>
-                                            <div class="flex flex-row items-center justify-center">
+                                            <hr class="md:hidden border-t-2 text-red-600">
+                                            <div class="flex flex-row  items-center justify-center">
                                                 <a href="{{ route('productos.show', $producto->id) }}"
                                                     class="mr-4 dark:text-green-50">Ver producto</a>
                                                 <button
                                                     onclick="aniadirCarrito({{ Auth::user()->id }}, {{ $producto->id }})"
                                                     class="text-blue-900 dark:text-green-50 relative overflow-hidden">
+                                                    Comprar de nuevo
+                                                </button>
+                                            </div>
+                                        </div> --}}
+
+                                        <div class="flex flex-col md:flex-row justify-between mt-3">
+                                            <div class="flex flex-col md:flex-row items-center">
+                                                <div class="flex flex-row">
+                                                    {{-- <img class="icono-pendiente-envio-{{ $pedido->id }} w-5 h-5"
+                                                        hidden width="32" hidden
+                                                        src="{{ Storage::url('iconTrack/waitDeliver.png') }}"
+                                                        alt="hand-box" /> --}}
+                                                    <img class="icono-pendiente-envio-{{ $pedido->id }}" hidden
+                                                        width="32" hidden height="20"
+                                                        src="https://img.icons8.com/?size=100&id=HxWh8o95DsPz&format=png&color=000000"
+                                                        alt="hand-box" />
+                                                    <img class="icono-enviado-{{ $pedido->id }}" hidden
+                                                        width="32" hidden height="20"
+                                                        src="https://img.icons8.com/?size=100&id=3562&format=png&color=000000"
+                                                        alt="hand-box" />
+                                                    <img class="icono-en-reparto-{{ $pedido->id }}" hidden
+                                                        width="32" hidden height="20"
+                                                        src="https://img.icons8.com/?size=100&id=WGFe76znzmsH&format=png&color=000000"
+                                                        alt="hand-box" />
+                                                    <img class="icono-entregado-{{ $pedido->id }}" hidden
+                                                        width="32" hidden height="32"
+                                                        src="https://img.icons8.com/windows/32/000000/hand-box.png"
+                                                        alt="hand-box" />
+                                                    <p
+                                                        class="mt-2 md:mt-0 ml-4 text-gray-500 dark:text-white ultimoEstado_{{ $pedido->id }}">
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <hr class="md:hidden border-t-2 text-red-600 mt-2">
+                                            <div class="flex flex-row items-center justify-center mt-2 md:mt-0">
+
+                                                <a href="{{ route('productos.show', $producto->id) }}"
+                                                    class="text-blue-900 dark:text-green-50 mb-2 md:mb-0 md:mr-4 mx-auto mt-2 md:mt-0">Ver
+                                                    producto</a>
+                                                <button
+                                                    onclick="aniadirCarrito({{ Auth::user()->id }}, {{ $producto->id }})"
+                                                    class="text-blue-900 dark:text-green-50 mx-auto md:border-none  border-l-2 dark:border-l-white pl-4  md:mr-0 md:pl-0">
                                                     Comprar de nuevo
                                                 </button>
                                             </div>
