@@ -28,23 +28,23 @@
                 </div>
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('home') }}" :active="request()->routeIs('home.*.')">
+                    <x-nav-link class="dark:hover:border-b-blue-800" href="{{ route('home') }}" :active="request()->routeIs('home.*.')">
                         Home
                     </x-nav-link>
-                    <x-nav-link href="{{ route('patinetes.index') }}" :active="request()->routeIs('patinetes.*')">
+                    <x-nav-link class="dark:hover:border-b-blue-800" href="{{ route('patinetes.index') }}" :active="request()->routeIs('patinetes.*')">
                         Patinetes
-                    </x-nav-link><x-nav-link href="{{ route('bicicletas.index') }}" :active="request()->routeIs('bicicletas.*')">
+                    </x-nav-link><x-nav-link class="dark:hover:border-b-blue-800" href="{{ route('bicicletas.index') }}" :active="request()->routeIs('bicicletas.*')">
                         Bicicletas
-                    </x-nav-link><x-nav-link href="{{ route('accesorios.index') }}" :active="request()->routeIs('accesorios.*')">
+                    </x-nav-link><x-nav-link class="dark:hover:border-b-blue-800" href="{{ route('accesorios.index') }}" :active="request()->routeIs('accesorios.*')">
                         Accesorios
                     </x-nav-link>
                     @auth
                         @if (Auth::user()->is_admin == 'SI')
-                            <x-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.*')">
+                            <x-nav-link class="dark:hover:border-b-blue-800" href="{{ route('users.index') }}" :active="request()->routeIs('users.*')">
                                 Administración
                             </x-nav-link>
                         @else
-                            <x-nav-link href="{{ route('pedidos.index') }}" :active="request()->routeIs('pedidos.*')">
+                            <x-nav-link class="dark:hover:border-b-blue-800" href="{{ route('pedidos.index') }}" :active="request()->routeIs('pedidos.*')">
                                 Mis pedidos
                             </x-nav-link>
                         @endif
@@ -168,7 +168,7 @@
                     <div class="hidden sm:flex sm:items-center sm:ms-6">
                         @auth
                             <!-- Settings Dropdown -->
-                            <x-dropdown align="right" class="ms-3" width="48">
+                            <x-dropdown align="right" class="ms-3" width="48" :contentClasses="'py-1 bg-[#EFFAEB] dark:bg-blue-900'">
                                 <x-slot name="trigger">
                                     @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                                         <button
@@ -180,7 +180,7 @@
                                     @else
                                         <span class="inline-flex rounded-md">
                                             <button type="button"
-                                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-50 dark:focus:bg-gray-700 active:bg-gray-50 dark:active:bg-gray-700 transition ease-in-out duration-150">
+                                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-300  hover:text-gray-400 dark:hover:text-gray-200 focus:outline-none     transition ease-in-out duration-150">
                                                 {{ Auth::user()->name }}
 
                                                 <svg class="ms-2 -me-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
@@ -200,7 +200,7 @@
                                         Administrar cuenta
                                     </div>
 
-                                    <x-dropdown-link href="{{ route('profile.show') }}">
+                                    <x-dropdown-link class="hover:bg-green-50 dark:hover:bg-blue-950" href="{{ route('profile.show') }}">
                                         Perfil
                                     </x-dropdown-link>
 
@@ -216,7 +216,7 @@
                                     <form method="POST" action="{{ route('logout') }}" x-data>
                                         @csrf
 
-                                        <x-dropdown-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
+                                        <x-dropdown-link class="hover:bg-green-50 dark:hover:bg-blue-950" href="{{ route('logout') }}" @click.prevent="$root.submit();">
                                             Salir
                                         </x-dropdown-link>
                                     </form>
@@ -319,7 +319,7 @@
                     @endif
 
 
-                    <x-dropdown align='left' :contentClasses="'py-1 bg-green-600 dark:bg-blue-900'">
+                    <x-dropdown align='left' :contentClasses="'py-1 bg-[#EFFAEB] dark:bg-blue-900'">
                         <x-slot name=trigger>
                             <button type="button"
                                 class="inline-flex items-center  py-2 border border-transparent leading-4 font-medium rounded-md text-gray-600 
@@ -339,9 +339,9 @@
                                 </svg>
                             </button>
                         </x-slot>
-                        <x-slot name=content :contentClasses="'py-1 bg-green-600 dark:bg-blue-900'">
+                        <x-slot name=content >
                             <div class="w-30 ">
-                                <x-dropdown-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
+                                <x-dropdown-link class="hover:bg-green-100 dark:hover:bg-blue-950" href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
                                     Perfil
                                 </x-dropdown-link>
                                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
@@ -352,7 +352,7 @@
                                 <form method="POST" action="{{ route('logout') }}" x-data>
                                     @csrf
 
-                                    <x-dropdown-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
+                                    <x-dropdown-link class="hover:bg-green-100 dark:hover:bg-blue-950" href="{{ route('logout') }}" @click.prevent="$root.submit();">
                                         Salir
                                     </x-dropdown-link>
                                 </form>

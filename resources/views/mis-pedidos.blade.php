@@ -48,11 +48,11 @@
                                     iconosEnviado.forEach(icono => {
                                         icono.removeAttribute('hidden');
                                     });
-                                }else if (data.ult_estado == "EN REPARTO") {
+                                } else if (data.ult_estado == "EN REPARTO") {
                                     iconosEnReparto.forEach(icono => {
                                         icono.removeAttribute('hidden');
                                     });
-                                }else if (data.ult_estado == "ENTREGADO") {
+                                } else if (data.ult_estado == "ENTREGADO") {
                                     iconosEntregado.forEach(icono => {
                                         icono.removeAttribute('hidden');
                                     });
@@ -183,27 +183,35 @@
 
                                         <div class="flex flex-col md:flex-row justify-between mt-3">
                                             <div class="flex flex-col md:flex-row items-center">
-                                                <div class="flex flex-row">
+                                                <div class="flex flex-row ">
                                                     {{-- <img class="icono-pendiente-envio-{{ $pedido->id }} w-5 h-5"
                                                         hidden width="32" hidden
                                                         src="{{ Storage::url('iconTrack/waitDeliver.png') }}"
                                                         alt="hand-box" /> --}}
-                                                    <img class="icono-pendiente-envio-{{ $pedido->id }}" hidden
+                                                    {{-- <img class="icono-pendiente-envio-{{ $pedido->id }} " hidden
                                                         width="32" hidden height="20"
+                                                        
                                                         src="https://img.icons8.com/?size=100&id=HxWh8o95DsPz&format=png&color=000000"
-                                                        alt="hand-box" />
-                                                    <img class="icono-enviado-{{ $pedido->id }}" hidden
+                                                        alt="hand-box" /> --}}
+                                                    <i class="fa-solid my-auto fa-truck-ramp-box dark:text-white text-blue-900 icono-pendiente-envio-{{ $pedido->id }}"
+                                                        hidden></i>
+                                                    {{-- <img class="icono-enviado-{{ $pedido->id }} " hidden
                                                         width="32" hidden height="20"
                                                         src="https://img.icons8.com/?size=100&id=3562&format=png&color=000000"
-                                                        alt="hand-box" />
-                                                    <img class="icono-en-reparto-{{ $pedido->id }}" hidden
+                                                        alt="hand-box" /> --}}
+                                                    <i class="fa-solid my-auto fa-truck-fast dark:text-white text-blue-900  icono-enviado-{{ $pedido->id }}"
+                                                        hidden></i>
+                                                    <i class="fa-solid my-auto fa-dolly icono-en-reparto-{{ $pedido->id }} dark:text-white text-blue-900"
+                                                        hidden></i>
+                                                    {{-- <img class="icono-en-reparto-{{ $pedido->id }} " hidden
                                                         width="32" hidden height="20"
                                                         src="https://img.icons8.com/?size=100&id=WGFe76znzmsH&format=png&color=000000"
-                                                        alt="hand-box" />
-                                                    <img class="icono-entregado-{{ $pedido->id }}" hidden
+                                                        alt="hand-box" /> --}}
+                                                    <i class="fa-solid my-auto fa-circle-check dark:text-white text-blue-900 icono-entregado-{{ $pedido->id }}" hidden></i>
+                                                    {{-- <img class="icono-entregado-{{ $pedido->id }} " hidden
                                                         width="32" hidden height="32"
-                                                        src="https://img.icons8.com/windows/32/000000/hand-box.png"
-                                                        alt="hand-box" />
+                                                        src="https://img.icons8.com/?size=100&id=iwGCwhG9o4__&format=png&color=000000"
+                                                        alt="hand-box" /> --}}
                                                     <p
                                                         class="mt-2 md:mt-0 ml-4 text-gray-500 dark:text-white ultimoEstado_{{ $pedido->id }}">
                                                     </p>
@@ -352,33 +360,6 @@
             }
         </style>
         <script>
-            /* No me convence esto */
-            function icono() {
-                const modoVisualizacion = document.documentElement.classList.contains('dark');
-
-                // Seleccionar todos los elementos SVG con la clase 'icono'
-                const iconos = document.querySelectorAll('.icono');
-
-                // Iterar sobre cada elemento SVG y actualizar el color según el modo de visualización
-                iconos.forEach(iconSvg => {
-                    if (modoVisualizacion) {
-                        iconSvg.setAttribute('fill', '#EFFAEB'); // Modo oscuro
-                    } else {
-                        iconSvg.setAttribute('fill', '#093564'); // Modo claro
-                    }
-                });
-            }
-
-            // Llamar a la función 'icono()' cuando se carga completamente la página
-            document.addEventListener('DOMContentLoaded', icono);
-
-            // Observador de atributos para detectar cambios en las clases de 'documentElement' (html)
-            const observer = new MutationObserver(icono);
-            observer.observe(document.documentElement, {
-                attributes: true, // Observar cambios en los atributos
-                attributeFilter: ['class'] // Filtrar cambios solo en la clase
-            });
-
             function descargarFactura(id) {
                 fetch(`/pedido/pdf/${id}`)
                     .then(response => {
