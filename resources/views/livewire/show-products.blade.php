@@ -4,11 +4,11 @@
         <h2 class="md:hidden  text-center font-semibold text-2xl text-blue-900 dark:text-white mb-5">
             PRODUCTOS
         </h2>
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg ">
+        <div class=" overflow-hidden shadow-xl sm:rounded-lg ">
             <div
-                class="flex items-center justify-between flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 py-4 bg-white dark:bg-gray-900">
+                class="flex items-center  flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 py-4 bg-white dark:bg-gray-900">
                 <label for="table-search" class="sr-only">Search</label>
-                <div class="relative ms-5">
+                <div class="relative mx-5">
                     <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
                         <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -17,9 +17,11 @@
                         </svg>
                     </div>
                     <x-input
-                        class=" pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class=" pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg md:w-80 w-56 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Buscar..." type="search" wire:model.live="search"></x-input>
+
                 </div>
+                @livewire('crear-producto')
             </div>
             @if (!$productos->count())
                 <h1
@@ -86,7 +88,7 @@
                                 <td class="p-2 ml-8 md:border md:border-none text-left block md:table-cell">
                                     <span class="inline-block w-1/3 md:hidden font-bold">QR</span>
                                     <button wire:click="setDatosQR({{ $producto->id }})" class="mr-1 ">
-                                        <i class="fa-solid fa-qrcode text-xl hover:text-2xl"></i>
+                                        <i class="fa-solid fa-qrcode text-xl hover:text-red-500 "></i>
                                     </button>
                                 </td>
                                 <td class="p-2 ml-8 md:border md:border-none text-left block md:table-cell">
@@ -156,7 +158,7 @@
                         </div>
                         <!-- Modal body -->
                         <div class="p-4 md:p-5">
-                            <p id="descripcion-contenido">
+                            <p id="descripcion-contenido" class="dark:text-white">
 
                             </p>
                         </div>
@@ -176,8 +178,9 @@
                         <x-input-error for="form.nombre"></x-input-error>
 
                         <x-label for="descripcion">Descripcion</x-label>
-                        <textarea id="descripcion" type="descripcion" rows="6" wire:model="form.descripcion" class="w-full mb-2"></textarea>
+                        <textarea id="descripcion" type="descripcion" rows="4"  wire:model="form.descripcion" class="resize-none w-full mb-2 rounded-lg dark:bg-[#111827]"></textarea>
                         <x-input-error for="form.descripcion"></x-input-error>
+                        
 
                         <x-label for="stock">Stock</x-label>
                         <x-input id="stock" wire:model="form.stock" class="w-full mb-2"></x-input>
@@ -188,15 +191,56 @@
                         <x-input-error for="form.precio"></x-input-error>
 
                         <x-label for="categoria">Categoria</x-label>
-                        <x-input id="categoria" wire:model="form.categoria" class="w-full mb-2"></x-input>
-                        <x-input-error for="form.categoria"></x-input-error>
+                        <select id="categoria" wire:model="category_id"
+                            class="w-full mb-2 rounded-lg dark:bg-[#111827] dark:text-white">
+                            <option value="">Seleccione una categoría</option>
+                            @foreach ($categorias as $cat)
+                                <option @selected($cat->id == $form->producto->categoria_id) value="{{ $cat->id }}">{{ $cat->nombre }}</option>
+                            @endforeach
+                        </select>
 
+                        <div class="flex flex-row justify-between ">
+                            <div class="flex flex-col w-1/2  mx-2">
+                                <x-label for="imagenU">Imagen</x-label>
+                                <div id="dropzone-imagenU"
+                                    class="w-full h-64 mb-2 border-dashed border-2 border-gray-400 p-4 text-center relative"
+                                    ondragover="event.preventDefault();" ondrop="handleDrop(event, 'fileInput-imagenU');">
+                                    @if ($form->imagenU)
+                                        <img src="{{ $form->imagenU->temporaryUrl() }}"
+                                            class="w-full my-auto h-60 object-contain absolute inset-0" />
+                                    @elseif ($form->producto->imagen)
+                                        <img src="{{ Storage::url($form->producto->imagen) }}"
+                                            class="w-full my-auto h-60 object-contain absolute inset-0" />
+                                    @endif
+                                </div>
+                                <input type="file" id="fileInput-imagenU" wire:model="form.imagenU" class="hidden" />
+                                <x-input-error for="imagenU"></x-input-error>
+                            </div>
+                            <div class="flex flex-col w-1/2 mx-2">
+                                <x-label for="imagenSFU">Imagen sin fondo</x-label>
+                                <div id="dropzone-imagenSFU"
+                                    class="w-full h-64 mb-2 border-dashed border-2 border-gray-400 p-4 text-center relative"
+                                    ondragover="event.preventDefault();"
+                                    ondrop="handleDrop(event, 'fileInput-imagenSFU');">
+                                    @if ($form->imagenSFU)
+                                        <img src="{{ $form->imagenSFU->temporaryUrl() }}"
+                                            class="w-full my-auto h-60 object-contain absolute inset-0" />
+                                    @else
+                                        <img src="{{ Storage::url(str_replace('.jpg', '_SF.png', $form->producto->imagen)) }}"
+                                            class="w-full my-auto h-60 object-contain absolute inset-0" />
+                                    @endif
+                                </div>
+                                <input type="file" id="fileInput-imagenSFU" wire:model="form.imagenSFU"
+                                    class="hidden" />
+                                <x-input-error for="imagenSFU"></x-input-error>
+                            </div>
+                        </div>
                     </x-slot>
                     <x-slot name="footer">
                         <div class="flex flex-row-reverse">
                             <button wire:click="update" wire:loading.attr='disabled'
                                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                <i class="fas fa-editar"></i> EDITAR
+                                <i class="fas fa-edit"></i> EDITAR
                             </button>
                             <button wire:click="limpiarCerrarUpdate"
                                 class="mr-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
@@ -341,6 +385,25 @@
                     modalDescripcion.classList.add('hidden');
                 });
 
+            });
+
+            /* Drop de imagenes para el update */
+            function handleDrop(event, inputId) {
+                event.preventDefault();
+                const files = event.dataTransfer.files;
+                const input = document.getElementById(inputId);
+                input.files = files;
+
+                const changeEvent = new Event('change');
+                input.dispatchEvent(changeEvent);
+            }
+
+            document.getElementById('dropzone-imagenU').addEventListener('click', () => {
+                document.getElementById('fileInput-imagenU').click();
+            });
+
+            document.getElementById('dropzone-imagenSFU').addEventListener('click', () => {
+                document.getElementById('fileInput-imagenSFU').click();
             });
         </script>
     </x-plantilla-admin>

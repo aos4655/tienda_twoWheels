@@ -58,7 +58,19 @@ class PedidoController extends Controller
      */
     public function update(Request $request, Pedido $pedido)
     {
-        //
+        $request->validate([
+            'nombre' => ['required', 'string', 'min:5', 'unique:posts,titulo,' . $pedido->id],
+            'direccion' => ['required', 'string', 'min:10'],
+            'productos' => ['array'],
+        ]);
+
+        
+        $pedido->update([
+            'nombre' => $request->nombre,
+            'direccion' => $request->direccion,
+        ]);
+/*         $pedido->sync 
+ */        return redirect()->refresh()->with('mensaje', 'Pedido actualizado');
     }
 
     /**

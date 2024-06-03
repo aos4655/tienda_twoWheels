@@ -101,7 +101,7 @@
                 left: 0;
                 height: 2px;
                 width: 0;
-                background-color: #ff9900;
+                background-color: #072342;
                 transition: all 0.3s ease;
             }
 

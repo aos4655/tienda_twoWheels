@@ -3,7 +3,7 @@
         <h2 class="md:hidden  text-center font-semibold text-2xl text-blue-900 dark:text-white mb-5">
             PEDIDOS
         </h2>
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+        <div class=" overflow-hidden shadow-xl sm:rounded-lg">
             <div
                 class="flex items-center justify-between flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 py-4 bg-white dark:bg-gray-900">
                 <label for="table-search" class="sr-only">Search</label>
@@ -44,7 +44,10 @@
                                 Estado
                             </th>
                             <th class="p-2  font-bold md:border md:border-none block md:table-cell">
-                                Acciones
+                                Productos
+                            </th>
+                            <th class="p-2  font-bold md:border md:border-none block md:table-cell">
+                                Modificado
                             </th>
                         </tr>
                     </thead>
@@ -82,44 +85,23 @@
                                 </td>
                                 <td
                                     class="p-2 ml-8 md:border md:border-none text-left md:text-center block md:table-cell">
-                                    <span class="inline-block w-1/3 md:hidden font-bold">Acción</span>
-                                    <!-- Menú desplegable -->
-                                    <div class="dropdown-container">
-                                        <!-- Botón para abrir el dropdown -->
-                                        <button id="dropdownActionButton"
-                                            onclick="toggleDropdown('{{ $pedido->id }}')"
-                                            class="text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-centerdark:bg-gray-800 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-                                            type="button">
-                                            Acción
-                                            <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                                <path stroke="currentColor" stroke-linecap="round"
-                                                    stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
-                                            </svg>
-                                        </button>
+                                    <span class="inline-block w-1/3 md:hidden font-bold">Productos</span>
+                                    <!-- Modal toggle -->
+                                    <button class="productos-pedido-btn font-medium text-blue-600 hover:underline ms-3"
+                                        data-pedido-productos='@json($pedido->productos)' data-pedido-id= "{{$pedido->id}}">
+                                        <i class="fa-sharp fa-solid fa-circle-info"></i>
+                                    </button>
+                                </td>
+                                <td
+                                    class="p-2 ml-8 md:border md:border-none text-left md:text-center block md:table-cell">
+                                    <span class="inline-block w-1/3 md:hidden font-bold">Modificado</span>
 
-                                        <!-- Menú desplegable -->
-                                        <div id="dropdownAction_{{ $pedido->id }}"
-                                            class="dropdown-menu z-10 hidden bg-white  rounded-lg shadow dark:bg-gray-700">
-                                            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
-                                                aria-labelledby="dropdownActionButton">
-                                                <li>
-                                                    <!-- Acción de editar usuario -->
-                                                    <button wire:click="edit({{ $pedido->id }})"
-                                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                                        <p class="text-red-800 ">Editar</p>
-                                                    </button>
-                                                </li>
-                                                <!-- Acción de eliminar usuario -->
-                                                <li>
-                                                    <button wire:click="pedirConfirmacion('{{ $pedido->id }}')"
-                                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                                        <p class="text-blue-800 ">Eliminar</p>
-                                                    </button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                    @if ($pedido->created_at != $pedido->updated_at)
+                                        <span class="text-red-600 font-bold mr-2">SI</span>
+                                        <i class="fa-solid fa-triangle-exclamation text-red-600"></i>
+                                    @else
+                                        <span class="text-blue-800 dark:text-green-50 font-bold mr-2">NO</span>
+                                    @endif
 
                                 </td>
                             </tr>
@@ -128,6 +110,37 @@
                     </tbody>
                 </table>
             @endif
+            <!-- Productos pedido modal -->
+            <div id="productos-pedido-modal" tabindex="-1" aria-hidden="true"
+                class="hidden overflow-y-auto overflow-x-hidden fixed z-50 inset-0 justify-center items-center top-1/2 md:left-1/2 transform md;-translate-x-1/4 -translate-y-1/2">
+                <div class="relative p-4 w-full max-w-md max-h-full">
+                    <!-- Modal content -->
+                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                        <!-- Modal header -->
+                        <div
+                            class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                Productos Pedido <span id="pedido_id"></span>
+                            </h3>
+                            <button type="button" id="productos-pedido-modal-close-btn"
+                                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm h-8 w-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 14 14">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                </svg>
+                                <span class="sr-only">Close modal</span>
+                            </button>
+                        </div>
+                        <!-- Modal body -->
+                        <div class="p-4 md:p-5">
+                            <p id="productos-pedido-contenido" class="dark:text-white">
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- Seguimiento modal -->
             <div id="seguimiento-modal" tabindex="-1" aria-hidden="true"
@@ -245,11 +258,11 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            @isset($form->producto)
+            </div>{{-- 
+            @isset($form->pedido)
                 <x-dialog-modal wire:model='abrirModalUpdate'>
                     <x-slot name="title">
-                        EDITAR PRODUCTO
+                        EDITAR PEDIDO
                     </x-slot>
                     <x-slot name="content">
                         <!-- PINTO EL FORMULARIO -->
@@ -257,13 +270,13 @@
                         <x-input id="nombre" wire:model="form.nombre" class="w-full mb-2"></x-input>
                         <x-input-error for="form.nombre"></x-input-error>
 
-                        <x-label for="descripcion">Descripcion</x-label>
-                        <textarea id="descripcion" type="descripcion" rows="6" wire:model="form.descripcion" class="w-full mb-2"></textarea>
-                        <x-input-error for="form.descripcion"></x-input-error>
+                        <x-label for="direccion">Direccion</x-label>
+                        <textarea id="direccion" rows="6" wire:model="form.direccion" class="w-full mb-2"></textarea>
+                        <x-input-error for="form.direccion"></x-input-error>
 
-                        <x-label for="stock">Stock</x-label>
-                        <x-input id="stock" wire:model="form.stock" class="w-full mb-2"></x-input>
-                        <x-input-error for="form.stock"></x-input-error>
+                        <x-label for="track_num">Numero seguimiento</x-label>
+                        <x-input id="track_num" wire:model="form.track_num" class="w-full mb-2"></x-input>
+                        <x-input-error for="form.track_num"></x-input-error>
 
                         <x-label for="precio">Precio</x-label>
                         <x-input id="precio" wire:model="form.precio" class="w-full mb-2"></x-input>
@@ -286,7 +299,7 @@
                         </div>
                     </x-slot>
                 </x-dialog-modal>
-            @endisset
+            @endisset --}}
         </div>
         <style>
             /* Estilo para el dropdown */
@@ -295,19 +308,7 @@
                 display: inline-block;
             }
 
-            .dropdown-menu {
-                position: absolute;
-                top: calc(100% + 5px);
-                /* Ajusta la posición del dropdown */
-                left: 0;
-                z-index: 1000;
-                /* Asegura que el dropdown esté sobre otros elementos */
-                background-color: #fff;
-                border: 1px solid #e5e7eb;
-                border-radius: 0.5rem;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-                padding: 0.5rem;
-            }
+
 
             /* Estilos para el boton de cargando */
             #load_seguimiento {
@@ -480,6 +481,40 @@
                     lista_seguimiento.hidden = false;
                 }, 1500);
             }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                const modalProductosPedido = document.getElementById('productos-pedido-modal');
+                const productosPedidoButtons = document.querySelectorAll('.productos-pedido-btn');
+                const productosPedidoModalCloseBtn = document.getElementById('productos-pedido-modal-close-btn');
+
+                productosPedidoButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        modalProductosPedido.classList.remove('hidden');
+                        const productosJSON = this.getAttribute('data-pedido-productos');
+                        const pedido_id = this.getAttribute('data-pedido-id');
+                        const productosContenido = document.getElementById(
+                            'productos-pedido-contenido');
+                        const productos = JSON.parse(productosJSON);
+                        const pedido = document.getElementById('pedido_id');
+                        pedido.innerText = pedido_id;
+                        productosContenido.innerText = '';
+
+                        productos.forEach(producto => {
+                            const productoDiv = document.createElement('div');
+                            productoDiv.innerHTML = `
+                                <span class="font-bold">Nombre:</span> ${producto.nombre}, 
+                                <span class="font-bold">Cantidad:</span> ${producto.pivot.cantidad}`;
+                            productosContenido.appendChild(productoDiv);
+                        });
+
+                    });
+                });
+
+                productosPedidoModalCloseBtn.addEventListener('click', function() {
+                    modalProductosPedido.classList.add('hidden');
+                });
+
+            });
         </script>
     </x-plantilla-admin>
 

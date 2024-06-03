@@ -74,7 +74,6 @@ Route::middleware([
     Route::resource('pedidos', PedidoController::class);
     Route::get('/pedido/pdf/{id}', [PedidoController::class, 'pdf'])->name('pedido.pdf')->middleware('verificar.pedido.usuario');
     
-
     /* RUTA PREVIA DE PAGO */
     Route::get('/checkout2', Checkout::class)->name('checkout2');
     /* Route::get('/checkout', [StripeController::class, 'checkout'])->name('checkout');

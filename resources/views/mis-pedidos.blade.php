@@ -57,15 +57,6 @@
                                         icono.removeAttribute('hidden');
                                     });
                                 }
-                                /* else if (condition) {
-                                                                   iconos.forEach(icono => {
-                                                                       icono.removeAttribute('hidden');
-                                                                   });
-                                                               } else if (condition) {
-                                                                   iconos.forEach(icono => {
-                                                                       icono.removeAttribute('hidden');
-                                                                   });
-                                                               } */
 
                             }
 
@@ -137,7 +128,11 @@
                                 </div>
                             </div>
                         </div>
-
+                        <!-- Modal toggle -->
+                        <button class="productos-pedido-btn font-medium text-blue-600 hover:underline ms-3"
+                            data-pedido-productos='@json($pedido->productos)' data-pedido-id= "{{ $pedido->id }}">
+                            <i class="fa-regular fa-pen-to-square"></i>
+                        </button>
                         {{-- Lista de productos de una orden --}}
                         <ul role="list" class="border rounded-b-lg border-gray-200 divide-y divide-gray-200">
                             @foreach ($pedido->productos as $producto)
@@ -146,7 +141,7 @@
                                     <div class="flex-row m-3 p-4">
                                         <div class="flex flex-row items-start">
                                             <div class="w-1/4 pl-4">
-                                                <img class="md:w-40 md:h-40 w-28 h-20"
+                                                <img class="md:w-40 md:h-40 w-40 h-20"
                                                     src="{{ Storage::url($producto->imagen) }}"
                                                     alt="{{ $producto->nombre }}" class="rounded-lg">
                                             </div>
@@ -207,7 +202,8 @@
                                                         width="32" hidden height="20"
                                                         src="https://img.icons8.com/?size=100&id=WGFe76znzmsH&format=png&color=000000"
                                                         alt="hand-box" /> --}}
-                                                    <i class="fa-solid my-auto fa-circle-check dark:text-white text-blue-900 icono-entregado-{{ $pedido->id }}" hidden></i>
+                                                    <i class="fa-solid my-auto fa-circle-check dark:text-white text-blue-900 icono-entregado-{{ $pedido->id }}"
+                                                        hidden></i>
                                                     {{-- <img class="icono-entregado-{{ $pedido->id }} " hidden
                                                         width="32" hidden height="32"
                                                         src="https://img.icons8.com/?size=100&id=iwGCwhG9o4__&format=png&color=000000"
@@ -240,6 +236,51 @@
                         obtenerUltimoEstado('{{ $pedido->track_num }}', '{{ $pedido->id }}');
                     </script>
                 @endforeach
+            </div>
+            <!-- Productos pedido modal -->
+            <div id="productos-pedido-modal" tabindex="-1" aria-hidden="true"
+                class="hidden overflow-y-auto overflow-x-hidden fixed z-50 inset-0 justify-center items-center top-1/2 md:left-1/2 transform md;-translate-x-1/4 -translate-y-1/2">
+                <div class="relative p-4 w-full max-w-md max-h-full">
+                    <!-- Modal content -->
+                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                        <!-- Modal header -->
+                        <div
+                            class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                Editar Pedido <span id="pedido_id"></span>
+                            </h3>
+                        </div>
+                        <!-- Modal body -->
+                        <form id="pedido_form" method="post">
+                            @csrf
+                            @method('PUT')
+                            <div class="p-4 md:p-5">
+                                <input type="hidden" id="pedido_id" name="pedido_id">
+                                <div class="flex flex-col">
+                                    <label for="nombre">Nombre: </label>
+                                    <x-input name="nombre" id="nombre"></x-input>
+                                    <x-input-error for="nombre"></x-input-error>
+                                </div>
+                                <div class="flex flex-col">
+                                    <label for="direccion">Direccion: </label>
+                                    <x-input name="direccion" id="direccion"></x-input>
+                                    <x-input-error for="direccion"></x-input-error>
+                                </div>
+
+
+                                <p id="productos-pedido-contenido" class="dark:text-white flex flex-col">
+
+                                </p>
+                            </div>
+                            <div class="p-4 md:p-5 ">
+                                <button type="button" id="productos-pedido-modal-close-btn"
+                                    class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Cancelar</button>
+                                <button type="submit"
+                                    class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Actualizar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
         <style>
@@ -382,6 +423,57 @@
                         console.error('Error al descargar PDF:', error);
                     });
             }
+
+
+            document.addEventListener('DOMContentLoaded', function() {
+                const modalProductosPedido = document.getElementById('productos-pedido-modal');
+                const productosPedidoButtons = document.querySelectorAll('.productos-pedido-btn');
+                const productosPedidoModalCloseBtn = document.getElementById('productos-pedido-modal-close-btn');
+
+                productosPedidoButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        modalProductosPedido.classList.remove('hidden');
+                        const productosJSON = this.getAttribute('data-pedido-productos');
+                        const pedido_id = this.getAttribute('data-pedido-id');
+                        const productosContenido = document.getElementById(
+                            'productos-pedido-contenido');
+                        const productos = JSON.parse(productosJSON);
+                        const pedido = document.getElementById('pedido_id');
+                        pedido.innerText = pedido_id;
+                        productosContenido.innerText = '';
+                        const pedidoForm = document.getElementById('pedido_form');
+                        pedidoForm.action = `/productos/update/${pedido_id}`;
+                        productos.forEach(producto => {
+                            const productoDiv = document.createElement('div');
+                            const checkbox = document.createElement('input');
+                            checkbox.type = 'checkbox';
+                            checkbox.name = 'productos_seleccionados[]';
+                            checkbox.value = producto.id;
+                            productoDiv.appendChild(checkbox);
+
+                            const label = document.createElement('label');
+                            label.textContent = producto.nombre;
+                            label.classList.add('mx-2')
+                            productoDiv.appendChild(label);
+
+                            const cantidadInput = document.createElement('input');
+                            cantidadInput.type = 'number';
+                            cantidadInput.name = 'cantidad_productos[' + producto.id + ']';
+                            cantidadInput.value = producto.pivot.cantidad;
+                            cantidadInput.classList.add('w-10')
+                            productoDiv.appendChild(cantidadInput);
+
+                            productosContenido.appendChild(productoDiv);
+                        });
+
+                    });
+                });
+
+                productosPedidoModalCloseBtn.addEventListener('click', function() {
+                    modalProductosPedido.classList.add('hidden');
+                });
+
+            });
         </script>
     </x-principal-home>
 </x-app-layout>

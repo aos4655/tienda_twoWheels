@@ -3,11 +3,11 @@
         <h2 class="md:hidden  text-center font-semibold text-2xl text-blue-900 dark:text-white mb-5">
             CATEGORIAS
         </h2>
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+        <div class=" overflow-hidden shadow-xl sm:rounded-lg">
             <div
-                class="flex items-center justify-between flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 py-4 bg-white dark:bg-gray-900">
+                class="flex items-center flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 py-4 bg-white dark:bg-gray-900">
                 <label for="table-search" class="sr-only">Search</label>
-                <div class="relative ms-5">
+                <div class="relative mx-5 ">
                     <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
                         <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -16,16 +16,17 @@
                         </svg>
                     </div>
                     <x-input
-                        class=" pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class=" pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg md:w-80 w-56 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Buscar..." type="search" wire:model.live="search"></x-input>
                 </div>
+                @livewire('crear-categoria')
             </div>
             @if (!$categorias->count())
                 <h1
                     class="mb-4 text-4xl font-extrabold leading-none text-center tracking-tight text-red-600 md:text-5xl lg:text-6xl dark:text-white">
                     No hay resultados 😭</h1>
             @else
-                <table class="w-full text-sm mt-6 text-center rtl:text-right text-gray-500 dark:text-gray-400 ">
+                <table class="w-full text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400 ">
                     <thead
                         class="block  md:table-header-group text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
                         <tr

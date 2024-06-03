@@ -108,8 +108,23 @@
                     toast.addEventListener('mouseleave', Swal.resumeTimer);
                 }
             });
-        })
-        
+        });
+        Livewire.on('confirmacionBorrarProducto', productId => {
+            Swal.fire({
+                title: "¿Estas seguro?",
+                text: "¡Este cambio no se podra revertir!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Si, ¡elimínalo!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.dispatchTo("show-products", "borrarOk", productId)
+                }
+            });
+        });
+
         /* dark mode se debe inicializar aqui ya que si no en caso de duplicar pestania 
                 o lo que sea no se aplica el tema bien  */
         function inicializarDarkMode() {
@@ -151,10 +166,10 @@
             }
 
         }
-        
+
         window.onload = inicializarDarkMode;
     </script>
-    
+
 </body>
 
 </html>

@@ -3,7 +3,9 @@
 namespace App\Livewire;
 
 use App\Livewire\Forms\ProductUpdateForm;
+use App\Models\Categoria;
 use App\Models\Producto;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Laravel\Jetstream\InteractsWithBanner;
@@ -44,8 +46,8 @@ class ShowProducts extends Component
             ->orWhere('descripcion', 'like', "%" . $this->search . "%")
             ->orderby($this->campo, $this->orden)
             ->get();
-
-        return view('livewire.show-products', compact('productos'));
+        $categorias = Categoria::all();
+        return view('livewire.show-products', compact('productos', 'categorias'));
     }
 
     public function ordenar(string $campo)
@@ -55,13 +57,20 @@ class ShowProducts extends Component
     }
     public function pedirConfirmacion(Producto $producto)
     {
-        $this->dispatch('confirmacionBorrar', $producto->id);/* Para añadir evento del script tocho de confirmar */
+        $this->dispatch('confirmacionBorrarProducto', $producto->id);/* Para añadir evento del script tocho de confirmar */
     }
 
-    #[On('borrarOk')]
+    #[On("borrarOk")]
     public function delete(Producto $producto)
     {
+        //dd($producto);
         $producto->delete();
+        if (Storage::exists($producto->imagen)) {
+            Storage::delete($producto->imagen);
+            $imagenSF = str_replace('.jpg', '_SF.png', $producto->imagen);
+            Storage::delete($imagenSF);
+        }
+
         $this->dispatch("mensaje-success", "Producto Eliminado.");
     }
     /* METODOS PARA ACTUALIZAR REGISTROS */
