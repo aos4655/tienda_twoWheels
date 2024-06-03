@@ -76,7 +76,7 @@
 
 
         <x-button wire:loading.attr="disabled" wire:target="photo">
-            {{ __('Save') }}
+            Guardar
         </x-button>
     </x-slot>
 </x-form-section>

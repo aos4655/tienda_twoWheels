@@ -8,8 +8,9 @@
     </x-slot>
 
     <x-slot name="content">
-        <div class="max-w-xl text-sm text-gray-600 dark:text-gray-400">
-            Una vez que se elimine su cuenta, todos sus recursos y datos se eliminarán de forma permanente. Antes de eliminar su cuenta, descargue cualquier dato o información que desee conservar.
+        <div class="max-w-xl text-sm ">
+            Una vez que se elimine su cuenta, todos sus recursos y datos se eliminarán de forma permanente. Antes de
+            eliminar su cuenta, descargue cualquier dato o información que desee conservar.
         </div>
 
         <div class="mt-5">
@@ -25,14 +26,14 @@
             </x-slot>
 
             <x-slot name="content">
-                ¿Estás seguro de que quieres eliminar tu cuenta? Una vez que se elimine su cuenta, todos sus recursos y datos se eliminarán de forma permanente. Ingrese su contraseña para confirmar que desea eliminar su cuenta de forma permanente.
-                <div class="mt-4" x-data="{}" x-on:confirming-delete-user.window="setTimeout(() => $refs.password.focus(), 250)">
-                    <x-input type="password" class="mt-1 block w-3/4"
-                                autocomplete="current-password"
-                                placeholder="{{ __('Password') }}"
-                                x-ref="password"
-                                wire:model="password"
-                                wire:keydown.enter="deleteUser" />
+                ¿Estás seguro de que quieres eliminar tu cuenta? Una vez que se elimine su cuenta, todos sus recursos y
+                datos se eliminarán de forma permanente. Ingrese su contraseña para confirmar que desea eliminar su
+                cuenta de forma permanente.
+                <div class="mt-4" x-data="{}"
+                    x-on:confirming-delete-user.window="setTimeout(() => $refs.password.focus(), 250)">
+                    <x-input type="password" class="mt-1 block w-3/4" autocomplete="current-password"
+                        placeholder="{{ __('Password') }}" x-ref="password" wire:model="password"
+                        wire:keydown.enter="deleteUser" />
 
                     <x-input-error for="password" class="mt-2" />
                 </div>

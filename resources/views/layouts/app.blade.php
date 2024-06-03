@@ -80,7 +80,7 @@
         Livewire.on('mensajeMostrado', () => {
             var mensajeMostrado = document.getElementById('mensajeMostrado');
             setTimeout(() => {
-                mensajeMostrado.innerText = "Saved.";
+                mensajeMostrado.innerText = "Guardado.";
             }, 1);
             setTimeout(() => {
                 mensajeMostrado.innerText = "";

@@ -260,7 +260,7 @@
                     <x-dropdown align='left'>
                         <x-slot name=trigger>
                             <button type="button"
-                                class="inline-flex items-center px-3 py-2 border border-transparent leading-4 font-medium rounded-md text-gray-600 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-50 dark:focus:bg-gray-700 active:bg-gray-50 dark:active:bg-gray-700 transition ease-in-out duration-150">
+                                class="inline-flex items-center px-3 py-2 border border-transparent leading-4 font-medium rounded-md text-gray-600 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none  dark:active:bg-red-700 transition ease-in-out duration-150">
                                 Administración
 
                                 <svg class="ms-2 -me-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -271,7 +271,7 @@
                             </button>
                         </x-slot>
                         <x-slot name=content>
-                            <div class="w-30">
+                            <div class="w-30 dark:bg-blue-800">
                                 <x-dropdown-link href="{{ route('categories.index') }}">
                                     Categorias
                                 </x-dropdown-link>

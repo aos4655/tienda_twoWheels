@@ -1,5 +1,5 @@
 <div>
-    <x-button wire:click="$set('abrirModalCrear', true)"><i class="fas fa-add mr-2"></i>Nuevo</x-button>
+    <x-button class="bg-blue-900" wire:click="$set('abrirModalCrear', true)"><i class="fas fa-add mr-2"></i>Nuevo</x-button>
     <x-dialog-modal wire:model='abrirModalCrear'>
         <x-slot name="title">
             CREAR PRODUCTO
