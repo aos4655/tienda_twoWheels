@@ -42,9 +42,10 @@
 
                         </tr>
                     </thead>
-                    <tbody class="block md:table-row-group">
-                        @foreach ($users as $user)
-                            <tr class=" border-b-2 md:border-none block md:table-row ml-5">
+                    <tbody class="block md:table-row-group my-8">
+                        @foreach ($users as $index => $user)
+                           
+                            <tr class=" border-b-2 md:border-none block md:table-row ml-5 ">
                                 <td
                                     class="p-2 ml-8 md:border md:border-none text-left md:text-center block md:table-cell">
                                     <span class="inline-block w-1/3 md:hidden font-bold">Nombre</span>
@@ -81,7 +82,7 @@
 
                                         <!-- Menú desplegable -->
                                         <div id="dropdownAction_{{ $user->id }}"
-                                            class="dropdown-menu z-10 hidden bg-white  rounded-lg shadow dark:bg-gray-700">
+                                            class="{{ ($loop->last || $index == $users->count() -2 ) ? 'dropdown-menu-last' : 'dropdown-menu' }} z-10 hidden bg-white  rounded-lg shadow dark:bg-gray-700">
                                             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
                                                 aria-labelledby="dropdownActionButton">
                                                 <li>
@@ -198,10 +199,19 @@
             .dropdown-menu {
                 position: absolute;
                 top: calc(100% + 5px);
-                /* Ajusta la posición del dropdown */
                 left: 0;
                 z-index: 1000;
-                /* Asegura que el dropdown esté sobre otros elementos */
+                background-color: #fff;
+                border: 1px solid #e5e7eb;
+                border-radius: 0.5rem;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                padding: 0.5rem;
+            }
+            .dropdown-menu-last {
+                position: absolute;
+                top: calc(100% - 155px);
+                left: 0;
+                z-index: 1000;
                 background-color: #fff;
                 border: 1px solid #e5e7eb;
                 border-radius: 0.5rem;

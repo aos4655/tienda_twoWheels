@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('direccion');
             $table->string('track_num');
+            $table->enum('estado', ['ACTIVO', 'CANCELADO'])->default('ACTIVO');
             $table->timestamps();
         });
     }

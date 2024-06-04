@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Pedido extends Model
 {
-    protected $fillable = ['user_id', 'nombre', 'track_num', 'direccion'];
+    protected $fillable = ['user_id', 'nombre', 'track_num', 'direccion', 'estado'];
     use HasFactory;
 
     //Relacion 1N con usuario

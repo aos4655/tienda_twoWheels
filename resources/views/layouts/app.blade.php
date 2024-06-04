@@ -124,7 +124,6 @@
                 }
             });
         });
-
         /* dark mode se debe inicializar aqui ya que si no en caso de duplicar pestania 
                 o lo que sea no se aplica el tema bien  */
         function inicializarDarkMode() {

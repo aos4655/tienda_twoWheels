@@ -103,36 +103,48 @@
                             </div>
                             <div class="justify-end md:mr-3 my-auto mx-8">
                                 <!-- BOTON DESCARGAR FACTURA -->
-                                <div class="md:hidden">
-                                    <button onclick='descargarFactura({{ $pedido->id }})'>
-                                        <i class="fa-solid fa-file-pdf fa-2xl text-[#093564] dark:text-white"></i>
+                                <div class="md:hidden flex flex-row space-x-2">
+                                    @if ($pedido->estado === 'ACTIVO')
+                                        <button class="flex flex-col" onclick='cancelarPedido({{ $pedido->id }})'>
+                                            <i class="fa-solid fa-file-pdf fa-2xl text-[#093564] dark:text-white"></i>
+                                        </button>
+                                    @endif
+                                    <button class="flex flex-col" onclick='descargarFactura({{ $pedido->id }})'>
+                                        <i class="fa-solid fa-xmark fa-2xl text-[#093564] dark:text-white"></i>
                                     </button>
                                 </div>
-                                <div class="button cursor-pointer hidden md:block"
-                                    onclick='descargarFactura({{ $pedido->id }})'
-                                    data-tooltip="Factura {{ $pedido->id }}">
+                                @if ($pedido->estado === 'ACTIVO')
+                                    <button
+                                        class="text-white hidden md:block bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                                        onclick='cancelarPedido({{ $pedido->id }})'>
+                                        Cancelar pedido
+                                    </button>
+                                @endif
+                                    <div class="button cursor-pointer hidden md:block"
+                                        onclick='descargarFactura({{ $pedido->id }})'
+                                        data-tooltip="Factura {{ $pedido->id }}">
 
-                                    <div class="button-wrapper ">
-                                        <div class="text">Factura</div>
-                                        <span class="icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img"
-                                                width="2em" height="2em" preserveAspectRatio="xMidYMid meet"
-                                                viewBox="0 0 24 24">
-                                                <path fill="none" stroke="currentColor" stroke-linecap="round"
-                                                    stroke-linejoin="round" stroke-width="2"
-                                                    d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17">
-                                                </path>
-                                            </svg>
-                                        </span>
+                                        <div class="button-wrapper ">
+                                            <div class="text">Factura</div>
+                                            <span class="icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+                                                    role="img" width="2em" height="2em"
+                                                    preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                                                    <path fill="none" stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2"
+                                                        d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17">
+                                                    </path>
+                                                </svg>
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
                             </div>
                         </div>
                         <!-- Modal toggle -->
-                        <button class="productos-pedido-btn font-medium text-blue-600 hover:underline ms-3"
+                        {{-- <button class="productos-pedido-btn font-medium text-blue-600 hover:underline ms-3"
                             data-pedido-productos='@json($pedido->productos)' data-pedido-id= "{{ $pedido->id }}">
                             <i class="fa-regular fa-pen-to-square"></i>
-                        </button>
+                        </button> --}}
                         {{-- Lista de productos de una orden --}}
                         <ul role="list" class="border rounded-b-lg border-gray-200 divide-y divide-gray-200">
                             @foreach ($pedido->productos as $producto)
@@ -238,7 +250,7 @@
                 @endforeach
             </div>
             <!-- Productos pedido modal -->
-            <div id="productos-pedido-modal" tabindex="-1" aria-hidden="true"
+            {{-- <div id="productos-pedido-modal" tabindex="-1" aria-hidden="true"
                 class="hidden overflow-y-auto overflow-x-hidden fixed z-50 inset-0 justify-center items-center top-1/2 md:left-1/2 transform md;-translate-x-1/4 -translate-y-1/2">
                 <div class="relative p-4 w-full max-w-md max-h-full">
                     <!-- Modal content -->
@@ -281,7 +293,8 @@
                         </form>
                     </div>
                 </div>
-            </div>
+            </div> --}}
+
         </div>
         <style>
             /* ESTILOS BOTON DESCARGAR FACTURA */
@@ -400,12 +413,13 @@
                 bottom: calc(var(--height) + var(--gap-between-tooltip-to-button));
             }
         </style>
+
         <script>
             function descargarFactura(id) {
                 fetch(`/pedido/pdf/${id}`)
                     .then(response => {
                         if (!response.ok) {
-                            throw new Error('Network response was not ok');
+                            throw new Error('Error de conexion');
                         }
                         return response.blob();
                     })
@@ -424,8 +438,32 @@
                     });
             }
 
+            function cancelarPedido(id) {
+                Swal.fire({
+                    title: "¿Estas seguro?",
+                    text: "¡Este cambio no se podra revertir!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Si, ¡cancelalo!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        fetch(`/cancelar-pedido/${id}`)
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Error de conexion');
+                                }
+                                location.reload();
+                            })
+                            .catch(error => {
+                                console.error('Error al cancelar pedido:', error);
+                            });
+                    }
+                });
+            }
 
-            document.addEventListener('DOMContentLoaded', function() {
+            /* document.addEventListener('DOMContentLoaded', function() {
                 const modalProductosPedido = document.getElementById('productos-pedido-modal');
                 const productosPedidoButtons = document.querySelectorAll('.productos-pedido-btn');
                 const productosPedidoModalCloseBtn = document.getElementById('productos-pedido-modal-close-btn');
@@ -467,13 +505,13 @@
                         });
 
                     });
-                });
+                }); 
 
                 productosPedidoModalCloseBtn.addEventListener('click', function() {
                     modalProductosPedido.classList.add('hidden');
                 });
 
-            });
+            });*/
         </script>
     </x-principal-home>
 </x-app-layout>

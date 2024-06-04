@@ -1,5 +1,5 @@
 <x-principal-home>
-    <div class="py-40 max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="py-14 md:py-40 max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white h-fit mx-4 dark:bg-blue-800 overflow-hidden shadow-xl sm:rounded-lg">
 
             <div class="flex justify-end items-center mt-4 mr-4">

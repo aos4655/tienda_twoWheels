@@ -8,6 +8,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Storage;
+use Livewire\Attributes\On;
 
 class PedidoController extends Controller
 {
@@ -58,7 +59,7 @@ class PedidoController extends Controller
      */
     public function update(Request $request, Pedido $pedido)
     {
-        $request->validate([
+        /* $request->validate([
             'nombre' => ['required', 'string', 'min:5', 'unique:posts,titulo,' . $pedido->id],
             'direccion' => ['required', 'string', 'min:10'],
             'productos' => ['array'],
@@ -70,7 +71,7 @@ class PedidoController extends Controller
             'direccion' => $request->direccion,
         ]);
 /*         $pedido->sync 
- */        return redirect()->refresh()->with('mensaje', 'Pedido actualizado');
+ */        /* return redirect()->refresh()->with('mensaje', 'Pedido actualizado'); */ 
     }
 
     /**
@@ -104,7 +105,18 @@ class PedidoController extends Controller
         //PedidoController::pdfMail($pedido->id);
         //Mail::to($usuario->email)->send(new PedidoRecibido($pedido->id));
     }
-
+    public function cancelarPedido($id){
+        $pedido = Pedido::findOrFail($id);
+        if ($pedido) {
+            $pedido->update([
+                'estado' => 'CANCELADO'
+            ]);
+            return response(200);
+        }
+        else{
+            return response(401);
+        }
+    }
     public static function eliminarProductosCarrito()
     {
         $usuario = User::findOrFail(Auth::user()->id);

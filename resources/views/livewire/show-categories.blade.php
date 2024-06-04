@@ -39,7 +39,7 @@
                         </tr>
                     </thead>
                     <tbody class="block md:table-row-group">
-                        @foreach ($categorias as $item)
+                        @foreach ($categorias as $index => $item)
                             <tr class=" border-b-2 md:border-none block md:table-row ml-5">
                                 <td
                                     class="p-2 ml-12 md:border md:border-none text-left md:text-center  block md:table-cell">
@@ -66,8 +66,12 @@
                                         </button>
 
                                         <!-- Menú desplegable -->
-                                        <div id="dropdownAction_{{ $item->id }}"
-                                            class="dropdown-menu z-10 hidden bg-white  rounded-lg shadow dark:bg-gray-700">
+                                        <div id="dropdownAction_{{ $item->id }}" @class([
+                                            'z-10 hidden bg-white  rounded-lg shadow dark:bg-gray-700',
+                                            'dropdown-menu-last' => $loop->last,
+                                            'dropdown-menu-slast' => $index == $categorias->count() - 2,
+                                            'dropdown-menu' => true,
+                                        ])>
                                             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
                                                 aria-labelledby="dropdownActionButton">
                                                 <li>
@@ -136,6 +140,30 @@
                 left: 0;
                 z-index: 1000;
                 /* Asegura que el dropdown esté sobre otros elementos */
+                background-color: #fff;
+                border: 1px solid #e5e7eb;
+                border-radius: 0.5rem;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                padding: 0.5rem;
+            }
+
+            .dropdown-menu-slast {
+                position: absolute;
+                top: calc(100% - 155px);
+                left: 0;
+                z-index: 1000;
+                background-color: #fff;
+                border: 1px solid #e5e7eb;
+                border-radius: 0.5rem;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                padding: 0.5rem;
+            }
+
+            .dropdown-menu-last {
+                position: absolute;
+                top: calc(100% - 155px);
+                left: 0;
+                z-index: 1000;
                 background-color: #fff;
                 border: 1px solid #e5e7eb;
                 border-radius: 0.5rem;

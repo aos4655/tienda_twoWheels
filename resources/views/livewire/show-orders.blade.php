@@ -41,13 +41,13 @@
                                 Num Seguimiento
                             </th>
                             <th class="p-2  font-bold md:border md:border-none block md:table-cell">
-                                Estado
+                                Tracking
                             </th>
                             <th class="p-2  font-bold md:border md:border-none block md:table-cell">
                                 Productos
                             </th>
                             <th class="p-2  font-bold md:border md:border-none block md:table-cell">
-                                Modificado
+                                Estado
                             </th>
                         </tr>
                     </thead>
@@ -96,11 +96,11 @@
                                     class="p-2 ml-8 md:border md:border-none text-left md:text-center block md:table-cell">
                                     <span class="inline-block w-1/3 md:hidden font-bold">Modificado</span>
 
-                                    @if ($pedido->created_at != $pedido->updated_at)
-                                        <span class="text-red-600 font-bold mr-2">SI</span>
+                                    @if ($pedido->estado != 'ACTIVO')
+                                        <span class="text-red-600 font-bold mr-2">CANCELADO</span>
                                         <i class="fa-solid fa-triangle-exclamation text-red-600"></i>
                                     @else
-                                        <span class="text-blue-800 dark:text-green-50 font-bold mr-2">NO</span>
+                                        <span class="text-blue-800 dark:text-green-50 font-bold mr-2">ACTIVO</span>
                                     @endif
 
                                 </td>

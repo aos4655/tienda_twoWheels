@@ -21,35 +21,40 @@
                 @foreach ($patinetes as $item)
                     <article
                         class="relative rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300">
-                        {{-- <a href="{{ route('productos.show', $item->id) }}"> --}}
                         <div>
-                            <div class="relative flex items-end overflow-hidden rounded-xl">
-                                <img src="{{ Storage::url($item->imagen) }}" alt="{{ $item->nombre }}" />
-                                <div
-                                    class="absolute bottom-3 left-3 inline-flex items-center rounded-lg bg-white p-2 shadow-md">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400"
-                                        viewBox="0 0 20 20" fill="currentColor">
-                                        <path
-                                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                    </svg>
-                                    <span class="ml-1 text-sm text-slate-400">
-                                        <?php
-                                        
-                                        $valoracionMedia = 0;
-                                        foreach ($item->valoraciones as $valoracion) {
-                                            $valoracionMedia += $valoracion->puntuacion;
-                                        }
-                                        echo number_format($valoracionMedia / $item->valoraciones->count(), 2);
-                                        
-                                        ?>
-                                    </span>
+                            <a href="{{ route('productos.show', $item->id) }}">
+                                <div class="relative flex items-end overflow-hidden rounded-xl">
+                                    <img src="{{ Storage::url($item->imagen) }}" alt="{{ $item->nombre }}" />
+                                    <div
+                                        class="absolute bottom-3 left-3 inline-flex items-center rounded-lg bg-white p-2 shadow-md">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400"
+                                            viewBox="0 0 20 20" fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <span class="ml-1 text-sm text-slate-400">
+                                            <?php
+                                            if ($item->valoraciones->count() > 0) {
+                                                $valoracionMedia = 0;
+                                                foreach ($item->valoraciones as $valoracion) {
+                                                    $valoracionMedia += $valoracion->puntuacion;
+                                                }
+                                                echo number_format($valoracionMedia / $item->valoraciones->count(), 2);
+                                            } else {
+                                                echo '0';
+                                            }
+                                            
+                                            ?>
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
-
+                            </a>
                             <div class="mt-1 p-2 items-center justify-center text-center">
-                                <h2 class="font-extrabold text-blue-900 text-lg">{{ $item->nombre }}</h2>
-                                <p class="mt-4 text-md font-bold text-blue-900">{{ $item->precio }} €</p>
+                                <a href="{{ route('productos.show', $item->id) }}">
 
+                                    <h2 class="font-extrabold text-blue-900 text-lg">{{ $item->nombre }}</h2>
+                                    <p class="mt-4 text-md font-bold text-blue-900">{{ $item->precio }} €</p>
+                                </a>
                                 @auth
                                     <button onclick="aniadirCarrito({{ Auth::user()->id }}, {{ $item->id }})"
                                         class="button-container inline-flex items-center rounded-full py-1 px-3 max-w-full text-black bg-green-50 dark:bg-white md:mt-4 relative overflow-hidden cursor-pointer">
@@ -62,7 +67,9 @@
                                                 <path d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                                             </svg>
                                         </span>
-                                        <img class="cart-icon w-6 h-6" src="https://img.icons8.com/?size=100&id=85080&format=png&color=000000" alt="">
+                                        <img class="cart-icon w-6 h-6"
+                                            src="https://img.icons8.com/?size=100&id=85080&format=png&color=000000"
+                                            alt="">
                                         <svg class="checkmark w-6 h-6" fill="none" stroke="currentColor"
                                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -91,6 +98,6 @@
                 @endforeach
             </div>
         </div>
-        
+
     </div>
 </x-principal-home>

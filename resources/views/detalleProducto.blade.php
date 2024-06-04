@@ -16,82 +16,41 @@
                                     <div class="flex mb-4">
                                         <span class="flex items-center">
                                             <?php
-                                            
                                             $valoracionMedia = 0;
                                             foreach ($valoraciones as $valoracion) {
                                                 $valoracionMedia += $valoracion->puntuacion;
                                             }
-                                            $valoracionMedia = $valoracionMedia / $valoraciones->count();
-                                            /* REDONDEAMOS */
-                                            $parteDecimal = $valoracionMedia - floor($valoracionMedia);
+                                            $valoracionMedia = $valoraciones->count() > 0 ? $valoracionMedia / $valoraciones->count() : 0;
                                             
-                                            if ($parteDecimal > 0.5) {
-                                                $numeroRedondeado = ceil($valoracionMedia);
-                                            } else {
-                                                $numeroRedondeado = floor($valoracionMedia);
-                                            }
+                                            $numeroRedondeado = round($valoracionMedia);
+                                            
                                             for ($i = 0; $i < $numeroRedondeado; $i++) {
-                                                echo `<svg fill="currentColor" stroke="currentColor" stroke-linecap="round"
-                                                                                                 stroke-linejoin="round" stroke-width="2"
-                                                                                                 class="w-4 h-4 text-[#1D3AB6] dark:text-white" viewBox="0 0 24 24">
-                                                                                                 <path
-                                                                                                     d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
-                                                                                                 </path>
-                                                                                             </svg>`;
+                                                echo '<svg fill="currentColor" stroke="currentColor" stroke-linecap="round"
+                                                                                                     stroke-linejoin="round" stroke-width="2"
+                                                                                                     class="w-4 h-4 text-[#1D3AB6] dark:text-white" viewBox="0 0 24 24">
+                                                                                                     <path
+                                                                                                      d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
+                                                                                                     </path>
+                                                                                                     </svg>';
                                             }
                                             
-                                            for ($i = 0; $i < 5 - $valoracionMedia; $i++) {
-                                                echo `<svg fill="none" stroke="currentColor" stroke-linecap="round"
-                                                                                                 stroke-linejoin="round" stroke-width="2"
-                                                                                                 class="w-4 h-4 text-[#1D3AB6] dark:text-white" viewBox="0 0 24 24">
-                                                                                                 <path
-                                                                                                     d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
-                                                                                                 </path>
-                                                                                             </svg>`;
+                                            for ($i = 0; $i < 5 - $numeroRedondeado; $i++) {
+                                                echo '<svg fill="none" stroke="currentColor" stroke-linecap="round"
+                                                                                                     stroke-linejoin="round" stroke-width="2"
+                                                                                                     class="w-4 h-4 text-[#1D3AB6] dark:text-white" viewBox="0 0 24 24">
+                                                                                                     <path
+                                                                                                      d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
+                                                                                                     </path>
+                                                                                                     </svg>';
                                             }
-                                            
                                             ?>
-                                            <svg fill="currentColor" stroke="currentColor" stroke-linecap="round"
-                                                stroke-linejoin="round" stroke-width="2"
-                                                class="w-4 h-4 text-[#1D3AB6] dark:text-white" viewBox="0 0 24 24">
-                                                <path
-                                                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
-                                                </path>
-                                            </svg>
-                                            <svg fill="currentColor" stroke="currentColor" stroke-linecap="round"
-                                                stroke-linejoin="round" stroke-width="2"
-                                                class="w-4 h-4 text-[#1D3AB6] dark:text-white" viewBox="0 0 24 24">
-                                                <path
-                                                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
-                                                </path>
-                                            </svg>
-                                            <svg fill="currentColor" stroke="currentColor" stroke-linecap="round"
-                                                stroke-linejoin="round" stroke-width="2"
-                                                class="w-4 h-4 text-[#1D3AB6] dark:text-white" viewBox="0 0 24 24">
-                                                <path
-                                                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
-                                                </path>
-                                            </svg>
-                                            <svg fill="none" stroke="currentColor" stroke-linecap="round"
-                                                stroke-linejoin="round" stroke-width="2"
-                                                class="w-4 h-4 text-[#1D3AB6] dark:text-white" viewBox="0 0 24 24">
-                                                <path
-                                                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
-                                                </path>
-                                            </svg>
-                                            <svg fill="none" stroke="currentColor" stroke-linecap="round"
-                                                stroke-linejoin="round" stroke-width="2"
-                                                class="w-4 h-4 text-[#1D3AB6] dark:text-white" viewBox="0 0 24 24">
-                                                <path
-                                                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
-                                                </path>
-                                            </svg>
                                             <span
                                                 class="text-gray-600 ml-3 dark:text-white">{{ $valoraciones->count() }}
                                                 reseñas</span>
                                         </span>
                                     </div>
                                 </a>
+
 
                                 <p class="leading-relaxed dark:text-white">{{ $producto->descripcion }}</p>
                                 <hr class="my-5 border-blue-900 border-t-2 dark:border-white">
@@ -140,51 +99,55 @@
                         </div>
                     </div>
                 </section>
-                <section id="reseñas" class="mb-8">
-                    <br><br><br>
-                    <h3 class="text-3xl font-bold text-blue-900 dark:text-white ml-4 md:ml-36 -mx-2 my-4">Reseñas</h3>
-                    <hr class="w-11/12 mx-auto border-blue-900 border-t-2 dark:border-white">
-                    @foreach ($valoraciones as $item)
-                        <div class="flex flex-row  ml-4 md:ml-36 -mx-2 mt-7 justify-start items-center">
-                            <p class="font-bold mr-5 max-w-40 text-[#083260] dark:text-white sm:max-w-none break-words">
-                                {{ $item->user->name }}</p>
-                            <!-- Estrellas -->
-                            <div class="flex ">
-                                <span class="flex items-center">
-                                    @for ($i = 0; $i < $item->puntuacion; $i++)
-                                        <svg fill="currentColor" stroke="currentColor" stroke-linecap="round"
-                                            stroke-linejoin="round" stroke-width="2"
-                                            class="w-4 h-4 text-[#1D3AB6] dark:text-white" viewBox="0 0 24 24">
-                                            <path
-                                                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
-                                            </path>
-                                        </svg>
-                                    @endfor
-
-                                    @for ($i = 0; $i < 5 - $item->puntuacion; $i++)
-                                        <svg fill="none" stroke="currentColor" stroke-linecap="round"
-                                            stroke-linejoin="round" stroke-width="2"
-                                            class="w-4 h-4 text-[#1D3AB6] dark:text-white" viewBox="0 0 24 24">
-                                            <path
-                                                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
-                                            </path>
-                                        </svg>
-                                    @endfor
-
-
-                                </span>
-                            </div>
-                        </div>
-                        <div class="flex ml-4 md:ml-36 -mx-2 mt-3 w-3/4">
-                            <blockquote>
+                @if ($valoraciones->count() > 0)
+                    <section id="reseñas" class="mb-8">
+                        <br><br><br>
+                        <h3 class="text-3xl font-bold text-blue-900 dark:text-white ml-4 md:ml-36 -mx-2 my-4">Reseñas
+                        </h3>
+                        <hr class="w-11/12 mx-auto border-blue-900 border-t-2 dark:border-white">
+                        @foreach ($valoraciones as $item)
+                            <div class="flex flex-row  ml-4 md:ml-36 -mx-2 mt-7 justify-start items-center">
                                 <p
-                                    class="text-lg font-semibold text-[#093564] dark:text-white max-w-96 sm:max-w-none break-words">
-                                    "{{ $item->descripcion }}"</p>
-                            </blockquote>
-                        </div>
-                    @endforeach
+                                    class="font-bold mr-5 max-w-40 text-[#083260] dark:text-white sm:max-w-none break-words">
+                                    {{ $item->user->name }}</p>
+                                <!-- Estrellas -->
+                                <div class="flex ">
+                                    <span class="flex items-center">
+                                        @for ($i = 0; $i < $item->puntuacion; $i++)
+                                            <svg fill="currentColor" stroke="currentColor" stroke-linecap="round"
+                                                stroke-linejoin="round" stroke-width="2"
+                                                class="w-4 h-4 text-[#1D3AB6] dark:text-white" viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
+                                                </path>
+                                            </svg>
+                                        @endfor
 
-                </section>
+                                        @for ($i = 0; $i < 5 - $item->puntuacion; $i++)
+                                            <svg fill="none" stroke="currentColor" stroke-linecap="round"
+                                                stroke-linejoin="round" stroke-width="2"
+                                                class="w-4 h-4 text-[#1D3AB6] dark:text-white" viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
+                                                </path>
+                                            </svg>
+                                        @endfor
+
+
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="flex ml-4 md:ml-36 -mx-2 mt-3 w-3/4">
+                                <blockquote>
+                                    <p
+                                        class="text-lg font-semibold text-[#093564] dark:text-white max-w-96 sm:max-w-none break-words">
+                                        "{{ $item->descripcion }}"</p>
+                                </blockquote>
+                            </div>
+                        @endforeach
+
+                    </section>
+                @endif
             </div>
         </div>
     </x-principal-home>

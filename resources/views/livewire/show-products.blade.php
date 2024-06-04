@@ -54,7 +54,7 @@
                         </tr>
                     </thead>
                     <tbody class="block md:table-row-group">
-                        @foreach ($productos as $producto)
+                        @foreach ($productos as $index => $producto)
                             <tr class=" border-b-2 md:border-none block md:table-row">
                                 <td class="p-2 ml-8 md:border md:border-none block md:table-cell">
                                     <span class="inline-block w-1/3 md:hidden font-bold">Imagen</span>
@@ -109,8 +109,12 @@
                                         </button>
 
                                         <!-- Menú desplegable -->
-                                        <div id="dropdownAction_{{ $producto->id }}"
-                                            class="dropdown-menu z-10 hidden bg-white  rounded-lg shadow dark:bg-gray-700">
+                                        <div id="dropdownAction_{{ $producto->id }}" @class([
+                                            'z-10 hidden bg-white  rounded-lg shadow dark:bg-gray-700',
+                                            'dropdown-menu-last' => $loop->last,
+                                            'dropdown-menu-slast' => $index == $productos->count() - 2,
+                                            'dropdown-menu' => true,
+                                        ])>
                                             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
                                                 aria-labelledby="dropdownActionButton">
                                                 <li>
@@ -178,9 +182,10 @@
                         <x-input-error for="form.nombre"></x-input-error>
 
                         <x-label for="descripcion">Descripcion</x-label>
-                        <textarea id="descripcion" type="descripcion" rows="4"  wire:model="form.descripcion" class="resize-none w-full mb-2 rounded-lg dark:bg-[#111827]"></textarea>
+                        <textarea id="descripcion" type="descripcion" rows="4" wire:model="form.descripcion"
+                            class="resize-none w-full mb-2 rounded-lg dark:bg-[#111827]"></textarea>
                         <x-input-error for="form.descripcion"></x-input-error>
-                        
+
 
                         <x-label for="stock">Stock</x-label>
                         <x-input id="stock" wire:model="form.stock" class="w-full mb-2"></x-input>
@@ -195,7 +200,8 @@
                             class="w-full mb-2 rounded-lg dark:bg-[#111827] dark:text-white">
                             <option value="">Seleccione una categoría</option>
                             @foreach ($categorias as $cat)
-                                <option @selected($cat->id == $form->producto->categoria_id) value="{{ $cat->id }}">{{ $cat->nombre }}</option>
+                                <option @selected($cat->id == $form->producto->categoria_id) value="{{ $cat->id }}">{{ $cat->nombre }}
+                                </option>
                             @endforeach
                         </select>
 
@@ -339,6 +345,30 @@
             .dropdown-menu {
                 position: absolute;
                 top: calc(100% + 5px);
+                left: 0;
+                z-index: 1000;
+                background-color: #fff;
+                border: 1px solid #e5e7eb;
+                border-radius: 0.5rem;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                padding: 0.5rem;
+            }
+
+            .dropdown-menu-slast {
+                position: absolute;
+                top: calc(100% - 155px);
+                left: 0;
+                z-index: 1000;
+                background-color: #fff;
+                border: 1px solid #e5e7eb;
+                border-radius: 0.5rem;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                padding: 0.5rem;
+            }
+
+            .dropdown-menu-last {
+                position: absolute;
+                top: calc(100% - 155px);
                 left: 0;
                 z-index: 1000;
                 background-color: #fff;
