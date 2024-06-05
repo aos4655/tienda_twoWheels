@@ -4,7 +4,7 @@
         <x-slot name="description">{{ $description }}</x-slot>
     </x-section-title>
 
-    <div class="mt-5 md:mt-0 md:col-span-2 border-b-2 p-2">
+    <div class="mt-5 md:mt-0 md:col-span-2 border-b-2 md:border-b-0 p-2">
         <div class="px-4 py-5 sm:p-6  sm:rounded-lg">
             {{ $content }}
         </div>

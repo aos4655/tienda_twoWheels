@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\PaypalController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\ProductoController;
@@ -108,3 +109,7 @@ Route::get('/terminos', function () {
 Route::get('/enviarWhatsapp', [PedidoController::class, 'enviarWhatsapp']);
 Route::get('/enviarWhatsappPDF', [PedidoController::class, 'enviarWhatsappPDF']);
 */
+
+/* Login con google */
+Route::get('/login/google', [GoogleController::class, 'redirect'])->name('auth.google');
+Route::get('/login/google/callback', [GoogleController::class, 'callback']);
