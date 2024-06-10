@@ -1,5 +1,5 @@
     <div class="h-screen justify-center content-center">
-        <section class="flex justify-center items-center dark:bg-blue-900 bg-green-50 px-4 text-gray-600 antialiased">
+        <section class="flex justify-center items-center dark:bg-blue-900 bg-[#EFFAEB] px-4 text-gray-600 antialiased">
             <div class="flex h-full md:w-3/4 w-11/12 py-7 flex-col justify-center">
                 <!-- Table -->
                 <div class="mx-auto max-w-2xl py-7 w-full  rounded-3xl bg-white dark:bg-blue-800 shadow-lg">
@@ -8,7 +8,7 @@
                     </header>
                     <div class="block w-full overflow-x-auto">
                         <table class="items-center bg-transparent w-full border-collapse ">
-                            <thead class="bg-green-50 text-xs font-semibold uppercase dark:text-blue-900-400 ">
+                            <thead class="bg-[#EFFAEB] text-xs font-semibold uppercase dark:text-blue-900-400 ">
                                 <tr>
                                     <th
                                         class="md:px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center">
@@ -33,7 +33,7 @@
                                 @foreach ($productosUsuario as $producto)
                                     <tr class="dark:text-white">
                                         <th
-                                            class="border-t-0 md:px-6 align-middle items-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex flex-row text-blueGray-700 ">
+                                            class="border-t-0 md:px-6 align-middle items-center border-l-0 border-r-0 text-xs  p-4 text-left flex flex-row text-blueGray-700 ">
                                             <img class="w-12 h-12"
                                                 src="https://ridenroll.es/wp-content/uploads/2024/04/2trottinette-electrique-bluetran-lightning-72v-35ah-lg-600x615.jpg"
                                                 alt="">
@@ -133,7 +133,7 @@
                         <input id="paypal" onchange="cambiarLink('paypal')" name="pago" type="radio"
                             value="PagarCard" class="mr-2">
                         <div for="paypal"
-                            class="flex rounded-full bg-green-50 px-auto p-2 px-4 w-24 justify-center items-center mr-2">
+                            class="flex rounded-full bg-[#EFFAEB] px-auto p-2 px-4 w-24 justify-center items-center mr-2">
                             <img class="w-9 h-9 " src="{{ Storage::url('imgPago/paypal.png') }}" alt="foto">
                         </div>
 
@@ -141,7 +141,7 @@
                         <input id="card" onchange="cambiarLink('stripe')" name="pago" type="radio"
                             value="PagarCard" class="ml-2">
                         <div for="card"
-                            class="flex rounded-full bg-green-50 px-auto p-2 px-4 w-24 justify-center items-center ml-2">
+                            class="flex rounded-full bg-[#EFFAEB] px-auto p-2 px-4 w-24 justify-center items-center ml-2">
                             <img class="w-9 h-9 " src="{{ Storage::url('imgPago/card.png') }}" alt="foto">
                         </div>
                     </div>

@@ -97,8 +97,8 @@
                                     <span class="inline-block w-1/3 md:hidden font-bold">Modificado</span>
 
                                     @if ($pedido->estado != 'ACTIVO')
-                                        <span class="text-red-600 font-bold mr-2">CANCELADO</span>
-                                        <i class="fa-solid fa-triangle-exclamation text-red-600"></i>
+                                        <span class="text-red-600 dark:text-red-800 font-bold mr-2">CANCELADO</span>
+                                        <i class="fa-solid fa-triangle-exclamation text-red-600 dark:text-red-800"></i>
                                     @else
                                         <span class="text-blue-800 dark:text-green-50 font-bold mr-2">ACTIVO</span>
                                     @endif
@@ -258,48 +258,7 @@
                         </div>
                     </div>
                 </div>
-            </div>{{-- 
-            @isset($form->pedido)
-                <x-dialog-modal wire:model='abrirModalUpdate'>
-                    <x-slot name="title">
-                        EDITAR PEDIDO
-                    </x-slot>
-                    <x-slot name="content">
-                        <!-- PINTO EL FORMULARIO -->
-                        <x-label for="nombre">Nombre</x-label>
-                        <x-input id="nombre" wire:model="form.nombre" class="w-full mb-2"></x-input>
-                        <x-input-error for="form.nombre"></x-input-error>
-
-                        <x-label for="direccion">Direccion</x-label>
-                        <textarea id="direccion" rows="6" wire:model="form.direccion" class="w-full mb-2"></textarea>
-                        <x-input-error for="form.direccion"></x-input-error>
-
-                        <x-label for="track_num">Numero seguimiento</x-label>
-                        <x-input id="track_num" wire:model="form.track_num" class="w-full mb-2"></x-input>
-                        <x-input-error for="form.track_num"></x-input-error>
-
-                        <x-label for="precio">Precio</x-label>
-                        <x-input id="precio" wire:model="form.precio" class="w-full mb-2"></x-input>
-                        <x-input-error for="form.precio"></x-input-error>
-
-                        <x-label for="categoria">Categoria</x-label>
-                        <x-input id="categoria" wire:model="form.categoria" class="w-full mb-2"></x-input>
-                        <x-input-error for="form.categoria"></x-input-error>
-
-                    </x-slot>
-                    <x-slot name="footer">
-                        <div class="flex flex-row-reverse">
-                            <button wire:click="update" wire:loading.attr='disabled'
-                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                <i class="fas fa-editar"></i> EDITAR
-                            </button>
-                            <button wire:click="limpiarCerrarUpdate"
-                                class="mr-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                                <i class="fas fa-xmark"></i> CANCELAR</button>
-                        </div>
-                    </x-slot>
-                </x-dialog-modal>
-            @endisset --}}
+            </div>
         </div>
         <style>
             /* Estilo para el dropdown */

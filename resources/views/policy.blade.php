@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="pt-20 bg-green-50 dark:bg-blue-800">
+    <div class="pt-20 bg-[#EFFAEB] dark:bg-blue-800">
         <div class="min-h-screen flex flex-col  items-center pt-6 sm:pt-0">
             <div>
                 <x-authentication-card-logo />

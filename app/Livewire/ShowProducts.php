@@ -33,7 +33,7 @@ class ShowProducts extends Component
     public string $backgroundColor = '#60A5FA'; // Definir como string
     public string $textColor = '#ffffff'; // Definir como string
     public string $titulo = 'Titulo';
-    public string $descripcion = 'Descipcion';
+    public string $descripcion = 'Descripcion';
     public bool $abrirModalQR = false;
 
     /* Fin variables qr */

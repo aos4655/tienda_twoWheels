@@ -6,14 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
     <style>
-        /* body {
-            display: flex;
-            justify-content: center;
-            align-items: top;
-            height: 100vh;
-            background-color: #f0f0f0;
-        }
- */
         .base {
             bottom: 10px;
         }
@@ -37,7 +29,6 @@
             bottom: 112px;
             border-radius: 5px;
             transform-origin: bottom center;
-            /* transform: translateY(-92px) translateX(120px) rotate(50deg); */
             animation: animacionUnionBaseMastil 4s ease-in-out infinite alternate;
 
         }
@@ -172,14 +163,6 @@
             transform-origin: center bottom;
         }
 
-        /* .scooter {
-            width: 550px;
-            height: 500px;
-            position: relative;
-            border-radius: 8px;
-            padding: 50px;
-        } */
-
         .spinner,
         .spinner2 {
             border: 4px solid rgba(0, 0, 0, 0.1);
@@ -221,6 +204,7 @@
             position: relative;
             border-radius: 8px;
             padding: 50px;
+            padding-top: 25px;
             background-color: transparent;
             /* Color de fondo blanco para el scooter */
             margin-bottom: 40px;
@@ -458,6 +442,14 @@
 </head>
 
 <body>
+    <div class="info-container">
+        <div class="code">
+            @yield('code')
+        </div>
+        <div class="message ">
+            @yield('message')
+        </div>
+    </div>
     <div class="scooter">
 
         <div class="ruedaIzquierda">
@@ -490,14 +482,6 @@
         </div>
 
         <div class="carretera"></div>
-    </div>
-    <div class="info-container">
-        <div class="code">
-            @yield('code')
-        </div>
-        <div class="message ">
-            @yield('message')
-        </div>
     </div>
     <a href="{{route('home')}}" class="button">
         Ir a Inicio

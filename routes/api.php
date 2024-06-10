@@ -35,16 +35,3 @@ Route::post('/carritoCantidad', [CarritoController::class, 'cambiarCantidadProdu
 
 /* CREAR SEGUIMIENTO PEDIDO CUANDO PAGA */
 Route::post('/crear-envio/{num_track}', [StripeController::class, 'crear'])->name('crear-envio');
-/* ENVIO DATOS POR POST A TRAVES DE UNA API */
-/* Route::post('/user', function (Request $request, Response $response) {
-    $id=$request->id;
-
-    //consulta Para obtener datos de usuario
-
-    //TO-DO:
-
-    //Almacenar y devolver los datos
-    $result=$id;
-
-    return $response->json($result);
-}); */

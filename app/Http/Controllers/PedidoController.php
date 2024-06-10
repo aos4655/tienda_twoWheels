@@ -99,11 +99,12 @@ class PedidoController extends Controller
         foreach ($productosUsuario as $producto) {
             $cantidad = $producto->pivot->cantidad;
             $pedido->productos()->attach($producto, ['cantidad' => $cantidad]);
+            $producto->update([
+                'stock'=> $producto->stock-$cantidad
+            ]);
         }
         self::eliminarProductosCarrito();
-        /* No es necesario añadirle un tracking ya que lo tenemos automatizado.  */
-        //PedidoController::pdfMail($pedido->id);
-        //Mail::to($usuario->email)->send(new PedidoRecibido($pedido->id));
+        /* No es necesario añadirle un tracking ya que lo tenemos automatizado, al igual que con el email.  */
     }
     public function cancelarPedido($id){
         $pedido = Pedido::findOrFail($id);
@@ -111,6 +112,11 @@ class PedidoController extends Controller
             $pedido->update([
                 'estado' => 'CANCELADO'
             ]);
+            foreach ($pedido->productos as $producto) {
+                $producto->update([
+                    'stock' => $producto->stock+$producto->pivot->cantidad
+                ]);
+            }
             return response(200);
         }
         else{

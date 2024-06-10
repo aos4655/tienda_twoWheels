@@ -17,7 +17,6 @@ class CarritoController extends Controller
         $usuario = User::findOrFail($user_id);
         $usuario->productsCart()->detach($product_id);
     }
-    /* Esta funcion si nos la vamos a quedar */
     public function agregarProductoCarrito(Request $request)
     {
         
@@ -31,9 +30,7 @@ class CarritoController extends Controller
             $usuario->productsCart()->updateExistingPivot($product_id, ['cantidad' => $productoEnCarrito->pivot->cantidad + 1]);
         } else if($stockProducto>0){
             $usuario->productsCart()->attach($product_id, ['cantidad' => 1]);
-           
         }
-        /* $this->dispatch('incrementarNum') */;/* Este evento desde aqui no funciona */
         return response(200);
         
     }

@@ -38,7 +38,6 @@ class PaypalController extends Controller
                 ]
             ];
             $preciototal += (float) $precioSinComa *  (int) $cantidad;
-            // Agregar el producto a la lista de ítems de línea
             $lineItems[] = $item;
         }
         
@@ -79,12 +78,11 @@ class PaypalController extends Controller
     public function success($direccion, $nombre)
     {
         PedidoController::crearPedido($direccion, $nombre);
-        $this->dispatch("mensaje-success", "¡Pedido completado con éxito! Gracias por tu compra.");
-        return redirect()->route('pedidos.index');
+        return redirect()->route('pedidos.index')->with("mensaje-success", "¡Pedido completado con éxito! Gracias por tu compra.");
+
     }
     public function cancel()
     {
-        /* Deberia enviar un mensaje? */
         return redirect()->route('home');
     }
 }

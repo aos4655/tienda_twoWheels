@@ -1,5 +1,4 @@
 <x-app-layout>
-
     <x-principal-home>
         <div class="py-28 max-w-7xl md:min-h-[calc(100vh-280px)]  mx-auto sm:px-6 lg:px-8">
             <div class="bg-white h-fit dark:bg-blue-800 overflow-hidden  shadow-xl sm:rounded-3xl">
@@ -36,6 +35,9 @@
                                 const iconosEnReparto = document.querySelectorAll(`.icono-en-reparto-${pedidoId}`);
                                 const iconosEnviado = document.querySelectorAll(`.icono-enviado-${pedidoId}`);
 
+                                const btnsCancelar = document.querySelectorAll(`.btn-cancelar-pedido-${pedidoId}`);
+                                const btnsValorar = document.querySelectorAll(`.btn-pedido-${pedidoId}`);
+
 
                                 elementos.forEach(elemento => {
                                     elemento.innerText = `${data.ult_estado} el día ${data[fecha[data.ult_estado]]}`;
@@ -45,14 +47,35 @@
                                         icono.removeAttribute('hidden');
                                     });
                                 } else if (data.ult_estado == "ENVIADO") {
+                                    btnsCancelar.forEach(btn => {
+                                        btn.classList.remove('md:block');
+                                        btn.classList.add('hidden');
+
+                                    });
+
                                     iconosEnviado.forEach(icono => {
                                         icono.removeAttribute('hidden');
                                     });
                                 } else if (data.ult_estado == "EN REPARTO") {
+                                    btnsCancelar.forEach(btn => {
+                                        btn.classList.remove('md:block');
+                                        btn.classList.add('hidden');
+
+                                    });
+
                                     iconosEnReparto.forEach(icono => {
                                         icono.removeAttribute('hidden');
                                     });
                                 } else if (data.ult_estado == "ENTREGADO") {
+                                    btnsCancelar.forEach(btn => {
+                                        btn.classList.remove('md:block');
+                                        btn.classList.add('hidden');
+
+                                    });
+                                    btnsValorar.forEach(btn => {
+                                        btn.classList.remove('hidden');
+                                        btn.classList.add('block');
+                                    });
                                     iconosEntregado.forEach(icono => {
                                         icono.removeAttribute('hidden');
                                     });
@@ -70,7 +93,7 @@
                     <div class="px-4 md:px-8 pb-8">
                         {{-- Para cada orden --}}
                         <div
-                            class="flex flex-row justify-between border rounded-t-lg bg-green-50 dark:bg-transparent   py-3">
+                            class="flex flex-row justify-between border rounded-t-lg bg-[#EFFAEB] dark:bg-transparent   py-3">
                             <div class="flex flex-col md:w-3/4 w-11/12">
                                 <dl class="flex flex-row text-blue-900 dark:text-green-50 ">
                                     <div class="md:mx-10 mx-auto">
@@ -102,49 +125,47 @@
                                 </dl>
                             </div>
                             <div class="justify-end md:mr-3 my-auto mx-8">
-                                <!-- BOTON DESCARGAR FACTURA -->
                                 <div class="md:hidden flex flex-row space-x-2">
+                                    <!-- BOTON DESCARGAR FACTURA -->
+                                    <button class="flex flex-col  " onclick='descargarFactura({{ $pedido->id }})'>
+                                        <i class="fa-solid fa-file-pdf fa-2xl text-[#093564] dark:text-white"></i>
+                                    </button>
+                                    <!-- BOTON CANCELAR PEDIDO -->
                                     @if ($pedido->estado === 'ACTIVO')
-                                        <button class="flex flex-col" onclick='cancelarPedido({{ $pedido->id }})'>
-                                            <i class="fa-solid fa-file-pdf fa-2xl text-[#093564] dark:text-white"></i>
+                                        <button class="flex flex-col btn-cancelar-pedido-{{ $pedido->id }}"
+                                            onclick='cancelarPedido({{ $pedido->id }}, "{{ $pedido->track_num }}")'>
+                                            <i class="fa-solid fa-xmark fa-2xl text-[#093564] dark:text-white"></i>
                                         </button>
                                     @endif
-                                    <button class="flex flex-col" onclick='descargarFactura({{ $pedido->id }})'>
-                                        <i class="fa-solid fa-xmark fa-2xl text-[#093564] dark:text-white"></i>
-                                    </button>
                                 </div>
                                 @if ($pedido->estado === 'ACTIVO')
+                                    <!-- BOTON CANCELAR PEDIDO -->
                                     <button
-                                        class="text-white hidden md:block bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                                        onclick='cancelarPedido({{ $pedido->id }})'>
+                                        class="btn-cancelar-pedido-{{ $pedido->id }} text-white hidden md:block bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                                        onclick='cancelarPedido({{ $pedido->id }}, "{{ $pedido->track_num }}")'>
                                         Cancelar pedido
                                     </button>
                                 @endif
-                                    <div class="button cursor-pointer hidden md:block"
-                                        onclick='descargarFactura({{ $pedido->id }})'
-                                        data-tooltip="Factura {{ $pedido->id }}">
+                                <div class="button cursor-pointer hidden md:block"
+                                    onclick='descargarFactura({{ $pedido->id }})'
+                                    data-tooltip="Factura {{ $pedido->id }}">
 
-                                        <div class="button-wrapper ">
-                                            <div class="text">Factura</div>
-                                            <span class="icon">
-                                                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
-                                                    role="img" width="2em" height="2em"
-                                                    preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                    <path fill="none" stroke="currentColor" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="2"
-                                                        d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17">
-                                                    </path>
-                                                </svg>
-                                            </span>
-                                        </div>
+                                    <div class="button-wrapper ">
+                                        <div class="text">Factura</div>
+                                        <span class="icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img"
+                                                width="2em" height="2em" preserveAspectRatio="xMidYMid meet"
+                                                viewBox="0 0 24 24">
+                                                <path fill="none" stroke="currentColor" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17">
+                                                </path>
+                                            </svg>
+                                        </span>
                                     </div>
+                                </div>
                             </div>
                         </div>
-                        <!-- Modal toggle -->
-                        {{-- <button class="productos-pedido-btn font-medium text-blue-600 hover:underline ms-3"
-                            data-pedido-productos='@json($pedido->productos)' data-pedido-id= "{{ $pedido->id }}">
-                            <i class="fa-regular fa-pen-to-square"></i>
-                        </button> --}}
                         {{-- Lista de productos de una orden --}}
                         <ul role="list" class="border rounded-b-lg border-gray-200 divide-y divide-gray-200">
                             @foreach ($pedido->productos as $producto)
@@ -169,71 +190,170 @@
                                             </div>
                                         </div>
                                         {{-- Parte2 --}}
-                                        {{-- <div class="justify-between flex flex-row mt-3">
-                                            <div class="flex md:flex-row flex-col items-center">
-                                                <img class="icono-entregado-{{ $pedido->id }}" hidden width="32" hidden class="icono-pendiente-envio-{{ $pedido->id }}" height="32" src="https://img.icons8.com/windows/32/000000/hand-box.png" alt="hand-box"/>
-                                                <p
-                                                    class="ml-4 text-gray-500 dark:text-white ultimoEstado_{{ $pedido->id }}">
-                                                </p>
-                                            </div>
-                                            <hr class="md:hidden border-t-2 text-red-600">
-                                            <div class="flex flex-row  items-center justify-center">
-                                                <a href="{{ route('productos.show', $producto->id) }}"
-                                                    class="mr-4 dark:text-green-50">Ver producto</a>
-                                                <button
-                                                    onclick="aniadirCarrito({{ Auth::user()->id }}, {{ $producto->id }})"
-                                                    class="text-blue-900 dark:text-green-50 relative overflow-hidden">
-                                                    Comprar de nuevo
-                                                </button>
-                                            </div>
-                                        </div> --}}
 
                                         <div class="flex flex-col md:flex-row justify-between mt-3">
                                             <div class="flex flex-col md:flex-row items-center">
                                                 <div class="flex flex-row ">
-                                                    {{-- <img class="icono-pendiente-envio-{{ $pedido->id }} w-5 h-5"
-                                                        hidden width="32" hidden
-                                                        src="{{ Storage::url('iconTrack/waitDeliver.png') }}"
-                                                        alt="hand-box" /> --}}
-                                                    {{-- <img class="icono-pendiente-envio-{{ $pedido->id }} " hidden
-                                                        width="32" hidden height="20"
-                                                        
-                                                        src="https://img.icons8.com/?size=100&id=HxWh8o95DsPz&format=png&color=000000"
-                                                        alt="hand-box" /> --}}
-                                                    <i class="fa-solid my-auto fa-truck-ramp-box dark:text-white text-blue-900 icono-pendiente-envio-{{ $pedido->id }}"
-                                                        hidden></i>
-                                                    {{-- <img class="icono-enviado-{{ $pedido->id }} " hidden
-                                                        width="32" hidden height="20"
-                                                        src="https://img.icons8.com/?size=100&id=3562&format=png&color=000000"
-                                                        alt="hand-box" /> --}}
-                                                    <i class="fa-solid my-auto fa-truck-fast dark:text-white text-blue-900  icono-enviado-{{ $pedido->id }}"
-                                                        hidden></i>
-                                                    <i class="fa-solid my-auto fa-dolly icono-en-reparto-{{ $pedido->id }} dark:text-white text-blue-900"
-                                                        hidden></i>
-                                                    {{-- <img class="icono-en-reparto-{{ $pedido->id }} " hidden
-                                                        width="32" hidden height="20"
-                                                        src="https://img.icons8.com/?size=100&id=WGFe76znzmsH&format=png&color=000000"
-                                                        alt="hand-box" /> --}}
-                                                    <i class="fa-solid my-auto fa-circle-check dark:text-white text-blue-900 icono-entregado-{{ $pedido->id }}"
-                                                        hidden></i>
-                                                    {{-- <img class="icono-entregado-{{ $pedido->id }} " hidden
-                                                        width="32" hidden height="32"
-                                                        src="https://img.icons8.com/?size=100&id=iwGCwhG9o4__&format=png&color=000000"
-                                                        alt="hand-box" /> --}}
-                                                    <p
-                                                        class="mt-2 md:mt-0 ml-4 text-gray-500 dark:text-white ultimoEstado_{{ $pedido->id }}">
-                                                    </p>
+
+                                                    @if ($pedido->estado == 'CANCELADO')
+                                                        <i class="fa-solid fa-ban text-red-700 dark:text-red-500"></i>
+                                                        <p
+                                                            class="mt-2 md:mt-0 ml-4 text-red-700 dark:text-red-500 font-bold">
+                                                            CANCELADO el dia {{ $pedido->updated_at }}
+                                                        </p>
+                                                    @else
+                                                        <i class="fa-solid my-auto fa-truck-ramp-box dark:text-white text-blue-900 icono-pendiente-envio-{{ $pedido->id }}"
+                                                            hidden></i>
+                                                        <i class="fa-solid my-auto fa-truck-fast dark:text-white text-blue-900  icono-enviado-{{ $pedido->id }}"
+                                                            hidden></i>
+                                                        <i class="fa-solid my-auto fa-dolly icono-en-reparto-{{ $pedido->id }} dark:text-white text-blue-900"
+                                                            hidden></i>
+                                                        <i class="fa-solid my-auto fa-circle-check dark:text-white text-blue-900 icono-entregado-{{ $pedido->id }}"
+                                                            hidden></i>
+                                                        <p
+                                                            class="mt-2 md:mt-0 ml-4 text-gray-500 dark:text-white ultimoEstado_{{ $pedido->id }}">
+                                                        </p>
+                                                    @endif
                                                 </div>
                                             </div>
                                             <hr class="md:hidden border-t-2 text-red-600 mt-2">
                                             <div class="flex flex-row items-center justify-center mt-2 md:mt-0">
+                                                @php
+                                                    $existeValoracion = App\Models\Valoracion::where(
+                                                        'user_id',
+                                                        '=',
+                                                        $pedido->user_id,
+                                                    )
+                                                        ->where('pedido_id', '=', $pedido->id)
+                                                        ->where('producto_id', '=', $producto->id)
+                                                        ->first();
+                                                @endphp
+                                                @if (!$existeValoracion)
+                                                    {{-- <script>
+                                                        const puedeValorar = comprobarEstadoEntregado({{$pedido->id}}, {{$pedido->track_num}});
+                                                        
+                                                    </script> --}}
+
+                                                    <!-- Modal toggle -->
+                                                    <button
+                                                        data-modal-target="modal-{{ $pedido->id }}-{{ $producto->id }}"
+                                                        data-modal-toggle="modal-{{ $pedido->id }}-{{ $producto->id }}"
+                                                        class="hidden text-blue-900 dark:text-white  
+                                                        font-medium  text-base px-3 border-r-2 md:border-r-0 py-2.5 text-center btn-pedido-{{ $pedido->id }} "
+                                                        type="button">
+                                                        Valorar
+                                                    </button>
+                                                    <!-- Main modal -->
+                                                    <div id="modal-{{ $pedido->id }}-{{ $producto->id }}"
+                                                        tabindex="-1" aria-hidden="true" data-modal-backdrop="dynamic"
+                                                        class="hidden overflow-y-scroll overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center 
+                                                                items-center w-full md:inset-0 h-full max-h-full text-blue-900 dark:text-[#EFFAEB]">
+                                                        <div class="relative p-4 w-full max-w-xl max-h-full">
+                                                            <!-- Modal content -->
+                                                            <div
+                                                                class="relative  rounded-lg shadow dark:bg-blue-900 bg-[#EFFAEB]">
+                                                                <!-- Modal header -->
+                                                                <div
+                                                                    class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                                                    <h3 class="text-xl font-semibold ">
+                                                                        Valoracion para {{ $producto->nombre }}
+                                                                    </h3>
+                                                                    <button type="button"
+                                                                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                                        data-modal-hide="modal-{{ $pedido->id }}-{{ $producto->id }}">
+                                                                        <svg class="w-3 h-3" aria-hidden="true"
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            fill="none" viewBox="0 0 14 14">
+                                                                            <path stroke="currentColor"
+                                                                                stroke-linecap="round"
+                                                                                stroke-linejoin="round"
+                                                                                stroke-width="2"
+                                                                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                                                        </svg>
+                                                                        <span class="sr-only">Cerrar modal</span>
+                                                                    </button>
+                                                                </div>
+                                                                <!-- Modal body -->
+                                                                <form action="{{ route('valorar.producto') }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    <input type="hidden" name="pedido_id"
+                                                                        value="{{ $pedido->id }}">
+                                                                    <input type="hidden" name="producto_id"
+                                                                        value="{{ $producto->id }}">
+                                                                    <div class="p-4 md:p-5 space-y-4 ">
+                                                                        <div class="rating">
+                                                                            <input value="5" name="rating"
+                                                                                id="star5-{{ $pedido->id }}-{{ $producto->id }}"
+                                                                                type="radio">
+                                                                            <label
+                                                                                for="star5-{{ $pedido->id }}-{{ $producto->id }}"></label>
+                                                                            <input value="4" name="rating"
+                                                                                id="star4-{{ $pedido->id }}-{{ $producto->id }}"
+                                                                                type="radio">
+                                                                            <label
+                                                                                for="star4-{{ $pedido->id }}-{{ $producto->id }}"></label>
+                                                                            <input value="3" name="rating"
+                                                                                id="star3-{{ $pedido->id }}-{{ $producto->id }}"
+                                                                                type="radio">
+                                                                            <label
+                                                                                for="star3-{{ $pedido->id }}-{{ $producto->id }}"></label>
+                                                                            <input value="2" name="rating"
+                                                                                id="star2-{{ $pedido->id }}-{{ $producto->id }}"
+                                                                                type="radio">
+                                                                            <label
+                                                                                for="star2-{{ $pedido->id }}-{{ $producto->id }}"></label>
+                                                                            <input value="1" name="rating"
+                                                                                id="star1-{{ $pedido->id }}-{{ $producto->id }}"
+                                                                                type="radio">
+                                                                            <label
+                                                                                for="star1-{{ $pedido->id }}-{{ $producto->id }}"></label>
+                                                                        </div>
+                                                                        <x-input-error for="rating"></x-input-error>
+                                                                        <div class="flex flex-col">
+                                                                            <label
+                                                                                for="descripcion">Descripción:</label>
+                                                                            <textarea class="resize-none rounded-lg  dark:bg-blue-800" name="descripcion" id="descripcion" cols="10"
+                                                                                rows="4"></textarea>
+                                                                        </div>
+                                                                        <x-input-error
+                                                                            for="descripcion"></x-input-error>
+
+                                                                    </div>
+                                                                    <!-- Modal footer -->
+                                                                    <div
+                                                                        class="flex flex-row-reverse items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+                                                                        <button
+                                                                            data-modal-hide="modal-{{ $pedido->id }}-{{ $producto->id }}"
+                                                                            type="submit"
+                                                                            class="text-white ml-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                                            Enviar
+                                                                        </button>
+                                                                        <button
+                                                                            data-modal-hide="modal-{{ $pedido->id }}-{{ $producto->id }}"
+                                                                            type="button"
+                                                                            class="py-2.5 px-5 ms-3 text-sm font-medium  focus:outline-none  rounded-lg border
+                                                                           focus:z-10 focus:ring-4 
+                                                                        focus:ring-red-700 bg-red-800 text-white  border-red-600 hover:text-white
+                                                                        hover:bg-red-700">
+                                                                            Cancelar
+                                                                        </button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endif
+
 
                                                 <a href="{{ route('productos.show', $producto->id) }}"
-                                                    class="text-blue-900 dark:text-green-50 mb-2 md:mb-0 md:mr-4 mx-auto mt-2 md:mt-0">Ver
+                                                    class="block text-blue-900 dark:text-white  
+                                                    font-medium  text-base pr-3  py-2.5 text-center ">Ver
                                                     producto</a>
                                                 <button
                                                     onclick="aniadirCarrito({{ Auth::user()->id }}, {{ $producto->id }})"
-                                                    class="text-blue-900 dark:text-green-50 mx-auto md:border-none  border-l-2 dark:border-l-white pl-4  md:mr-0 md:pl-0">
+                                                    class="block text-blue-900 dark:text-white  
+                                                    font-medium  text-base  border-l-2 md:border-l-0 text-center ">
                                                     Comprar de nuevo
                                                 </button>
                                             </div>
@@ -243,60 +363,128 @@
                             @endforeach
                         </ul>
                     </div>
-
-                    <script>
-                        obtenerUltimoEstado('{{ $pedido->track_num }}', '{{ $pedido->id }}');
-                    </script>
+                    @if ($pedido->estado == 'ACTIVO')
+                        <script>
+                            obtenerUltimoEstado('{{ $pedido->track_num }}', '{{ $pedido->id }}');
+                        </script>
+                    @endif
                 @endforeach
             </div>
-            <!-- Productos pedido modal -->
-            {{-- <div id="productos-pedido-modal" tabindex="-1" aria-hidden="true"
-                class="hidden overflow-y-auto overflow-x-hidden fixed z-50 inset-0 justify-center items-center top-1/2 md:left-1/2 transform md;-translate-x-1/4 -translate-y-1/2">
-                <div class="relative p-4 w-full max-w-md max-h-full">
-                    <!-- Modal content -->
-                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                        <!-- Modal header -->
-                        <div
-                            class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                Editar Pedido <span id="pedido_id"></span>
-                            </h3>
-                        </div>
-                        <!-- Modal body -->
-                        <form id="pedido_form" method="post">
-                            @csrf
-                            @method('PUT')
-                            <div class="p-4 md:p-5">
-                                <input type="hidden" id="pedido_id" name="pedido_id">
-                                <div class="flex flex-col">
-                                    <label for="nombre">Nombre: </label>
-                                    <x-input name="nombre" id="nombre"></x-input>
-                                    <x-input-error for="nombre"></x-input-error>
-                                </div>
-                                <div class="flex flex-col">
-                                    <label for="direccion">Direccion: </label>
-                                    <x-input name="direccion" id="direccion"></x-input>
-                                    <x-input-error for="direccion"></x-input-error>
-                                </div>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 
+            <script>
+                function descargarFactura(id) {
+                    fetch(`/pedido/pdf/${id}`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Error de conexion');
+                            }
+                            return response.blob();
+                        })
+                        .then(blob => {
+                            const url = window.URL.createObjectURL(new Blob([blob]));
+                            const a = document.createElement('a');
+                            a.style.display = 'none';
+                            a.href = url;
+                            a.download = 'factura' + id + '.pdf';
+                            document.body.appendChild(a);
+                            a.click();
+                            window.URL.revokeObjectURL(url);
+                        })
+                        .catch(error => {
+                            console.error('Error al descargar PDF:', error);
+                        });
+                }
+                const comprobarEstado = async (numTrack, pedidoId) => {
+                    const url = `/api/logistica/${numTrack}`;
+                    const response = await fetch(url);
+                    const data = await response.json();
+                    if (!data.ult_estado || data.ult_estado === undefined || data.ult_estado === "PENDIENTE DE ENVIO") {
+                        return true;
+                    }
+                }
+                const comprobarEstadoEntregado = async (numTrack, pedidoId) => {
+                    const url = `/api/logistica/${numTrack}`;
+                    const response = await fetch(url);
+                    const data = await response.json();
+                    if (data.ult_estado === "ENTREGADO") {
+                        return true;
+                    }
+                }
 
-                                <p id="productos-pedido-contenido" class="dark:text-white flex flex-col">
-
-                                </p>
-                            </div>
-                            <div class="p-4 md:p-5 ">
-                                <button type="button" id="productos-pedido-modal-close-btn"
-                                    class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Cancelar</button>
-                                <button type="submit"
-                                    class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Actualizar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div> --}}
-
+                function cancelarPedido(id, numTrack) {
+                    const puedeCancelar = comprobarEstado(id, numTrack);
+                    if (!puedeCancelar) {
+                        return;
+                    }
+                    Swal.fire({
+                        title: "¿Estas seguro?",
+                        text: "¡Este cambio no se podra revertir!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Si, ¡cancelalo!"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            fetch(`/cancelar-pedido/${id}`)
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('Error de conexion');
+                                    }
+                                    location.reload();
+                                })
+                                .catch(error => {
+                                    console.error('Error al cancelar pedido:', error);
+                                });
+                        }
+                    });
+                }
+            </script>
         </div>
         <style>
+            /* Estrellas valoracion */
+            .rating {
+                display: inline-block;
+            }
+
+            .rating input {
+                display: none;
+            }
+
+            .rating label {
+                float: right;
+                cursor: pointer;
+                color: #ccc;
+                transition: color 0.3s;
+            }
+            .dark .rating label {
+                float: right;
+                cursor: pointer;
+                color: #cccccc81;
+                transition: color 0.3s;
+            }
+
+            .rating label:before {
+                content: '\2605';
+                font-size: 30px;
+            }
+
+            .rating input:checked~label,
+            .rating label:hover,
+            .rating label:hover~label {
+                color: #093564;
+                transition: color 0.3s;
+            }
+
+            .dark .rating input:checked~label,
+            .dark .rating label:hover,
+            .dark .rating label:hover~label {
+                color: #ffffff;
+                transition: color 0.3s;
+
+            }
+
             /* ESTILOS BOTON DESCARGAR FACTURA */
             .button {
                 --width: 100px;
@@ -305,7 +493,7 @@
                 --tooltip-width: 90px;
                 --gap-between-tooltip-to-button: 18px;
                 --button-color: #072342;
-                --tooltip-color: #95F8A0;
+                --tooltip-color: #ffffff;
                 width: var(--width);
                 height: var(--height);
                 background: var(--button-color);
@@ -414,104 +602,6 @@
             }
         </style>
 
-        <script>
-            function descargarFactura(id) {
-                fetch(`/pedido/pdf/${id}`)
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Error de conexion');
-                        }
-                        return response.blob();
-                    })
-                    .then(blob => {
-                        const url = window.URL.createObjectURL(new Blob([blob]));
-                        const a = document.createElement('a');
-                        a.style.display = 'none';
-                        a.href = url;
-                        a.download = 'factura' + id + '.pdf';
-                        document.body.appendChild(a);
-                        a.click();
-                        window.URL.revokeObjectURL(url);
-                    })
-                    .catch(error => {
-                        console.error('Error al descargar PDF:', error);
-                    });
-            }
 
-            function cancelarPedido(id) {
-                Swal.fire({
-                    title: "¿Estas seguro?",
-                    text: "¡Este cambio no se podra revertir!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Si, ¡cancelalo!"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        fetch(`/cancelar-pedido/${id}`)
-                            .then(response => {
-                                if (!response.ok) {
-                                    throw new Error('Error de conexion');
-                                }
-                                location.reload();
-                            })
-                            .catch(error => {
-                                console.error('Error al cancelar pedido:', error);
-                            });
-                    }
-                });
-            }
-
-            /* document.addEventListener('DOMContentLoaded', function() {
-                const modalProductosPedido = document.getElementById('productos-pedido-modal');
-                const productosPedidoButtons = document.querySelectorAll('.productos-pedido-btn');
-                const productosPedidoModalCloseBtn = document.getElementById('productos-pedido-modal-close-btn');
-
-                productosPedidoButtons.forEach(button => {
-                    button.addEventListener('click', function() {
-                        modalProductosPedido.classList.remove('hidden');
-                        const productosJSON = this.getAttribute('data-pedido-productos');
-                        const pedido_id = this.getAttribute('data-pedido-id');
-                        const productosContenido = document.getElementById(
-                            'productos-pedido-contenido');
-                        const productos = JSON.parse(productosJSON);
-                        const pedido = document.getElementById('pedido_id');
-                        pedido.innerText = pedido_id;
-                        productosContenido.innerText = '';
-                        const pedidoForm = document.getElementById('pedido_form');
-                        pedidoForm.action = `/productos/update/${pedido_id}`;
-                        productos.forEach(producto => {
-                            const productoDiv = document.createElement('div');
-                            const checkbox = document.createElement('input');
-                            checkbox.type = 'checkbox';
-                            checkbox.name = 'productos_seleccionados[]';
-                            checkbox.value = producto.id;
-                            productoDiv.appendChild(checkbox);
-
-                            const label = document.createElement('label');
-                            label.textContent = producto.nombre;
-                            label.classList.add('mx-2')
-                            productoDiv.appendChild(label);
-
-                            const cantidadInput = document.createElement('input');
-                            cantidadInput.type = 'number';
-                            cantidadInput.name = 'cantidad_productos[' + producto.id + ']';
-                            cantidadInput.value = producto.pivot.cantidad;
-                            cantidadInput.classList.add('w-10')
-                            productoDiv.appendChild(cantidadInput);
-
-                            productosContenido.appendChild(productoDiv);
-                        });
-
-                    });
-                }); 
-
-                productosPedidoModalCloseBtn.addEventListener('click', function() {
-                    modalProductosPedido.classList.add('hidden');
-                });
-
-            });*/
-        </script>
     </x-principal-home>
 </x-app-layout>

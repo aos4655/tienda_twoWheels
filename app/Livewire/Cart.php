@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Producto;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -34,9 +35,10 @@ class Cart extends Component
     {
         
         $this->user_id = Auth::user()->id;
-        $this->productosUsuario = User::findOrFail($this->user_id)
+        /* $this->productosUsuario = User::findOrFail($this->user_id)
             ->productsCart()
-            ->get();
+            ->get(); */
+        $this->obtenerCarritoSegunStock();
         $this->calcularSubtotal();
         $this->cantidadProductos = User::findOrFail($this->user_id)
         ->productsCart()
@@ -55,6 +57,20 @@ class Cart extends Component
         $this->shake = '';
 
     }
+    public function obtenerCarritoSegunStock(){
+        $productosUsuario = User::findOrFail($this->user_id)
+            ->productsCart()
+            ->get();
+        foreach($productosUsuario as $producto){
+            if($producto->stock == 0){
+                $this->eliminar($producto->id);
+            } 
+            else if($producto->stock < $producto->pivot->cantidad){
+                $this->decrementar($producto->id, $producto->stock);
+            }
+        }
+        $this->productosUsuario = $productosUsuario;
+    }
     public function incrementar($producto_id)
     {
         $usuario = User::findOrFail($this->user_id);
@@ -65,12 +81,15 @@ class Cart extends Component
             ->wherePivot('producto_id', $producto_id)
             ->value('cantidad');
         //ACTUALIZO
-        $usuario->productsCart()->updateExistingPivot($producto_id, ['cantidad' => $cantidad + 1]);
-        $this->productosUsuario = $usuario
-            ->productsCart()
-            ->get();
+        $producto = Producto::findOrFail($producto_id);
+        if ($cantidad < $producto->stock) {     
+            $usuario->productsCart()->updateExistingPivot($producto_id, ['cantidad' => $cantidad + 1]);
+            $this->productosUsuario = $usuario
+                ->productsCart()
+                ->get();
+        }
     }
-    public function decrementar($producto_id)
+    public function decrementar($producto_id, ?int $qty = null)
     {
         $usuario = User::findOrFail($this->user_id);
 
@@ -80,7 +99,7 @@ class Cart extends Component
             ->value('cantidad');
         //ACTUALIZO
         if ($cantidad > 1) {
-            $usuario->productsCart()->updateExistingPivot($producto_id, ['cantidad' => $cantidad - 1]);
+            $usuario->productsCart()->updateExistingPivot($producto_id, ['cantidad' => ($qty) ? $qty : $cantidad - 1]);
 
             $this->productosUsuario = $usuario
                 ->productsCart()

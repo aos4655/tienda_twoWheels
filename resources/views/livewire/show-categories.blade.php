@@ -67,7 +67,7 @@
 
                                         <!-- Menú desplegable -->
                                         <div id="dropdownAction_{{ $item->id }}" @class([
-                                            'z-10 hidden bg-white  rounded-lg shadow dark:bg-gray-700',
+                                            'z-10 hidden bg-white  rounded-lg shadow dark:bg-gray-400',
                                             'dropdown-menu-last' => $loop->last,
                                             'dropdown-menu-slast' => $index == $categorias->count() - 2,
                                             'dropdown-menu' => true,

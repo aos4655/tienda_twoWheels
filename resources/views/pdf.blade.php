@@ -91,8 +91,8 @@
             <tr>
                 <td>
                     <b>DATOS DEL CLIENTE</b><br>
-                    {{ $pedido->user->name }}<br>
-                    {{ $pedido->user->direccion }},<br>
+                    {{ $pedido->nombre }}<br>
+                    {{ $pedido->direccion }},<br>
                     {{ $pedido->user->ciudad }}, CP: {{ $pedido->user->zipcode }}<br>
                     {{ $pedido->user->email }}<br>
                     {{ $pedido->user->num_telefono }}

@@ -82,7 +82,7 @@
 
                                         <!-- Menú desplegable -->
                                         <div id="dropdownAction_{{ $user->id }}"
-                                            class="{{ ($loop->last || $index == $users->count() -2 ) ? 'dropdown-menu-last' : 'dropdown-menu' }} z-10 hidden bg-white  rounded-lg shadow dark:bg-gray-700">
+                                            class="{{ ($loop->last || $index == $users->count() -2 ) ? 'dropdown-menu-last' : 'dropdown-menu' }} z-10 hidden bg-white  rounded-lg shadow dark:bg-gray-400">
                                             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
                                                 aria-labelledby="dropdownActionButton">
                                                 <li>

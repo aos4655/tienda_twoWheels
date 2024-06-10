@@ -32,7 +32,7 @@ class EnviarMails extends Command
         foreach ($this->obtenerPedidosHoy() as $pedido) {
             $pdf = Pdf::loadView('pdf', compact('pedido'));
             $id = $pedido->id;
-            Mail::to($pedido->user->email)->send(new PedidoRecibido($id, $pdf->output()));
+            Mail::to("aortizsalvador1998@gmail.com")->send(new PedidoRecibido($id, $pdf->output()));
         }
     }
     public function obtenerPedidosHoy(){

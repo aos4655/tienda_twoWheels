@@ -27,7 +27,7 @@
                             </p>
                             @auth
                                 <button onclick="aniadirCarrito({{ Auth::user()->id }}, {{ $productoMasVendido->id }})"
-                                    class="button-container inline-flex items-center rounded-full py-1 px-3 max-w-full text-black bg-green-50 dark:bg-white md:mt-4 relative overflow-hidden cursor-pointer">
+                                    class="button-container inline-flex items-center rounded-full py-1 px-3 max-w-full text-black bg-[#EFFAEB] dark:bg-white md:mt-4 relative overflow-hidden cursor-pointer">
                                     <span class="button-text">Añadir al carrito</span>
                                     <span
                                         class="button-span flex items-center justify-center rounded-full w-8 h-8 ml-2 bg-blue-900">

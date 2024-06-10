@@ -31,7 +31,7 @@
     <x-banner />
 
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-        @if (!request()->is('checkout2'))
+        @if (!request()->is('checkout'))
             @livewire('navigation-menu')
         @endif
         <!-- Page Heading -->
@@ -44,7 +44,7 @@
         @endif
 
         <!-- Page Content -->
-        <main class="dark:bg-blue-900  bg-green-50">
+        <main class="dark:bg-blue-900  bg-[#EFFAEB]">
             {{ $slot }}
         </main>
     </div>
@@ -53,6 +53,47 @@
 
     @livewireScripts
 
+    @if (session('mensaje-success'))
+        <script>
+            const modoOscuro = document.querySelector('html').classList.contains('dark');
+            Swal.fire({
+                icon: 'success',
+                title: "{{ session('mensaje-success') }}",
+                showConfirmButton: false,
+                timer: 2500,
+                toast: true,
+                position: 'bottom-end',
+                background: (modoOscuro ? '#072342' : '#EFFAEB'),
+                color: (modoOscuro ? '#EFFAEB' : '#072342'),
+                timerProgressBar: true,
+                customClass: {
+                    popup: 'rounded-lg shadow-lg',
+                    icon: 'text-green-500 text-3xl',
+                }
+            });
+        </script>
+    @endif
+
+    @if (session('mensaje-fail'))
+        <script>
+            const modoOscuro = document.querySelector('html').classList.contains('dark');
+            Swal.fire({
+                icon: 'error',
+                title: "{{ session('mensaje-fail') }}",
+                showConfirmButton: false,
+                timer: 2500,
+                toast: true,
+                position: 'bottom-end',
+                background: (modoOscuro ? '#072342' : '#EFFAEB'),
+                color: (modoOscuro ? '#EFFAEB' : '#072342'),
+                timerProgressBar: true,
+                customClass: {
+                    popup: 'rounded-lg shadow-lg',
+                    icon: 'text-red-500 text-3xl',
+                }
+            });
+        </script>
+    @endif
     <script>
         function descargarqr() {
             var node = document.getElementById('qr');
@@ -102,10 +143,6 @@
                 customClass: {
                     popup: 'rounded-lg shadow-lg',
                     icon: 'text-green-500 text-3xl',
-                },
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer);
-                    toast.addEventListener('mouseleave', Swal.resumeTimer);
                 }
             });
         });
@@ -133,17 +170,16 @@
             let currentTheme = localStorage.getItem('theme');
             let iconoDarkMode = document.getElementById('ip-darkmode');
 
-            if (window.location.pathname != '/checkout2') {
+            if (window.location.pathname != '/checkout') {
                 var iconoCarrito = document.getElementById('icon-cart');
             }
-
 
             if (currentTheme === null) {
                 localStorage.setItem('theme', 'ligth');
             } else {
                 if (currentTheme === 'dark') {
                     localStorage.setItem('theme', 'dark');
-                    if (window.location.pathname !== '/checkout2') {
+                    if (window.location.pathname !== '/checkout') {
                         iconoDarkMode.checked = true;
                         if (iconoCarrito) {
                             iconoCarrito.setAttribute('style', 'color: white');
@@ -153,7 +189,7 @@
                     document.documentElement.classList.add('dark');
                 } else {
                     localStorage.setItem('theme', 'ligth');
-                    if (window.location.pathname !== '/checkout2') {
+                    if (window.location.pathname !== '/checkout') {
                         iconoDarkMode.checked = false;
                         if (iconoCarrito) {
                             iconoCarrito.setAttribute('style', 'color: black');

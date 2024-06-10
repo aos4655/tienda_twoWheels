@@ -29,7 +29,7 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link class="dark:hover:border-b-blue-800" href="{{ route('home') }}" :active="request()->routeIs('home.*.')">
-                        Home
+                        Inicio
                     </x-nav-link>
                     <x-nav-link class="dark:hover:border-b-blue-800" href="{{ route('patinetes.index') }}" :active="request()->routeIs('patinetes.*')">
                         Patinetes
@@ -200,7 +200,7 @@
                                         Administrar cuenta
                                     </div>
 
-                                    <x-dropdown-link class="hover:bg-green-50 dark:hover:bg-blue-950" href="{{ route('profile.show') }}">
+                                    <x-dropdown-link class="hover:bg-[#EFFAEB] dark:hover:bg-blue-950" href="{{ route('profile.show') }}">
                                         Perfil
                                     </x-dropdown-link>
 
@@ -216,7 +216,7 @@
                                     <form method="POST" action="{{ route('logout') }}" x-data>
                                         @csrf
 
-                                        <x-dropdown-link class="hover:bg-green-50 dark:hover:bg-blue-950" href="{{ route('logout') }}" @click.prevent="$root.submit();">
+                                        <x-dropdown-link class="hover:bg-[#EFFAEB] dark:hover:bg-blue-950" href="{{ route('logout') }}" @click.prevent="$root.submit();">
                                             Salir
                                         </x-dropdown-link>
                                     </form>
@@ -244,7 +244,7 @@
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link href="{{ route('home') }}" :active="request()->routeIs('home.*')">
-                Home
+                Inicio
             </x-responsive-nav-link>
             <x-responsive-nav-link href="{{ route('patinetes.index') }}" :active="request()->routeIs('patinetes.*')">
                 Patinetes
@@ -420,7 +420,6 @@
             iconoDarkMode.checked = false;
             if (iconoCarrito) {
                 iconoCarrito.style.color = 'black';
-                //iconoCarrito.setAttribute('style', 'color: black');
             }
             document.documentElement.classList.remove('dark');
         } else {
@@ -428,7 +427,6 @@
             iconoDarkMode.checked = true;
             if (iconoCarrito) {
                 iconoCarrito.style.color = 'white';
-                //iconoCarrito.setAttribute('style', 'color: white');
             }
             document.documentElement.classList.add('dark');
         }

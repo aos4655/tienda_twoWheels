@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Pedido;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 
@@ -27,21 +28,28 @@ class EnviarWhatsapps extends Command
      */
     public function handle()
     {
-        //foreach ($this->obtenerPedidosHoy() as $pedido) {
-            $to = '34690700209';
-            $pedido = '57';
-            //$pedido = $pedido->id;
-            $pdfUrl = 'https://aprendeconalf.es/latex-manual/manual-latex.pdf';
-            //$pdfUrl = Storage::url('pdf/pedido_53.pdf');
+        foreach ($this->obtenerPedidosHoy() as $pedido) {            
+            $pedido_id = $pedido->id;
+            //$pdfUrl = 'https://aprendeconalf.es/latex-manual/manual-latex.pdf';
+            $pdf = Pdf::loadView('pdf', compact('pedido'));
+            
+            if (!Storage::exists('pdf')) {
+                Storage::makeDirectory('pdf');
+            }
+
+            $url = 'pdf/factura_pedido_' . $pedido_id . '.pdf';
+            Storage::put($url, $pdf->output());
+            $pdfUrl = Storage::url($url);
 
             // Datos de la API de WhatsApp
+            $telefono = env('DESTINATARIO_WHATSAPP');
             $token = env('TOKEN_WHATSAPP');
             $url = 'https://graph.facebook.com/v19.0/306167229249311/messages';
 
             // Crear el mensaje en formato JSON
             $mensaje = json_encode([
                 'messaging_product' => 'whatsapp',
-                'to' => $to,
+                'to' => $telefono,
                 'type' => 'template',
                 'template' => [
                     'name' => 'nuevopedido',
@@ -56,7 +64,7 @@ class EnviarWhatsapps extends Command
                                     'type' => 'document',
                                     'document' => [
                                         'link' => $pdfUrl,
-                                        'filename' => 'factura_pedido_' . $pedido . '.pdf',
+                                        'filename' => 'factura_pedido_' . $pedido_id . '.pdf',
                                     ],
                                 ],
                             ],
@@ -66,7 +74,7 @@ class EnviarWhatsapps extends Command
                             'parameters' => [
                                 [
                                     'type' => 'text',
-                                    'text' => $pedido,
+                                    'text' => $pedido_id,
                                 ],
                             ],
                         ],
@@ -88,7 +96,8 @@ class EnviarWhatsapps extends Command
             $response = json_decode(curl_exec($curl), true);
             $status_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
             curl_close($curl);
-        //}
+            Storage::delete($url);
+        }
     }
     public function obtenerPedidosHoy()
     {

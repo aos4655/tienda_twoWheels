@@ -99,8 +99,8 @@
 
             <div class="mt-6">
 
-                <a href="{{ route('checkout2') }}"
-                    class="flex items-center justify-center rounded-md border border-transparent bg-blue-900 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-blue-900">Checkout</a>
+                <a href="{{ route('checkout') }}"
+                    class="flex items-center justify-center rounded-md border border-transparent bg-blue-900 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-blue-900">Comprar</a>
             </div>
 
         </x-slot>

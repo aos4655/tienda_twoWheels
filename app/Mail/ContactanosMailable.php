@@ -5,19 +5,19 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Attachment;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class PedidoRecibido extends Mailable
+class ContactanosMailable extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(private $pedido, private $pdf)
+    public function __construct(private string $nombre, private string $contenido, private string $email)
     {
         //
     }
@@ -28,7 +28,7 @@ class PedidoRecibido extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Nuevo Pedido',
+            subject: 'Formulario Contacto'
         );
     }
 
@@ -38,9 +38,11 @@ class PedidoRecibido extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.pedidoMail',
+            view: 'emails.plantillaMailContacto',
             with: [
-                'pedido_id' => $this->pedido
+               'nombre'=>$this->nombre,
+               'contenido'=>$this->contenido,
+               'email'=>$this->email,
             ]
         );
     }
@@ -52,9 +54,6 @@ class PedidoRecibido extends Mailable
      */
     public function attachments(): array
     {
-        return [
-            Attachment::fromData(fn () => $this->pdf, 'pedido_'.$this->pedido.'.pdf')
-            ->withMime('application/pdf')
-        ];
+        return [];
     }
 }
