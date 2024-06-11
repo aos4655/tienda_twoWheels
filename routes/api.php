@@ -27,7 +27,7 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
 Route::get('/logistica/{num_track}', [LogisticApiController::class, 'mostrar']);
 Route::post('/logistica/crearSeguimiento/{num_track}', [LogisticApiController::class, 'crear'])->name('crear-seguimiento');
 
-Route::get('/carrito', [UserController::class, 'obtenerProductosUsuario']);
+Route::get('/carrito', [CarritoController::class, 'obtenerCarritoUsuario']);
 
 Route::post('/carritoDelete', [CarritoController::class, 'eliminarProductoCarrito'])->name('carrito.delete');
 Route::post('/carritoAdd', [CarritoController::class, 'agregarProductoCarrito'])->name('carrito.add');

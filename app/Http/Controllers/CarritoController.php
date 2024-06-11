@@ -54,4 +54,14 @@ class CarritoController extends Controller
             $usuario->productsCart()->updateExistingPivot($product_id, ['cantidad' => $cantidad-1]);
         }
     }
+    public function obtenerCarritoUsuario(Request $request)
+    {
+        $user_id = $request->input('user_id');
+
+        $productosUsuario = User::findOrFail($user_id)
+            ->productsCart()
+            ->get();
+
+        return response()->json($productosUsuario);
+    }
 }
