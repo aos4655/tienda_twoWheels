@@ -38,7 +38,7 @@ class ShowProducts extends Component
 
     /* Fin variables qr */
 
-    #[On('productoCreado')]
+    #[On('recargar-productos')]
     public function render()
     {
 
@@ -83,6 +83,7 @@ class ShowProducts extends Component
     {
         $this->form->updateProducto();
         $this->limpiarCerrarUpdate();
+        $this->dispatch("recargar-productos");
         $this->dispatch('mensaje-success', "Editado con exito");
     }
     public function limpiarCerrarUpdate()

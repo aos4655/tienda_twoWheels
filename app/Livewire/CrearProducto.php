@@ -55,7 +55,7 @@ class CrearProducto extends Component
         ]);
         $this->limpiarCerrarCrear();
         $this->dispatch('mensaje-success', '¡Producto creado con exito!');
-        $this->dispatch('productoCreado')->to(ShowProducts::class); 
+        $this->dispatch('recargar-productos')->to(ShowProducts::class); 
     }
 
     public function limpiarCerrarCrear()

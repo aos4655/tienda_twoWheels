@@ -169,10 +169,10 @@
                     <x-input-error for="form.precio"></x-input-error>
 
                     <x-label for="categoria">Categoria</x-label>
-                    <select id="categoria" wire:model="category_id" class="w-full mb-2 rounded-lg dark:bg-[#111827] dark:text-white">
+                    <select id="categoria" wire:model="form.categoria" class="w-full mb-2 rounded-lg dark:bg-[#111827] dark:text-white">
                         <option value="">Seleccione una categoría</option>
                         @foreach ($categorias as $cat)
-                        <option @selected($cat->id == $form->producto->categoria_id) value="{{ $cat->id }}">{{ $cat->nombre }}
+                        <option @selected($cat->id == $form->categoria) value="{{ $cat->id }}">{{ $cat->nombre }}
                         </option>
                         @endforeach
                     </select>
@@ -188,7 +188,7 @@
                                 @endif
                             </div>
                             <input type="file" id="fileInput-imagenU" wire:model="form.imagenU" class="hidden" />
-                            <x-input-error for="imagenU"></x-input-error>
+                            <x-input-error for="form.imagenU"></x-input-error>
                         </div>
                         <div class="flex flex-col w-1/2 mx-2">
                             <x-label for="imagenSFU">Imagen sin fondo</x-label>
@@ -200,7 +200,7 @@
                                 @endif
                             </div>
                             <input type="file" id="fileInput-imagenSFU" wire:model="form.imagenSFU" class="hidden" />
-                            <x-input-error for="imagenSFU"></x-input-error>
+                            <x-input-error for="form.imagenSFU"></x-input-error>
                         </div>
                     </div>
                 </x-slot>
