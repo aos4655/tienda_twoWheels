@@ -9,7 +9,7 @@
 
 ## Descripción
 
-Tienda Two Wheels es una aplicación web creada con Laravel para gestionar una tienda de ventas de productos de dos ruedas. La aplicación incluye funcionalidades para manejar pedidos, productos y el seguimiento de envíos.
+Tienda Two Wheels es una aplicación web creada con Laravel para gestionar una tienda de ventas de productos vmp. La aplicación incluye funcionalidades para manejar pedidos, productos asi como el seguimiento de envíos, ademas de poder enviar facturas por whatsapp al administrador y más cosas. La base principal de mi web es tambien transmitir que los VMP son transportes ecologicos y sostenibles. ¡Espero que te guste! ❤️ 
 
 ## 🚀 Requisitos
 
