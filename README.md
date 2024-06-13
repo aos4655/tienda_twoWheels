@@ -7,7 +7,7 @@
 [![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:twowheels.almeria@gmail.com)
 ![WhatsApp](https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)
 
-## Descripción
+## 📃 Descripción
 
 Tienda Two Wheels es una aplicación web creada con Laravel para gestionar una tienda de ventas de productos vmp. La aplicación incluye funcionalidades para manejar pedidos, productos, asi como el seguimiento de envíos. Además de poder enviar facturas por whatsapp al administrador y más cosas. La base principal de mi web es tambien transmitir que los VMP son transportes ecológicos y sostenibles. 
 ¡Espero que te guste! ❤️ 
