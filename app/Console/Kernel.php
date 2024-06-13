@@ -17,6 +17,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('command:generate-tracking')->everyTwoMinutes();
+        $schedule->command('command:enviar-whatsapps')->everyTwoHours();
+        $schedule->command('command:enviar-mails')->everyTwoHours();
     }
 
     /**
