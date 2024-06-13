@@ -26,6 +26,7 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
 });
 Route::get('/logistica/{num_track}', [LogisticApiController::class, 'mostrar']);
 Route::post('/logistica/crearSeguimiento/{num_track}', [LogisticApiController::class, 'crear'])->name('crear-seguimiento');
+Route::post('/logistica/actualizarSeguimiento/{num_track}', [LogisticApiController::class, 'actualizar'])->name('actualizar-seguimiento');
 
 Route::get('/carrito', [CarritoController::class, 'obtenerCarritoUsuario']);
 

@@ -33,4 +33,32 @@ class LogisticApiController extends Controller
 
         return response()->json(['message' => 'Seguimiento creado correctamente'], 201);
     }
+    public function actualizar(Request $request)
+    {
+        $registro = Logistic_api::where('num_seguimiento', $request->num_track)->firstOrFail();
+
+        if($registro->ult_estado == "PENDIENTE DE ENVIO"){
+            $registro->update([
+                'ult_estado' => "ENVIADO",
+                'enviado_fecha' => now(),
+            ]);            
+        }
+        else if($registro->ult_estado == "ENVIADO"){
+            $registro->update([
+                'ult_estado' => "EN REPARTO",
+                'en_reparto_fecha' => now(),
+            ]);            
+        }
+        else if($registro->ult_estado == "EN REPARTO"){
+            $registro->update([
+                'ult_estado' => "ENTREGADO",
+                'entregado_fecha' => now(),
+            ]);
+        }
+        else{
+            return response()->json(['message' => 'Seguimiento pedido en estado ENTREGADO'], 201);
+        }
+
+        return response()->json(['message' => 'Seguimiento actualizado correctamente'], 201);
+    }
 }

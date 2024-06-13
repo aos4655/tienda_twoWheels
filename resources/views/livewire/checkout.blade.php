@@ -69,7 +69,7 @@
                                         </td>
                                         <td
                                             class="border-t-0 md:px-6 justify-center items-center border-l-0 border-r-0 text-xs whitespace-nowrap md:p-4">
-                                            <button class="bin-button ml-4 ">
+                                            <button class="bin-button ml-4 " wire:click="eliminar({{ $producto->id }})">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                     viewBox="0 0 39 7" class="bin-top">
                                                     <line stroke-width="4" stroke="white" y2="5" x2="39"
